@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAE Support Report - February 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #1A1F2E;
+    --ink-sec:    #374151;
+    --ink-muted:  #6B7280;
+    --bg:         #F3F4F6;
+    --surface:    #FFFFFF;
+    --border:     #E5E7EB;
+    --accent:     #1D4ED8;
+    --accent-lt:  #3B82F6;
+    --accent-bg:  #DBEAFE;
+    --green:      #059669;
+    --green-bg:   #D1FAE5;
+    --amber:      #D97706;
+    --amber-bg:   #FEF3C7;
+    --purple:     #6D28D9;
+    --purple-bg:  #EDE9FE;
+    --radius:     10px;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ Hero ═══ */
+  .hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #1D4ED8 100%);
+    color: #fff;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -15%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(96,165,250,.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 48px 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .hero-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .hero-logo {
+    height: 52px;
+    opacity: .95;
+  }
+  .hero-logo-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,.2);
+  }
+  .hero-logo-text {
+    font-size: .88rem;
+    font-weight: 500;
+    color: rgba(255,255,255,.65);
+    line-height: 1.3;
+  }
+  .hero-badge {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  .hero-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .hero-month {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .hero-month .year {
+    font-weight: 700;
+    color: rgba(255,255,255,.65);
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,.6);
+    margin-top: 8px;
+  }
+  .hero-stats-mini {
+    display: flex;
+    gap: 2px;
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .hero-stat {
+    padding: 14px 22px;
+    text-align: center;
+    min-width: 90px;
+  }
+  .hero-stat .n {
+    font-size: 1.8rem;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .hero-stat .l {
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: rgba(255,255,255,.45);
+    margin-top: 4px;
+  }
+  .hero-stat.green  .n { color: #6EE7B7; }
+  .hero-stat.amber  .n { color: #FCD34D; }
+  .hero-stat.purple .n { color: #C4B5FD; }
+
+  .hero-footer {
+    display: flex;
+    gap: 28px;
+    margin-top: 18px;
+    font-size: .88rem;
+    color: #D4A537;
+  }
+  .hero-footer strong { color: rgba(255,255,255,.6); font-weight: 600; }
+
+  /* ═══ Main Content ═══ */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 48px 60px;
+  }
+
+  /* ── Section Title ── */
+  .sec-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 32px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  .sec-title::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── Breakdown Table ── */
+  .breakdown {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .breakdown-head {
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--ink-muted);
+    padding: 14px 28px 10px;
+    background: #F9FAFB;
+    border-bottom: 1px solid var(--border);
+  }
+  .bd-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink-sec);
+    border-bottom: 1px solid #F3F4F6;
+  }
+  .bd-row:last-child { border-bottom: none; }
+  .bd-count {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    font-size: .9rem;
+    min-width: 28px;
+    text-align: center;
+    background: var(--accent-bg);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+
+  /* ── Inline Tags ── */
+  .pn {
+    font-weight: 500;
+    color: var(--ink);
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .dt {
+    background: #FEF9E7;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .email {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .email:hover { text-decoration: underline; }
+
+  /* ═══ Ticket Card ═══ */
+  .ticket {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: box-shadow .2s;
+  }
+  .ticket:hover { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+
+  .t-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 22px 36px;
+    cursor: pointer;
+    gap: 14px;
+    user-select: none;
+    transition: background .12s;
+  }
+  .t-head:hover { background: #FAFBFC; }
+
+  .t-id {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 2px 9px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+  }
+  .t-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .t-dates {
+    display: flex;
+    gap: 18px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    font-size: .9rem;
+    color: var(--ink-muted);
+  }
+  .t-dates strong { font-weight: 600; color: var(--ink-sec); }
+
+  .t-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .badge {
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: 4px 11px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .badge.resolved { background: var(--green-bg); color: var(--green); }
+  .badge.open     { background: var(--amber-bg); color: var(--amber); }
+
+  .chev {
+    width: 20px;
+    height: 20px;
+    color: var(--ink-muted);
+    transition: transform .25s;
+  }
+  .ticket.open .chev { transform: rotate(180deg); }
+
+  .t-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease;
+  }
+  .ticket.open .t-body { max-height: 10000px; }
+
+  .t-body-inner {
+    padding: 0 40px 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .t-label {
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--accent);
+    margin: 20px 0 8px;
+  }
+  .t-label:first-child { margin-top: 20px; }
+
+  .t-body-inner p {
+    font-size: 1rem;
+    color: var(--ink-sec);
+    margin-bottom: 8px;
+    line-height: 1.75;
+  }
+  .t-body-inner ul {
+    margin: 8px 0 8px 20px;
+    font-size: 1rem;
+    color: var(--ink-sec);
+  }
+  .t-body-inner ul li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+  }
+  .t-body-inner li strong { color: var(--ink); }
+  .t-body-inner code {
+    font-size: .85rem;
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--accent);
+  }
+
+  /* ═══ Footer ═══ */
+  .report-footer {
+    text-align: center;
+    padding: 28px 0 0;
+    border-top: 1px solid var(--border);
+    font-size: .82rem;
+    color: var(--ink-muted);
+    margin-top: 16px;
+  }
+  .report-footer strong { color: var(--ink-sec); }
+
+  /* ── Back to Top ── */
+  .btt {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(29,78,216,.35);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .btt.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .btt:hover {
+    background: #1e40af;
+    box-shadow: 0 6px 20px rgba(29,78,216,.45);
+  }
+
+  /* ═══ Print ═══ */
+  @media print {
+    body { background: #fff; }
+    .hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .main { max-width: 100%; padding: 0 16px; }
+    .ticket { break-inside: avoid; }
+    .t-body { max-height: none !important; }
+    .chev { display: none; }
+  }
+
+  @media (max-width: 700px) {
+    .hero-inner { padding: 20px 18px 24px; }
+    .hero-top-row {
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+    }
+    .hero-logo { height: 40px; }
+    .hero-logo-divider { display: none; }
+    .hero-logo-text { display: none; }
+    .hero-badge { font-size: .65rem; padding: 4px 10px; }
+    .hero-main { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .hero-month { font-size: 2.4rem; }
+    .hero-subtitle { font-size: .88rem; }
+    .hero-stats-mini { width: 100%; }
+    .hero-stat { flex: 1; padding: 12px 8px; min-width: 0; }
+    .hero-stat .n { font-size: 1.4rem; }
+    .hero-stat .l { font-size: .6rem; letter-spacing: .03em; }
+    .hero-footer { flex-direction: column; gap: 4px; font-size: .8rem; }
+    .main { padding: 20px 16px 40px; }
+    .sec-title { font-size: 1.15rem; }
+    .breakdown-head { padding: 12px 16px 8px; }
+    .bd-row { padding: 10px 16px; font-size: .92rem; }
+    .t-head { padding: 16px 16px; gap: 10px; }
+    .t-id { font-size: .65rem; }
+    .t-title { font-size: .98rem; }
+    .t-dates { flex-direction: column; gap: 3px; font-size: .82rem; }
+    .t-right { flex-direction: column; align-items: flex-end; gap: 4px; }
+    .badge { font-size: .62rem; padding: 3px 8px; }
+    .chev { width: 18px; height: 18px; }
+    .t-body-inner { padding: 0 16px 20px; }
+    .t-body-inner p, .t-body-inner ul { font-size: .92rem; }
+    .t-label { font-size: .72rem; }
+    .btt { bottom: 18px; right: 18px; width: 40px; height: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Hero Header ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-top-row">
+      <div class="hero-logo-wrap">
+        <img class="hero-logo" src="Senao Networks Logo_white_Vertical.png" alt="Senao Networks">
+        <div class="hero-logo-divider"></div>
+        <div class="hero-logo-text">Senao T2 FAE Team<br>Intercom Support</div>
+      </div>
+      <div class="hero-badge">Monthly Report</div>
+    </div>
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.55);text-decoration:none;font-size:.82rem;font-weight:500;margin-bottom:18px;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd"/></svg>
+      All Reports
+    </a>
+
+    <div class="hero-main">
+      <div>
+        <div class="hero-month">February <span class="year">2026</span></div>
+        <div class="hero-subtitle">FAE Support Report for Apresia (Kokomo Cloud)</div>
+        <div class="hero-footer">
+          <span><strong>Author:</strong> Himadri Paul, Senao Network</span>
+          <span><strong>Published:</strong> March 2026</span>
+        </div>
+      </div>
+      <div class="hero-stats-mini">
+        <div class="hero-stat">
+          <div class="n">11</div>
+          <div class="l">Total</div>
+        </div>
+        <div class="hero-stat green">
+          <div class="n">11</div>
+          <div class="l">Resolved</div>
+        </div>
+        <div class="hero-stat amber">
+          <div class="n">0</div>
+          <div class="l">Open</div>
+        </div>
+        <div class="hero-stat purple">
+          <div class="n">4</div>
+          <div class="l">Carry-over</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Main Content ═══ -->
+<div class="main">
+
+  <h2 class="sec-title">Overview</h2>
+  <p style="font-size:1.05rem;color:var(--ink-sec);margin-bottom:16px;">
+    Summary of all support tickets reported by Apresia Support (Kokomo Cloud) to Senao T2 Support for issue debugging or knowledge base clarification.
+  </p>
+
+  <div class="breakdown">
+    <div class="breakdown-head">Ticket Category Breakdown</div>
+    <div class="bd-row"><span>T2 Issue Tickets</span><span class="bd-count">5</span></div>
+    <div class="bd-row"><span>Tracker Tickets</span><span class="bd-count">1</span></div>
+    <div class="bd-row"><span>Customer Conversation</span><span class="bd-count">3</span></div>
+    <div class="bd-row"><span>Email Conversation</span><span class="bd-count">2</span></div>
+  </div>
+
+  <!-- ═══ T2 Issue Tickets ═══ -->
+  <h2 class="sec-title">T2 Issue Tickets</h2>
+
+  <!-- ── Ticket 67373733 ── -->
+  <div class="ticket" id="ticket-67373733">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #67373733</div>
+        <div class="t-title">Switch Rollback Issues</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Jan 16, 2026</span>
+          <span><strong>Last Response:</strong> Feb 16, 2026</span>
+          <span><strong>Closed:</strong> Mar 5, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>In the "Settings" section of the <span class="pn">KOKOMO-S212GT-P</span>, a message like the one shown in the attached file has started to appear. We would like to know under what circumstances this kind of message is displayed — such as when it occurs, what actions trigger it, and the possible causes behind it.</p>
+
+      <div class="t-label">Case Summary</div>
+      <ul>
+        <li>The discussion investigated why the automatic rollback mechanism did not trigger when a configuration change caused the device to lose cloud connectivity.</li>
+        <li>According to the design, a configuration becomes a stable configuration if the device remains online for 30 minutes. If a new configuration causes the device to lose cloud connectivity for 2 hours, the device should revert to the previous stable configuration.</li>
+        <li>During testing, the management VLAN was changed to <span class="pn">VLAN 100</span> without DHCP or Internet access, which should have triggered the rollback, but the device remained offline instead.</li>
+        <li>Investigation revealed a firmware defect in the rollback script (<code>rollback.sh</code>), where a hard-coded service name (<code>cloud_agent</code>) was used instead of the variable <code>${CLOUD_AGENT}</code>, preventing the stable configuration from being restored.</li>
+        <li>A separate issue related to <span class="pn">SNTP</span> configuration caused rollback log messages to fail to appear in the cloud GUI, making it harder to confirm rollback events.</li>
+        <li>Both issues were confirmed in the Root Cause Analysis (RCA) and are scheduled to be fixed in firmware version <span class="pn">v1.2.125</span>.</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p>The discussion focused on investigating why the rollback mechanism in <span class="pn">KOKOMO</span> switches did not function as expected when configuration changes caused the device to lose connectivity with the cloud. The issue was initially raised by the <span class="pn">Apresia</span> support team, who were attempting to verify the rollback feature in a test environment. According to the expected design, when <span class="pn">Kokomo Cloud</span> pushes a new configuration to a device and that configuration results in the device losing connection to the cloud, the system should automatically revert to the last stable configuration stored on the device.</p>
+      <p>The rollback design works in the following sequence. After a configuration change is pushed from the cloud, the device continues operating with the new settings. If the device remains connected to the cloud for at least 30 minutes without rebooting, the configuration is saved locally as a "stable configuration." However, if a new configuration is applied and the device loses connectivity to the cloud and cannot restore that connection for two hours, the device should activate a self-healing mechanism and revert to the previously saved stable configuration.</p>
+      <p>During testing, the customer changed the management VLAN on the switch to <span class="pn">VLAN 100</span>, which had no DHCP server, no gateway, and no Internet access. After several days of analysis, the engineering team determined that the problem was not caused by incorrect rollback conditions but by a firmware defect. Specifically, the rollback script (<code>rollback.sh</code>) contained a design flaw related to the cloud agent service name used during the rollback procedure. In firmware version <span class="pn">1.2.110</span>, part of the rollback script used a hard-coded service name, <code>cloud_agent</code>, rather than dynamically referencing the service name defined by the variable <code>${CLOUD_AGENT}</code>. In the <span class="pn">Apresia</span> environment, the cloud agent service name differs from the default name used in the script.</p>
+      <p>In addition to the rollback script issue, a separate firmware problem related to <span class="pn">SNTP</span> configuration was also discovered. When the SNTP server was not configured on the device, a segmentation fault could occur, which prevented rollback logs from appearing in the cloud GUI.</p>
+      <p>Both issues were confirmed by the engineering team and documented in a root cause analysis (RCA). The updated firmware corrects the rollback script so that it properly references the cloud agent service variable and ensures that the stable configuration restoration process executes correctly. It also resolves the SNTP segmentation fault problem. The <span class="pn">Apresia</span> support team confirmed their understanding and planned to verify the fix once firmware version <span class="pn">1.2.125</span> became available.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 76723891 ── -->
+  <div class="ticket" id="ticket-76723891">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #76723891</div>
+        <div class="t-title">OS Detection in Wireless AP</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Feb 16, 2026</span>
+          <span><strong>Last Response:</strong> Feb 24, 2026</span>
+          <span><strong>Closed:</strong> Mar 3, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p><span class="pn">Apresia</span> is asking for clarification about how the wireless AP determines the operating system shown in the "OS" field under "Historical Clients." They would like to understand how the system identifies client operating systems such as <span class="pn">Windows</span>, <span class="pn">Linux</span>, <span class="pn">Android</span>, and others; how to handle cases where the detected OS appears to be incorrect; and whether the displayed OS can be manually changed.</p>
+
+      <div class="t-label">Case Summary</div>
+      <ul>
+        <li>The OS field in the AP Historical Clients list is determined using a mechanism similar to <span class="pn">DHCP</span> fingerprinting.</li>
+        <li>OS detection currently relies solely on <span class="pn">DHCP Option 55</span> and <span class="pn">Option 60</span> observed during DHCP negotiation.</li>
+        <li>Devices using static IP addresses or environments where DHCP packets are not observed cannot be properly identified.</li>
+        <li>When identification fails, the system currently classifies the device as <span class="pn">Linux</span> by default.</li>
+        <li>The detected OS cannot be manually modified through the Cloud GUI.</li>
+        <li>A future update to the Cloud portal and AP firmware will display unidentified devices as "Unknown" instead of "Linux".</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p>The discussion clarified how the OS field in the AP Historical Clients list is determined. Initially, Region Support explained that the AP firmware uses a mechanism similar to <span class="pn">DHCP</span> fingerprinting to identify the client operating system and that <span class="pn">Linux</span> is shown as the default when the OS cannot be identified. Region Support confirmed that the detected OS cannot be manually modified through the Cloud GUI. After further internal checks, they clarified that the fingerprinting mechanism currently relies primarily and exclusively on DHCP information, specifically <span class="pn">DHCP Option 55</span> and <span class="pn">Option 60</span>. It was further confirmed that when DHCP is disabled, the system currently cannot detect the correct OS, and therefore such devices are shown as <span class="pn">Linux</span>. Region Support also stated that a future update to both the Cloud portal and AP firmware is planned so that unidentified clients will be displayed as "Unknown" instead of being incorrectly classified as <span class="pn">Linux</span>. The customer acknowledged the explanation and requested that the case be closed.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 76774245 ── -->
+  <div class="ticket" id="ticket-76774245">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #76774245</div>
+        <div class="t-title">Floor Plan Tab Issues</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Feb 16, 2026</span>
+          <span><strong>Last Response:</strong> Mar 2, 2026</span>
+          <span><strong>Closed:</strong> Mar 3, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The customer reported that an error occurs when opening the Floor Plan tab in <span class="pn">KOKOMOCloud</span> within their network environment. The issue is reproducible in both <span class="pn">Microsoft Edge</span> and <span class="pn">Google Chrome</span>. Since the problem does not occur in an environment without a firewall, the customer suspects that the issue may be related to network or firewall restrictions. The customer requests clarification on the full network requirements for accessing <span class="pn">KOKOMOCloud</span> through a web browser.</p>
+
+      <div class="t-label">Case Summary</div>
+      <ul>
+        <li>The discussion clarified the network access requirements for using the Floor Plan feature in <span class="pn">KOKOMOCloud</span>.</li>
+        <li>Region Support asked the customer to verify connectivity to <span class="pn">cloud-jp.wifiplanner.io</span> and <span class="pn">pheasant-jp.wifiplanner.io</span>. A JSON response such as "Missing Authentication Token" was confirmed as a normal indication that the service is reachable.</li>
+        <li>The Floor Plan feature relies on several backend services, including <span class="pn">cloud-jp.wifiplanner.io</span>, <span class="pn">pheasant-jp.wifiplanner.io</span>, and <span class="pn">falcon-jp.production.kokomocloud.com</span>.</li>
+        <li>Region Support advised ensuring that the firewall allows internet requests and responses to these services.</li>
+        <li>Test URLs and expected JSON responses were provided to verify that the services were accessible.</li>
+        <li>It was confirmed that allowing access to the domains <span class="pn">kokomocloud.com</span> and <span class="pn">wifiplanner.io</span> is sufficient for the Floor Plan feature.</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p>The conversation clarified the network access requirements for using the Floor Plan feature in <span class="pn">KOKOMOCloud</span>. Region Support first advised confirming access to <span class="pn">cloud-jp.wifiplanner.io</span> and testing it through the URL. After the customer shared the Floor Plan error message, Region Support requested additional verification by accessing <span class="pn">pheasant-jp.wifiplanner.io</span>. Region Support later provided a more complete explanation that the Floor Plan feature uses several URLs and standard HTTP methods. They advised ensuring that the firewall allows both outbound and inbound internet requests and responses for these services. Finally, the customer asked whether the required domain permissions could be simplified to <span class="pn">kokomocloud.com</span> and <span class="pn">wifiplanner.io</span>. Region Support confirmed that, for the Floor Plan feature, allowing access to these two domains is sufficient. The customer acknowledged the explanation and requested closure of the case.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 74168494 ── -->
+  <div class="ticket" id="ticket-74168494">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #74168494</div>
+        <div class="t-title">About Captive-Portal</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Feb 4, 2026</span>
+          <span><strong>Last Response:</strong> Feb 11, 2026</span>
+          <span><strong>Closed:</strong> Feb 11, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>Access is unavailable if the cloud connection fails while using these authentication methods.</p>
+
+      <div class="t-label">Case Summary</div>
+      <ul>
+        <li>Captive portal authentication methods (<span class="pn">Click-through</span>, <span class="pn">KOKOMO Cloud RADIUS</span>, and <span class="pn">Custom RADIUS</span>) rely on a cloud-based control plane, where the AP acts only as an executor and does not make the final authorization decision.</li>
+        <li>Although the splash page may be locally accessible via the walled garden, the AP must still obtain authorization from the cloud after the user clicks Continue to Internet.</li>
+        <li>If cloud connectivity is unavailable, the AP cannot receive the approval response and Internet access remains blocked, even in a single AP deployment.</li>
+        <li>Client policies are synchronized from the cloud, while authorized client information is maintained both locally and in the cloud to support roaming, VLAN grouping, and session continuity.</li>
+        <li>During roaming, the splash page will not be shown again if the session is still valid and cloud connectivity is maintained; it reappears only after session expiration or when devices use random MAC addresses.</li>
+        <li>The customer confirmed that captive portal authorization is cloud-dependent for all authentication types and acknowledged the explanation, suggesting a caution note in the manual.</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p>This conversation clarified why cloud connectivity is required for captive portal functions such as <span class="pn">Click-through</span>, <span class="pn">KOKOMO Cloud RADIUS</span>, and <span class="pn">Custom RADIUS</span>. Region Support first explained that these authentication methods rely on a cloud-based control plane above the access point (AP). In this design, the AP acts only as an executor and does not make the final authorization decision on its own. It was also clarified that policies are synchronized from the cloud to the APs, while authorized client information is maintained both locally and in the cloud for purposes such as roaming, VLAN grouping, and session continuity. However, the actual permission decision for captive portal login remains cloud-dependent. Regarding roaming behavior, Region Support confirmed that the splash page will not be shown again when a client moves to another AP, as long as the session is still valid and the cloud is reachable. For <span class="pn">Custom RADIUS</span>, Region Support explained that although <span class="pn">WPA2/WPA3-Enterprise</span> authentication itself can still work without cloud connectivity, the captive portal operation still depends on the cloud for authorization handling and synchronization. The customer acknowledged the explanation, stated that a caution note may be added to the manual regarding captive portal behavior during cloud disconnection, and requested closure of the case.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 79418113 ── -->
+  <div class="ticket" id="ticket-79418113">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #79418113</div>
+        <div class="t-title">Verify the DCS Function</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Feb 27, 2026</span>
+          <span><strong>Last Response:</strong> Feb 27, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The customer would like to verify the behavior of the DCS function on <span class="pn">KOKOMO-AP</span>, but reported that the function did not operate even when another AP using the same channel was placed nearby. They were informed that DCS operates only when the channel is set to Auto and the DCS function is enabled. In addition, the traffic or noise level must exceed the configured threshold of 50% for at least 15 minutes.</p>
+
+      <div class="t-label">Case Summary</div>
+      <ul>
+        <li>The customer requested verification of the Dynamic Channel Selection (DCS) behavior on <span class="pn">KOKOMO-AP</span> after observing that the function did not trigger when another AP using the same channel was placed nearby.</li>
+        <li>Region Support explained that DCS operates only when the channel setting is Auto and the DCS function is enabled.</li>
+        <li>DCS will trigger only when the channel traffic or noise level exceeds 50% for at least 15 minutes.</li>
+        <li>Simply placing another AP on the same channel may not generate sufficient load; high traffic or channel utilization may be required to reach the threshold.</li>
+        <li>Region Support informed the customer that R&D was preparing documentation for DCS verification and later shared the file <span class="pn">DCS_Testing 1.xlsx</span>.</li>
+        <li>The customer confirmed receipt of the document, understood the verification procedure, and raised no further questions.</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p>Region Support informed the customer that R&D was preparing documentation related to DCS verification and would share it once completed. The following day, Region Support provided the verification document, <span class="pn">DCS_Testing 1.xlsx</span>, and invited the customer to ask any further questions if needed. The customer acknowledged receipt of the document, confirmed understanding of the test procedure, and did not raise any additional questions.</p>
+    </div></div>
+  </div>
+
+  <!-- ═══ Tracker Tickets ═══ -->
+  <h2 class="sec-title">Tracker Tickets</h2>
+
+  <!-- ── Ticket 71591414 ── -->
+  <div class="ticket" id="ticket-71591414">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #71591414</div>
+        <div class="t-title">AP Splash Page</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Jan 28, 2026</span>
+          <span><strong>Last Response:</strong> Feb 5, 2026</span>
+          <span><strong>Closed:</strong> Mar 9, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The customer asked about the default IP address or URL for the local splash page of the captive portal. An AI response suggested <span class="pn">192.168.1.1</span>, but DNS lookup of <span class="pn">falcon-jp.production.kokomocloud.com</span> returned multiple public IP addresses.</p>
+
+      <div class="t-label">Case Summary</div>
+      <ul>
+        <li>The customer asked about the default IP address or URL for the local splash page of the captive portal. An AI response suggested <span class="pn">192.168.1.1</span>, but DNS lookup of <span class="pn">falcon-jp.production.kokomocloud.com</span> returned multiple public IP addresses.</li>
+        <li>Region Support initially explained that the splash page is related to the System Reserved IP Range configured under General Settings &rarr; AP &rarr; System Reserved IP Range, and that the AP forwards the page to the client for authentication.</li>
+        <li>The customer questioned how the IP addresses were determined and why the resolved IP addresses were public cloud addresses instead of being within the configured reserved IP range.</li>
+        <li>Further clarification revealed that the captive portal splash page is delivered through HTTP redirection, not through a reverse proxy as previously suggested.</li>
+        <li>When a client device performs captive portal detection (e.g., accessing <code>http://captive.apple.com</code>, <code>http://connectivitycheck.gstatic.com</code>, or <code>http://detectportal.firefox.com</code>), the AP returns an HTTP 302 redirect to the splash login page if the detection URL is not included in the walled garden.</li>
+        <li>If a user attempts to access an HTTPS site directly, the AP may present its own captive portal certificate and redirect the client to the splash page, which can cause a browser security warning before the login page appears.</li>
+        <li>It was also confirmed that the splash page cannot be accessed directly by manually entering the URL, because the URL requires specific parameters and validation as part of the authentication process.</li>
+        <li>Region Support later clarified that the earlier mention of a reverse proxy was incorrect and confirmed that the actual mechanism is HTTP 302 redirection.</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p>The discussion focused on clarifying the behavior and implementation mechanism of the captive portal local splash page in <span class="pn">KOKOMO Cloud</span> environments. The inquiry was initially raised by the <span class="pn">KOKOMO</span> Support team after attempting to determine the default IP address used for the local splash page. Region Support initially responded by asking whether the inquiry referred to the Local Status Page or the Local Splash Page. After clarification, Region Support explained that the splash page is associated with the configuration setting located at General Settings &rarr; AP &rarr; System Reserved IP Range. Region Support then provided a more detailed explanation of the captive portal operation. After further clarification, Region Support corrected the earlier explanation and confirmed that the captive portal mechanism does not use a reverse proxy. Instead, the splash page is delivered using standard HTTP redirection techniques. The redirect mechanism causes the user's browser to automatically open the splash login page where authentication actions such as Continue to Internet can be performed. Region Support also explained how HTTPS traffic behaves in this scenario. Finally, Region Support acknowledged that the earlier statement describing the splash page as a reverse proxy implementation was inaccurate. The correct mechanism is the HTTP 302 redirection process used by the access point to intercept client traffic and redirect it to the captive portal login page. After receiving this clarification, the <span class="pn">KOKOMO</span> Support team confirmed that they understood the explanation and the discussion was concluded.</p>
+    </div></div>
+  </div>
+
+  <!-- ═══ Customer Conversation ═══ -->
+  <h2 class="sec-title">Customer Conversation</h2>
+
+  <!-- ── Conversation 77670770 ── -->
+  <div class="ticket" id="ticket-77670770">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">CONVERSATION #77670770</div>
+        <div class="t-title">Channel Width Configuration for Multiple APs</div>
+        <div class="t-dates">
+          <span><strong>Date:</strong> Feb 20, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Highlight</div>
+      <ul>
+        <li>The customer asked whether the wireless channel width could be changed for multiple APs simultaneously in <span class="pn">KOKOMO Cloud</span>.</li>
+        <li>Region Support explained that AP grouping is not currently supported, so configurations cannot be applied to a selected group of APs.</li>
+        <li>However, the channel width can be modified for all APs in the network at once.</li>
+        <li>This configuration is available under Configure &rarr; Access Point &rarr; Radio.</li>
+        <li>Any change made in this section applies to every AP in the network.</li>
+        <li>The customer acknowledged the explanation and confirmed understanding of the available configuration method.</li>
+      </ul>
+
+      <div class="t-label">Summary</div>
+      <p>The customer asked whether it is possible to change the wireless channel width setting for multiple APs at the same time in <span class="pn">KOKOMO Cloud</span>, or whether the configuration must be performed individually for each AP. Region Support explained that AP grouping is not currently supported, so it is not possible to modify the configuration for a specific group of APs at once. However, the channel width can be changed for all APs in the network simultaneously through Configure &rarr; Access Point &rarr; Radio. This setting applies to every AP in the network. The customer acknowledged the explanation, understood that AP grouping is not supported, and confirmed understanding of the method for updating all APs at once.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Conversation 77671917 ── -->
+  <div class="ticket" id="ticket-77671917">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">CONVERSATION #77671917</div>
+        <div class="t-title">DCS Interference Monitoring Directionality</div>
+        <div class="t-dates">
+          <span><strong>Date:</strong> Feb 24, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Highlight</div>
+      <ul>
+        <li>The customer asked whether the Dynamic Channel Selection (DCS) function monitors channel traffic and noise only in certain directions relative to the AP.</li>
+        <li>Region Support explained that DCS monitors co-channel interference and channel utilization on the current AP channel.</li>
+        <li>Since <span class="pn">KOKOMO-AP</span> uses an omnidirectional antenna, it can detect interference from all directions around the AP.</li>
+        <li>Interference monitoring therefore occurs in a spherical coverage area rather than in a specific horizontal or vertical direction.</li>
+        <li>If a directional antenna were used, interference detection would primarily follow that antenna's radiation pattern.</li>
+        <li>The customer acknowledged the explanation and confirmed understanding that DCS monitoring is not directional for <span class="pn">KOKOMO-AP</span>.</li>
+      </ul>
+
+      <div class="t-label">Summary</div>
+      <p>The customer asked whether the DCS function has any directional limitations when monitoring channel traffic and noise levels. Region Support explained that DCS monitors the current AP channel for co-channel interference and channel utilization. Since <span class="pn">KOKOMO-AP</span> uses an omnidirectional antenna, it can receive interference from all directions in a spherical pattern. It was also clarified that if a directional antenna were used, interference would mainly be detected according to that antenna's radiation pattern. The customer acknowledged the explanation and confirmed understanding that DCS monitoring itself is not directional, and <span class="pn">KOKOMO-AP</span> is omnidirectional rather than directional.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Conversation 77152295 ── -->
+  <div class="ticket" id="ticket-77152295">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">CONVERSATION #77152295</div>
+        <div class="t-title">Backup and Restore Compatibility Between AP Models</div>
+        <div class="t-dates">
+          <span><strong>Date:</strong> Feb 18, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Highlight</div>
+      <ul>
+        <li>The customer asked whether a backup created on a <span class="pn">W220AX-IS</span> could be restored to a <span class="pn">W222BE-IS</span>.</li>
+        <li>They understood that the restore function is intended to work only with the same device model and requested confirmation.</li>
+        <li>Region Support confirmed that the backup and restore mechanism is device-specific and designed to restore configuration only to the device from which the backup was generated.</li>
+        <li>The backup system is not template-based and therefore cannot be used to apply configurations across different device models.</li>
+        <li>As a result, a backup taken from one model cannot be restored to a different model, even if some configuration settings are common.</li>
+      </ul>
+
+      <div class="t-label">Summary</div>
+      <p>The customer asked whether a backup file created on a <span class="pn">W220AX-IS</span> can be restored to a <span class="pn">W222BE-IS</span>. Region Support confirmed that the backup and restore function is designed to restore the configuration only to the specific device from which the backup was generated. It is not a template-based mechanism and cannot be used to apply configuration across different device models. As a result, the customer's understanding was confirmed: a backup taken from one model cannot be restored to a different model, even if some settings are common between them.</p>
+    </div></div>
+  </div>
+
+  <!-- ═══ Email Conversation ═══ -->
+  <h2 class="sec-title">Email Conversation</h2>
+
+  <!-- ── Conversation 215472887266060 ── -->
+  <div class="ticket" id="ticket-215472887266060">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">CONVERSATION #215472887266060</div>
+        <div class="t-title">Dashboard High CPU/Mem Alert Criteria</div>
+        <div class="t-dates">
+          <span><strong>Date:</strong> Jan 30, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Highlight</div>
+      <ul>
+        <li>The customer asked for the specific thresholds used by the <span class="pn">KOKOMO Cloud</span> dashboard to determine when an AP or Switch is experiencing high CPU or memory load.</li>
+        <li>Region Support confirmed that a High CPU alert is triggered when the average CPU utilization exceeds 90% over a 5-minute period.</li>
+        <li>For memory usage, there is currently no defined alert threshold used by the dashboard.</li>
+        <li>Memory utilization is instead monitored internally through software safeguards and service watchdog mechanisms to ensure operation within safe limits.</li>
+        <li>If abnormal memory behavior such as a memory leak occurs, the issue is typically investigated by R&D and resolved through firmware updates rather than configuration changes.</li>
+        <li>Therefore, the dashboard label High CPU/Mem AP is effectively triggered by the CPU utilization condition only.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Conversation 215472887301373 ── -->
+  <div class="ticket" id="ticket-215472887301373">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">CONVERSATION #215472887301373</div>
+        <div class="t-title">High Channel Utilization Detection Criteria</div>
+        <div class="t-dates">
+          <span><strong>Date:</strong> Jan 30, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Highlight</div>
+      <ul>
+        <li>The customer asked about the criteria used by the <span class="pn">KOKOMO Cloud</span> dashboard to determine when channel utilization is considered high.</li>
+        <li>Region Support explained that High Channel Utilization is detected when the AP's operating channel experiences 70% interference or channel busy time continuously over 15 minutes.</li>
+        <li>This condition is typically indicated on the AP list page, where channel utilization information can be observed.</li>
+        <li>By hovering over the channel utilization graph, users can view the possible cause and recommended actions.</li>
+        <li>In environments with many 2.4 GHz devices (e.g., offices with <span class="pn">BLE</span> devices, wireless mice, or keyboards), high utilization may be expected and can sometimes be ignored.</li>
+        <li>The customer acknowledged the explanation and confirmed that the case could be closed.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ═══ Appendix ═══ -->
+  <h2 class="sec-title">Appendix</h2>
+
+  <!-- ── ESG620 Diag Tools Issue ── -->
+  <div class="ticket" id="ticket-215473239160749">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">INTERCOM CHAT #215473239160749</div>
+        <div class="t-title">ESG620 Diag Tools Issue</div>
+        <div class="t-dates">
+          <span><strong>Date:</strong> Feb 25, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Highlight</div>
+      <ul>
+        <li>The customer reported that Diag Tools on the <span class="pn">ESG620</span> gateway could not be used in a test environment, while the same function remained available on the AP.</li>
+        <li>The test topology consisted only of the gateway and AP connected to the internal network, with communication to <span class="pn">Google DNS</span> blocked.</li>
+        <li>Region Support explained that the <span class="pn">ESG620</span> determines Internet availability using ICMP reachability and DNS resolution to <span class="pn">Google DNS</span> servers (<span class="pn">8.8.8.8</span> and <span class="pn">8.8.4.4</span>).</li>
+        <li>The Diag Tools function on the gateway depends on this Internet connectivity check; if the check fails, the feature remains unavailable even though the device may still appear online in the cloud.</li>
+        <li>In contrast, APs and switches verify connectivity by pinging the local gateway, allowing their Diag Tools to function even when <span class="pn">Google DNS</span> is unreachable.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="report-footer">
+    <p><strong>Senao T2 FAE Team</strong> &middot; Intercom Support to Apresia</p>
+    <p style="margin-top:3px;">Confidential &mdash; For internal use between Senao Network and Apresia only.</p>
+  </footer>
+
+</div>
+
+<button class="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04L10.75 5.612V16.25A.75.75 0 0110 17z" clip-rule="evenodd"/></svg>
+</button>
+<script>
+  const btt = document.querySelector('.btt');
+  window.addEventListener('scroll', () => {
+    btt.classList.toggle('show', window.scrollY > 400);
+  });
+</script>
+
+</body>
+</html>
