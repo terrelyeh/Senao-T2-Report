@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAE Support Report - March 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #1A1F2E;
+    --ink-sec:    #374151;
+    --ink-muted:  #6B7280;
+    --bg:         #F3F4F6;
+    --surface:    #FFFFFF;
+    --border:     #E5E7EB;
+    --accent:     #1D4ED8;
+    --accent-lt:  #3B82F6;
+    --accent-bg:  #DBEAFE;
+    --green:      #059669;
+    --green-bg:   #D1FAE5;
+    --amber:      #D97706;
+    --amber-bg:   #FEF3C7;
+    --purple:     #6D28D9;
+    --purple-bg:  #EDE9FE;
+    --radius:     10px;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ Hero ═══ */
+  .hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #1D4ED8 100%);
+    color: #fff;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -15%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(96,165,250,.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 48px 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .hero-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .hero-logo {
+    height: 52px;
+    opacity: .95;
+  }
+  .hero-logo-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,.2);
+  }
+  .hero-logo-text {
+    font-size: .88rem;
+    font-weight: 500;
+    color: rgba(255,255,255,.65);
+    line-height: 1.3;
+  }
+  .hero-badge {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  .hero-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .hero-month {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .hero-month .year {
+    font-weight: 700;
+    color: rgba(255,255,255,.65);
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,.6);
+    margin-top: 8px;
+  }
+  .hero-stats-mini {
+    display: flex;
+    gap: 2px;
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .hero-stat {
+    padding: 14px 22px;
+    text-align: center;
+    min-width: 90px;
+  }
+  .hero-stat .n {
+    font-size: 1.8rem;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .hero-stat .l {
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: rgba(255,255,255,.45);
+    margin-top: 4px;
+  }
+  .hero-stat.green  .n { color: #6EE7B7; }
+  .hero-stat.amber  .n { color: #FCD34D; }
+  .hero-stat.purple .n { color: #C4B5FD; }
+
+  .hero-footer {
+    display: flex;
+    gap: 28px;
+    margin-top: 18px;
+    font-size: .88rem;
+    color: rgba(255,255,255,.4);
+  }
+  .hero-footer strong { color: rgba(255,255,255,.6); font-weight: 600; }
+
+  /* ═══ Main Content ═══ */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 48px 60px;
+  }
+
+  /* ── Section Title ── */
+  .sec-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 32px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  .sec-title::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── Breakdown Table ── */
+  .breakdown {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .breakdown-head {
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--ink-muted);
+    padding: 14px 28px 10px;
+    background: #F9FAFB;
+    border-bottom: 1px solid var(--border);
+  }
+  .bd-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink-sec);
+    border-bottom: 1px solid #F3F4F6;
+  }
+  .bd-row:last-child { border-bottom: none; }
+  .bd-count {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    font-size: .9rem;
+    min-width: 28px;
+    text-align: center;
+    background: var(--accent-bg);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+
+  /* ── Inline Tags ── */
+  .pn {
+    font-weight: 500;
+    color: var(--ink);
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .dt {
+    background: #FEF9E7;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .email {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .email:hover { text-decoration: underline; }
+
+  /* ═══ Ticket Card ═══ */
+  .ticket {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: box-shadow .2s;
+  }
+  .ticket:hover { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+
+  .t-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 22px 36px;
+    cursor: pointer;
+    gap: 14px;
+    user-select: none;
+    transition: background .12s;
+  }
+  .t-head:hover { background: #FAFBFC; }
+
+  .t-id {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 2px 9px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+  }
+  .t-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .t-dates {
+    display: flex;
+    gap: 18px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    font-size: .9rem;
+    color: var(--ink-muted);
+  }
+  .t-dates strong { font-weight: 600; color: var(--ink-sec); }
+
+  .t-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .badge {
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: 4px 11px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .badge.resolved { background: var(--green-bg); color: var(--green); }
+  .badge.open     { background: var(--amber-bg); color: var(--amber); }
+
+  .chev {
+    width: 20px;
+    height: 20px;
+    color: var(--ink-muted);
+    transition: transform .25s;
+  }
+  .ticket.open .chev { transform: rotate(180deg); }
+
+  .t-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease;
+  }
+  .ticket.open .t-body { max-height: 10000px; }
+
+  .t-body-inner {
+    padding: 0 40px 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .t-label {
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--accent);
+    margin: 20px 0 8px;
+  }
+  .t-label:first-child { margin-top: 20px; }
+
+  .t-body-inner p {
+    font-size: 1rem;
+    color: var(--ink-sec);
+    margin-bottom: 8px;
+    line-height: 1.75;
+  }
+  .t-body-inner ul {
+    margin: 8px 0 8px 20px;
+    font-size: 1rem;
+    color: var(--ink-sec);
+  }
+  .t-body-inner ul li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+  }
+  .t-body-inner li strong { color: var(--ink); }
+  .t-body-inner code {
+    font-size: .85rem;
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--accent);
+  }
+
+  /* ═══ Footer ═══ */
+  .report-footer {
+    text-align: center;
+    padding: 28px 0 0;
+    border-top: 1px solid var(--border);
+    font-size: .82rem;
+    color: var(--ink-muted);
+    margin-top: 16px;
+  }
+  .report-footer strong { color: var(--ink-sec); }
+
+  /* ── Back to Top ── */
+  .btt {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(29,78,216,.35);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .btt.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .btt:hover {
+    background: #1e40af;
+    box-shadow: 0 6px 20px rgba(29,78,216,.45);
+  }
+
+  /* ═══ Print ═══ */
+  @media print {
+    body { background: #fff; }
+    .hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .main { max-width: 100%; padding: 0 16px; }
+    .ticket { break-inside: avoid; }
+    .t-body { max-height: none !important; }
+    .chev { display: none; }
+  }
+
+  @media (max-width: 700px) {
+    .hero-inner { padding: 24px 20px; }
+    .hero-main { flex-direction: column; align-items: flex-start; }
+    .hero-month { font-size: 2.2rem; }
+    .hero-stats-mini { width: 100%; }
+    .hero-stat { flex: 1; }
+    .main { padding: 20px 16px 40px; }
+    .t-dates { flex-direction: column; gap: 4px; }
+    .hero-footer { flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Hero Header ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-top-row">
+      <div class="hero-logo-wrap">
+        <img class="hero-logo" src="Senao Networks Logo_white_Vertical.png" alt="Senao Networks">
+        <div class="hero-logo-divider"></div>
+        <div class="hero-logo-text">Senao T2 FAE Team<br>Intercom Support</div>
+      </div>
+      <div class="hero-badge">Monthly Report</div>
+    </div>
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.55);text-decoration:none;font-size:.82rem;font-weight:500;margin-bottom:18px;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd"/></svg>
+      All Reports
+    </a>
+
+    <div class="hero-main">
+      <div>
+        <div class="hero-month">March <span class="year">2026</span></div>
+        <div class="hero-subtitle">FAE Support Report for Apresia (Kokomo Cloud)</div>
+        <div class="hero-footer">
+          <span><strong>Author:</strong> Himadri Paul, Senao Network</span>
+          <span><strong>Published:</strong> April 2026</span>
+        </div>
+      </div>
+      <div class="hero-stats-mini">
+        <div class="hero-stat">
+          <div class="n">3</div>
+          <div class="l">Total</div>
+        </div>
+        <div class="hero-stat green">
+          <div class="n">3</div>
+          <div class="l">Resolved</div>
+        </div>
+        <div class="hero-stat amber">
+          <div class="n">0</div>
+          <div class="l">Open</div>
+        </div>
+        <div class="hero-stat purple">
+          <div class="n">0</div>
+          <div class="l">Carry-over</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Main Content ═══ -->
+<div class="main">
+
+  <h2 class="sec-title">Overview</h2>
+  <p style="font-size:1.05rem;color:var(--ink-sec);margin-bottom:16px;">
+    Summary of all support tickets reported by Apresia Support (Kokomo Cloud) to Senao T2 Support for issue debugging or knowledge base clarification.
+  </p>
+
+  <div class="breakdown">
+    <div class="breakdown-head">Ticket Category Breakdown</div>
+    <div class="bd-row"><span>T2 Issue Tickets</span><span class="bd-count">3</span></div>
+    <div class="bd-row"><span>Tracker Tickets</span><span class="bd-count">0</span></div>
+    <div class="bd-row"><span>Customer Conversation Tickets</span><span class="bd-count">0</span></div>
+    <div class="bd-row"><span>Email Conversation Tickets</span><span class="bd-count">0</span></div>
+  </div>
+
+  <!-- ═══ T2 Issue Tickets ═══ -->
+  <h2 class="sec-title">T2 Issue Tickets</h2>
+
+  <!-- ── Ticket 82514414 ── -->
+  <div class="ticket" id="ticket-82514414">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #82514414</div>
+        <div class="t-title">Summary of RADIUS Test Failure (KOKOMOCloud / APRESIA)</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Mar 12, 2026</span>
+          <span><strong>Last Response:</strong> Mar 30, 2026</span>
+          <span><strong>Closed:</strong> Apr 2, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>When testing the <span class="pn">KOKOMOCloud</span> feature while using Custom RADIUS under <span class="pn">WPA3-Enterprise</span>, the customer reports that an error stating a certificate is missing is displayed, even though <span class="pn">RadSec</span> is disabled.</p>
+      <p>The same error is also observed when performing the test from <span class="pn">APRESIA</span>. Could you please advise if there is a way to perform the test without a certificate, or if there are any required settings to bypass this requirement?</p>
+
+      <div class="t-label">Case Summary</div>
+      <ul>
+        <li><strong>The Phenomenon:</strong> When performing a RADIUS test under <span class="pn">WPA3-Enterprise</span>, a "certificate missing" error was displayed even if <span class="pn">RadSec</span> was disabled. Actual client authentication remained functional; only the cloud-based test tool failed.</li>
+        <li><strong>Root Cause (AP Defect):</strong> The issue was identified as a protocol mismatch in the AP's diagnostic script. The script was hardcoded to use <span class="pn">GTC</span> (Generic Token Card), while the customer's RADIUS server required <span class="pn">MS-CHAPv2</span> (the industry standard).</li>
+        <li><strong>Misleading Error Logic:</strong> The system used a generic error message regarding <span class="pn">RadSec</span> certificates for <em>any</em> RADIUS connection failure, leading to confusion when <span class="pn">RadSec</span> was not actually in use.</li>
+        <li><strong>Immediate Resolution:</strong> R&D applied a manual fix to the affected AP via SSH, updating the test script to support both <span class="pn">MS-CHAPv2</span> and <span class="pn">GTC</span>.</li>
+        <li><strong>Long-term Corrective Actions:</strong>
+          <ul>
+            <li><strong>Firmware Update:</strong> The fix will be integrated into the next general firmware release to ensure native compatibility for all users.</li>
+            <li><strong>UI Enhancement:</strong> The cloud error message is being updated to accurately reflect connection failures versus certificate issues (ETA: Late April 2026).</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p>In March 2026, a significant technical discrepancy was identified within the <span class="pn">KOKOMOCloud</span> and <span class="pn">APRESIA</span> monitoring platforms concerning the <span class="pn">KOKOMO-W220AX-IS</span> Access Point (AP). The primary issue involved a persistent "certificate missing" error displayed during the RADIUS Test function, specifically when utilizing <span class="pn">WPA3-Enterprise</span> security. This error appeared even when the <span class="pn">RadSec</span> (RADIUS over TLS) feature was disabled, leading to significant confusion regarding whether a digital certificate was mandatory for standard authentication testing.</p>
+      <p>Following an escalation to <span class="pn">EnGenius</span> R&D, the investigation revealed that the failure was not caused by a misconfiguration of the customer's RADIUS server or a lack of certificates. Instead, the defect was located within the AP's internal diagnostic script. The script was hardcoded to initiate authentication using the <span class="pn">GTC</span> (Generic Token Card) inner authentication method. However, the customer's RADIUS environment strictly enforced the <span class="pn">MS-CHAPv2</span> protocol, which is the current industry standard. Because the diagnostic tool could not negotiate the correct protocol, the authentication failed.</p>
+      <p>Furthermore, the Cloud UI utilized a generic error logic: any failure in the RADIUS handshake triggered a default message stating that the <span class="pn">RadSec</span> certificate was missing or invalid. This created a false diagnostic path, as the actual cause was a protocol mismatch rather than a security credential issue.</p>
+      <p>The R&D team provided an immediate resolution by manually patching the affected AP via SSH, updating the diagnostic script to support both <span class="pn">MS-CHAPv2</span> and <span class="pn">GTC</span>. This successfully restored the functionality of the Cloud Test tool. For broader resolution, a permanent fix is scheduled for the next general firmware release. Additionally, the Cloud team is implementing a UI patch (ETA: April-End 2026) to provide dynamic, context-aware error messages that distinguish between protocol mismatches and actual certificate failures.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 83633969 ── -->
+  <div class="ticket" id="ticket-83633969">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #83633969</div>
+        <div class="t-title">"Web Authentication Failed" Error</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Mar 16, 2026</span>
+          <span><strong>Last Response:</strong> Mar 19, 2026</span>
+          <span><strong>Closed:</strong> Apr 2, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p><strong>User Account:</strong> <a class="email" href="mailto:so-aoi@iij.ad.jp">so-aoi@iij.ad.jp</a> &nbsp;&middot;&nbsp; <strong>Incident Period:</strong> March 11 to March 16, 2026</p>
+      <p>The user reported that even after entering the email address and password on the login screen, the error "web authentication failed" was displayed and they were unable to log in from March 11 to March 16. Currently, the issue has resolved itself and the user is now able to log in. However, we would like to know the cause of the issue and the reason for the "web authentication failed" error.</p>
+      <p>During the time the issue occurred, the user attempted the following actions but was still unable to log in:</p>
+      <ul>
+        <li>Attempted login using different browsers (<span class="pn">Microsoft Edge</span> and <span class="pn">Google Chrome</span>)</li>
+        <li>Tried using a private window and cleared cache and cookies</li>
+        <li>Changed the password</li>
+      </ul>
+
+      <div class="t-label">Case Summary</div>
+      <ul>
+        <li><strong>Root Cause (<span class="pn">Google reCAPTCHA</span>):</strong> The "web authentication failed" error is uniquely mapped to the <span class="pn">Google reCAPTCHA v3</span> verification mechanism introduced in February 2026. The login attempts were blocked because the system assigned a risk score below the required security threshold.</li>
+        <li><strong>Identification of Risk Factors:</strong> Even though the user is a legitimate human, the low security score (bot-like classification) was likely triggered by:
+          <ul>
+            <li><strong>Network Environment:</strong> A low IP reputation, use of a VPN, proxy servers, or an enterprise network previously associated with suspicious traffic.</li>
+            <li><strong>Browser Environment:</strong> Automation plugins, aggressive ad blockers, or incomplete browser fingerprinting.</li>
+            <li><strong>Behavioral Analysis:</strong> Mechanical patterns in mouse movements or a lack of normal browsing/cookie history.</li>
+          </ul>
+        </li>
+        <li><strong>Reason for Persistent Failure:</strong> The issue persisted despite changing browsers because reCAPTCHA evaluates the network path (IP level) and device characteristics.</li>
+        <li><strong>Resolution over Time:</strong> The issue resolved "naturally" because reCAPTCHA scores are dynamic. As the IP reputation improved over several days, the score eventually rose above the threshold.</li>
+        <li><strong>Distinction from Credential Errors:</strong> The system follows a different code flow for incorrect passwords. The "web authentication failed" error occurs <em>before</em> the 2FA step, confirming it is a security gate failure.</li>
+        <li><strong>Recommended Mitigation:</strong>
+          <ul>
+            <li>If the error recurs, users should try switching networks (e.g., using a mobile hotspot) to immediately change the IP-based risk evaluation.</li>
+            <li>Support can evaluate implementing a manual whitelist mechanism if specific legitimate users are frequently blocked.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p>Between March 11 and March 16, 2026, a persistent login issue was reported for the user account <a class="email" href="mailto:so-aoi@iij.ad.jp">so-aoi@iij.ad.jp</a>. Despite entering valid credentials, the user repeatedly encountered a "web authentication failed" error. The failure occurred prior to the Two-Factor Authentication (2FA) stage and persisted across multiple browsers and password resets, eventually resolving without manual intervention.</p>
+      <p>Following a formal investigation by the <span class="pn">EnGenius</span> and <span class="pn">Apresia</span> support teams, it was determined that the error is uniquely associated with the <span class="pn">Google reCAPTCHA v3</span> security mechanism, which was officially integrated into the login architecture in February 2026. Unlike a standard credential mismatch (which triggers a "Mail Or Password Is Incorrect" message after the 2FA step), the "web authentication failed" error indicates that the login attempt was blocked because the reCAPTCHA risk score fell below the system's security threshold.</p>
+      <p>The reCAPTCHA engine evaluates login environments based on a variety of data points. Even for legitimate human users, a low (bot-like) score can be triggered by network reputation, browser environment factors (ad-blockers, automation-related plugins), and behavioral patterns (mouse movements, click cadence).</p>
+      <p>The issue resolved naturally as the user's IP reputation improved within Google's dynamic scoring database or the network context changed. To mitigate future occurrences, users are advised to switch network environments (e.g., using a mobile hotspot) to bypass IP-specific blocks. Additionally, the development team is evaluating a manual whitelist mechanism to support legitimate users who are consistently misidentified by the automated security gate.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 86120230 ── -->
+  <div class="ticket" id="ticket-86120230">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #86120230</div>
+        <div class="t-title">Unable to Use Activity and Internet Connectivity in Diagnostic Tools</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Mar 26, 2026</span>
+          <span><strong>Last Response:</strong> Mar 31, 2026</span>
+          <span><strong>Closed:</strong> Mar 31, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>When accessing the "Activity" and "Internet Connectivity" pages from the diagnostic menu, the dialog window itself opens, but the content never loads. The screen remains stuck with a blue loading animation spinning indefinitely.</p>
+      <p>This behavior has been present since the initial installation, and the pages have never displayed successfully when accessed from our corporate PC environment. Meanwhile, other diagnostic tools such as Cable Test and Traceroute work normally and display their results without any issues.</p>
+      <p>During the investigation, the following was confirmed:</p>
+      <ul>
+        <li>The issue occurs only when accessing the interface from the corporate network environment.</li>
+        <li>When directly connecting the same PC to the internet (bypassing the corporate proxy), the issue disappears, and both "Activity" and "Internet Connectivity" load correctly.</li>
+      </ul>
+
+      <div class="t-label">Case Summary</div>
+      <ul>
+        <li><strong>Issue:</strong> "Activity" and "Internet Connectivity" pages in diagnostic tools fail to load, remaining stuck on a continuous loading screen.</li>
+        <li><strong>Environment:</strong> Issue occurs only within a corporate network using a proxy with TLS/SSL inspection; functions normally when bypassing the proxy.</li>
+        <li><strong>Scope:</strong> Other diagnostic tools (e.g., Cable Test, Traceroute) operate normally, indicating a feature-specific issue.</li>
+        <li><strong>Root Cause:</strong> The affected pages rely on persistent <span class="pn">WebSocket</span> (WSS over port 443) connections for real-time data streaming.</li>
+        <li><strong>Technical Constraint:</strong> TLS/SSL inspection by the corporate proxy disrupts the <span class="pn">WebSocket</span> handshake (HTTP Upgrade), blocking data transmission.</li>
+        <li><strong>Impact:</strong> Without the WebSocket connection, real-time data cannot be retrieved, resulting in indefinite loading behavior.</li>
+        <li><strong>Resolution:</strong> Exclude relevant domains (e.g., <code>dolphin-jp-*.production.kokomocloud.com</code>) from TLS/SSL inspection or proxy filtering.</li>
+        <li><strong>Outcome:</strong> Issue explanation provided to the customer; ticket successfully closed after guidance on proxy configuration.</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p>This report outlines an issue encountered when accessing the "Activity" and "Internet Connectivity" pages within the diagnostic tools of a cloud-managed device. While the dialog interface opens as expected, the content fails to load and remains stuck in a continuous loading state. This behavior has been consistently observed since the initial installation and occurs exclusively within a corporate network environment.</p>
+      <p>Further investigation revealed that the issue does not occur when the same client device is connected directly to the internet, bypassing the corporate proxy. In such cases, both diagnostic pages load correctly and display real-time data as intended. Additionally, other diagnostic tools, such as Cable Test and Traceroute, appear to function normally under both network conditions, suggesting that the problem is isolated to specific features.</p>
+      <p>The root cause was identified as the reliance of the "Activity" and "Internet Connectivity" pages on persistent <span class="pn">WebSocket</span> (WSS) connections over port 443 to stream real-time data. In corporate environments where TLS/SSL inspection is enabled, proxy servers intercept and decrypt HTTPS traffic for security purposes. This inspection process disrupts the <span class="pn">WebSocket</span> connection establishment, particularly the HTTP Upgrade handshake required for WSS communication.</p>
+      <p>As a result, the affected pages are unable to receive data streams, leading to indefinite loading behavior. To resolve this issue, it is recommended to configure the corporate proxy to bypass TLS/SSL inspection for the relevant domains, such as <code>dolphin-jp-*.production.kokomocloud.com</code>. Implementing this exclusion allows <span class="pn">WebSocket</span> connections to be established successfully, restoring full functionality of the diagnostic features.</p>
+    </div></div>
+  </div>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="report-footer">
+    <p><strong>Senao T2 FAE Team</strong> &middot; Intercom Support to Apresia</p>
+    <p style="margin-top:3px;">Confidential &mdash; For internal use between Senao Network and Apresia only.</p>
+  </footer>
+
+</div>
+
+<button class="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04L10.75 5.612V16.25A.75.75 0 0110 17z" clip-rule="evenodd"/></svg>
+</button>
+<script>
+  const btt = document.querySelector('.btt');
+  window.addEventListener('scroll', () => {
+    btt.classList.toggle('show', window.scrollY > 400);
+  });
+</script>
+
+</body>
+</html>
