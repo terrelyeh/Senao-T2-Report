@@ -160,7 +160,7 @@
     gap: 28px;
     margin-top: 18px;
     font-size: .88rem;
-    color: rgba(255,255,255,.4);
+    color: #FCD34D;
   }
   .hero-footer strong { color: rgba(255,255,255,.6); font-weight: 600; }
 
@@ -434,14 +434,40 @@
   }
 
   @media (max-width: 700px) {
-    .hero-inner { padding: 24px 20px; }
-    .hero-main { flex-direction: column; align-items: flex-start; }
-    .hero-month { font-size: 2.2rem; }
+    .hero-inner { padding: 20px 18px 24px; }
+    .hero-top-row {
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+    }
+    .hero-logo { height: 40px; }
+    .hero-logo-divider { display: none; }
+    .hero-logo-text { display: none; }
+    .hero-badge { font-size: .65rem; padding: 4px 10px; }
+    .hero-main { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .hero-month { font-size: 2.4rem; }
+    .hero-subtitle { font-size: .88rem; }
     .hero-stats-mini { width: 100%; }
-    .hero-stat { flex: 1; }
+    .hero-stat { flex: 1; padding: 12px 8px; min-width: 0; }
+    .hero-stat .n { font-size: 1.4rem; }
+    .hero-stat .l { font-size: .6rem; letter-spacing: .03em; }
+    .hero-footer { flex-direction: column; gap: 4px; font-size: .8rem; }
     .main { padding: 20px 16px 40px; }
-    .t-dates { flex-direction: column; gap: 4px; }
-    .hero-footer { flex-direction: column; gap: 4px; }
+    .sec-title { font-size: 1.15rem; }
+    .breakdown-head { padding: 12px 16px 8px; }
+    .bd-row { padding: 10px 16px; font-size: .92rem; }
+    .t-head { padding: 16px 16px; gap: 10px; }
+    .t-id { font-size: .65rem; }
+    .t-title { font-size: .98rem; }
+    .t-dates { flex-direction: column; gap: 3px; font-size: .82rem; }
+    .t-right { flex-direction: column; align-items: flex-end; gap: 4px; }
+    .badge { font-size: .62rem; padding: 3px 8px; }
+    .chev { width: 18px; height: 18px; }
+    .t-body-inner { padding: 0 16px 20px; }
+    .t-body-inner p, .t-body-inner ul { font-size: .92rem; }
+    .t-label { font-size: .72rem; }
+    .btt { bottom: 18px; right: 18px; width: 40px; height: 40px; }
   }
 </style>
 </head>
