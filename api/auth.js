@@ -1,29 +1,24 @@
-export const config = { runtime: "edge" };
-
-export default async function handler(request) {
-  if (request.method !== "POST") {
-    return new Response(JSON.stringify({ error: "Method not allowed" }), {
-      status: 405,
-      headers: { "Content-Type": "application/json" },
-    });
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const body = await request.json();
-  const password = body.password || "";
+  let password = "";
+  if (typeof req.body === "string") {
+    password = JSON.parse(req.body).password || "";
+  } else if (req.body) {
+    password = req.body.password || "";
+  }
+
   const expected = process.env.BASIC_AUTH_PASSWORD || "";
 
-  if (password === expected) {
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "Set-Cookie": `fae_auth=1; Path=/; Max-Age=${60 * 60 * 24 * 30}; SameSite=Lax`,
-      },
-    });
+  if (expected && password === expected) {
+    res.setHeader(
+      "Set-Cookie",
+      "fae_auth=1; Path=/; Max-Age=2592000; SameSite=Lax"
+    );
+    return res.status(200).json({ ok: true });
   }
 
-  return new Response(JSON.stringify({ error: "Wrong password" }), {
-    status: 401,
-    headers: { "Content-Type": "application/json" },
-  });
+  return res.status(401).json({ error: "Wrong password" });
 }
