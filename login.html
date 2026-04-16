@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - FAE Support Reports</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #1D4ED8 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .login-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 44px 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    text-align: center;
+  }
+  .login-logo {
+    height: 60px;
+    margin-bottom: 24px;
+  }
+  .login-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #1A1F2E;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .login-subtitle {
+    font-size: .88rem;
+    color: #6B7280;
+    margin-bottom: 28px;
+  }
+  .field {
+    margin-bottom: 16px;
+    text-align: left;
+  }
+  .field label {
+    display: block;
+    font-size: .78rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  .field input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1.5px solid #D1D5DB;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    color: #1A1F2E;
+  }
+  .field input:focus {
+    border-color: #1D4ED8;
+    box-shadow: 0 0 0 3px rgba(29,78,216,.12);
+  }
+  .field input::placeholder { color: #9CA3AF; }
+  .btn {
+    width: 100%;
+    padding: 13px 0;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    color: #fff;
+    background: #1D4ED8;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+    margin-top: 8px;
+  }
+  .btn:hover { background: #1e40af; }
+  .btn:active { transform: scale(.98); }
+  .btn:disabled {
+    background: #93C5FD;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .error {
+    margin-top: 14px;
+    font-size: .85rem;
+    color: #DC2626;
+    font-weight: 500;
+    min-height: 1.2em;
+  }
+  .footer {
+    margin-top: 24px;
+    font-size: .75rem;
+    color: #9CA3AF;
+  }
+  @media (max-width: 480px) {
+    .login-card { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="login-card">
+  <img class="login-logo" src="Senao Networks Logo_white_Vertical.png" alt="Senao Networks"
+       style="filter: brightness(0); opacity: .85;">
+  <div class="login-title">FAE Support Reports</div>
+  <div class="login-subtitle">Senao T2 FAE Team &middot; Intercom Support to Apresia</div>
+
+  <form id="loginForm">
+    <div class="field">
+      <label for="pw">Password</label>
+      <input type="password" id="pw" placeholder="Enter password" autocomplete="current-password" autofocus>
+    </div>
+    <button class="btn" type="submit">Sign In</button>
+  </form>
+  <div class="error" id="err"></div>
+  <div class="footer">Confidential &mdash; Authorized personnel only</div>
+</div>
+
+<script>
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn');
+    const err = document.getElementById('err');
+    const pw = document.getElementById('pw').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Verifying...';
+    err.textContent = '';
+
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw }),
+      });
+
+      if (res.ok) {
+        window.location.href = '/';
+      } else {
+        err.textContent = 'Incorrect password. Please try again.';
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+        document.getElementById('pw').select();
+      }
+    } catch {
+      err.textContent = 'Connection error. Please try again.';
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+    }
+  });
+</script>
+
+</body>
+</html>

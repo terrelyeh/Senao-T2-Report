@@ -1,28 +1,16 @@
-export const config = { matcher: "/(.*)" };
+export const config = {
+  matcher: ["/((?!api|_vercel|login\\.html|Senao.*\\.png|EnGenius.*\\.png|favicon\\.ico).*)"],
+};
 
 export default function middleware(request) {
-  const user = process.env.BASIC_AUTH_USER;
-  const pass = process.env.BASIC_AUTH_PASSWORD;
+  const cookie = request.headers.get("cookie") || "";
+  const isAuthed = cookie.split(";").some((c) => c.trim().startsWith("fae_auth="));
 
-  const authHeader = request.headers.get("authorization");
-
-  if (authHeader) {
-    const [scheme, encoded] = authHeader.split(" ");
-    if (scheme === "Basic" && encoded) {
-      const decoded = atob(encoded);
-      const [u, ...pParts] = decoded.split(":");
-      const p = pParts.join(":");
-
-      if (u === user && p === pass) {
-        return undefined;
-      }
-    }
+  if (isAuthed) {
+    return undefined; // allow through
   }
 
-  return new Response("Authentication required", {
-    status: 401,
-    headers: {
-      "WWW-Authenticate": 'Basic realm="Senao T2 FAE Reports"',
-    },
-  });
+  // Redirect to login page
+  const url = new URL("/login.html", request.url);
+  return Response.redirect(url.toString(), 302);
 }
