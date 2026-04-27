@@ -423,13 +423,43 @@
     box-shadow: 0 6px 20px rgba(29,78,216,.45);
   }
 
+  /* ── Download PDF Button ── */
+  .pdf-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 84px;
+    height: 44px;
+    padding: 0 18px;
+    background: #fff;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+    font-size: .88rem;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(0,0,0,.08);
+    transition: background .15s, color .15s, transform .1s;
+    z-index: 100;
+  }
+  .pdf-btn:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+  .pdf-btn:active { transform: scale(.97); }
+  .pdf-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
   /* ═══ Print ═══ */
   @media print {
     body { background: #fff; }
+    .pdf-btn, .btt { display: none !important; }
+    .ticket { break-inside: avoid; page-break-inside: avoid; }
+    .t-body { max-height: none !important; overflow: visible !important; }
     .hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
     .main { max-width: 100%; padding: 0 16px; }
-    .ticket { break-inside: avoid; }
-    .t-body { max-height: none !important; }
     .chev { display: none; }
   }
 
@@ -957,6 +987,10 @@
 
 </div>
 
+<button class="pdf-btn" onclick="downloadPDF()" aria-label="Download PDF">
+  <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 01.75.75v6.638l2.96-2.958a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.49a.75.75 0 011.08-1.04l2.96 2.938V3.75A.75.75 0 0110 3zM3.75 13a.75.75 0 01.75.75v2.5c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25v-2.5a.75.75 0 011.5 0v2.5A1.75 1.75 0 0115.25 18H4.75A1.75 1.75 0 013 16.25v-2.5a.75.75 0 01.75-.75z" clip-rule="evenodd"/></svg>
+  Download PDF
+</button>
 <button class="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
   <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04L10.75 5.612V16.25A.75.75 0 0110 17z" clip-rule="evenodd"/></svg>
 </button>
@@ -965,6 +999,13 @@
   window.addEventListener('scroll', () => {
     btt.classList.toggle('show', window.scrollY > 400);
   });
+
+  function downloadPDF() {
+    document.querySelectorAll('.ticket').forEach(t => t.classList.add('open'));
+    requestAnimationFrame(() => {
+      setTimeout(() => window.print(), 200);
+    });
+  }
 </script>
 
 </body>
