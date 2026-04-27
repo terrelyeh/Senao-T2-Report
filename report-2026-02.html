@@ -452,9 +452,25 @@
   @media print {
     body { background: #fff; }
     .pdf-btn, .btt { display: none !important; }
-    .ticket { break-inside: avoid; page-break-inside: avoid; }
+    .ticket {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      border: 1px solid var(--border) !important;
+      box-shadow: none !important;
+      margin-bottom: 18px !important;
+    }
+    .t-head {
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF4FF 100%) !important;
+      border-bottom: 2px solid var(--accent) !important;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
     .t-body { max-height: none !important; overflow: visible !important; }
-    .hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .t-body-inner { padding-top: 8px !important; }
+    .hero, .stat-card, .badge, .t-id, .pn, .breakdown, .breakdown-head {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
     .main { max-width: 100%; padding: 0 16px; }
     .chev { display: none; }
   }
