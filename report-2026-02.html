@@ -289,6 +289,20 @@
     padding: 2px 9px;
     border-radius: 5px;
     margin-bottom: 6px;
+    cursor: pointer;
+    user-select: text;
+    -webkit-user-select: text;
+    transition: background .15s, color .15s, transform .1s;
+    position: relative;
+  }
+  .t-id:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+  .t-id:active { transform: scale(.96); }
+  .t-id.copied {
+    background: var(--green) !important;
+    color: #fff !important;
   }
   .t-title {
     font-size: 1.15rem;
@@ -1012,7 +1026,29 @@
     btt.classList.toggle('show', window.scrollY > 400);
   });
 
-  function downloadPDF() {
+
+  // Click-to-copy ticket ID
+  document.addEventListener('click', (e) => {
+    const pill = e.target.closest('.t-id');
+    if (!pill) return;
+    e.stopPropagation();
+    const text = pill.textContent.trim();
+    const match = text.match(/#?(\d+)/);
+    if (!match) return;
+    const id = match[1];
+    navigator.clipboard.writeText(id).then(() => {
+      if (pill.classList.contains('copied')) return;
+      const original = pill.textContent;
+      pill.classList.add('copied');
+      pill.textContent = '✓ Copied ' + id;
+      setTimeout(() => {
+        pill.textContent = original;
+        pill.classList.remove('copied');
+      }, 1200);
+    });
+  });
+
+    function downloadPDF() {
     document.querySelectorAll('.ticket').forEach(t => t.classList.add('open'));
     requestAnimationFrame(() => {
       setTimeout(() => window.print(), 200);
