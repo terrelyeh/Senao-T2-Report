@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAE Support Report - May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #1A1F2E;
+    --ink-sec:    #374151;
+    --ink-muted:  #6B7280;
+    --bg:         #F3F4F6;
+    --surface:    #FFFFFF;
+    --border:     #E5E7EB;
+    --accent:     #1D4ED8;
+    --accent-lt:  #3B82F6;
+    --accent-bg:  #DBEAFE;
+    --green:      #059669;
+    --green-bg:   #D1FAE5;
+    --amber:      #D97706;
+    --amber-bg:   #FEF3C7;
+    --purple:     #6D28D9;
+    --purple-bg:  #EDE9FE;
+    --radius:     10px;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ Hero ═══ */
+  .hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #1D4ED8 100%);
+    color: #fff;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -15%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(96,165,250,.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 48px 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .hero-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .hero-logo {
+    height: 52px;
+    opacity: .95;
+  }
+  .hero-logo-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,.2);
+  }
+  .hero-logo-text {
+    font-size: .88rem;
+    font-weight: 500;
+    color: rgba(255,255,255,.65);
+    line-height: 1.3;
+  }
+  .hero-badge {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  .hero-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .hero-month {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .hero-month .year {
+    font-weight: 700;
+    color: rgba(255,255,255,.65);
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,.6);
+    margin-top: 8px;
+  }
+  .hero-stats-mini {
+    display: flex;
+    gap: 2px;
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .hero-stat {
+    padding: 14px 22px;
+    text-align: center;
+    min-width: 90px;
+  }
+  .hero-stat .n {
+    font-size: 1.8rem;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .hero-stat .l {
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: rgba(255,255,255,.45);
+    margin-top: 4px;
+  }
+  .hero-stat.green  .n { color: #6EE7B7; }
+  .hero-stat.amber  .n { color: #FCD34D; }
+  .hero-stat.purple .n { color: #C4B5FD; }
+
+  .hero-footer {
+    display: flex;
+    gap: 28px;
+    margin-top: 18px;
+    font-size: .88rem;
+    color: #D4A537;
+  }
+  .hero-footer strong { color: rgba(255,255,255,.6); font-weight: 600; }
+
+  /* ═══ Main Content ═══ */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 48px 60px;
+  }
+
+  /* ── Section Title ── */
+  .sec-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 32px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  .sec-title::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── Breakdown Table ── */
+  .breakdown {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .breakdown-head {
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--ink-muted);
+    padding: 14px 28px 10px;
+    background: #F9FAFB;
+    border-bottom: 1px solid var(--border);
+  }
+  .bd-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink-sec);
+    border-bottom: 1px solid #F3F4F6;
+  }
+  .bd-row:last-child { border-bottom: none; }
+  .bd-count {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    font-size: .9rem;
+    min-width: 28px;
+    text-align: center;
+    background: var(--accent-bg);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+
+  /* ── Inline Tags ── */
+  .pn {
+    font-weight: 500;
+    color: var(--ink);
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .dt {
+    background: #FEF9E7;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .email {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .email:hover { text-decoration: underline; }
+
+  /* ═══ Ticket Card ═══ */
+  .ticket {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: box-shadow .2s;
+  }
+  .ticket:hover { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+
+  .t-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 22px 36px;
+    cursor: pointer;
+    gap: 14px;
+    user-select: none;
+    transition: background .12s;
+  }
+  .t-head:hover { background: #FAFBFC; }
+
+  .t-id {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 2px 9px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    user-select: text;
+    -webkit-user-select: text;
+    transition: background .15s, color .15s, transform .1s;
+    position: relative;
+  }
+  .t-id:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+  .t-id:active { transform: scale(.96); }
+  .t-id.copied {
+    background: var(--green) !important;
+    color: #fff !important;
+  }
+  .t-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .t-dates {
+    display: flex;
+    gap: 18px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    font-size: .9rem;
+    color: var(--ink-muted);
+  }
+  .t-dates strong { font-weight: 600; color: var(--ink-sec); }
+
+  .t-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .badge {
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: 4px 11px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .badge.resolved { background: var(--green-bg); color: var(--green); }
+  .badge.open     { background: var(--amber-bg); color: var(--amber); }
+
+  .chev {
+    width: 20px;
+    height: 20px;
+    color: var(--ink-muted);
+    transition: transform .25s;
+  }
+  .ticket.open .chev { transform: rotate(180deg); }
+
+  .t-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease;
+  }
+  .ticket.open .t-body { max-height: 10000px; }
+
+  .t-body-inner {
+    padding: 0 40px 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .t-label {
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--accent);
+    margin: 20px 0 8px;
+  }
+  .t-label:first-child { margin-top: 20px; }
+
+  .t-body-inner p {
+    font-size: 1rem;
+    color: var(--ink-sec);
+    margin-bottom: 8px;
+    line-height: 1.75;
+  }
+  .t-body-inner ul {
+    margin: 8px 0 8px 20px;
+    font-size: 1rem;
+    color: var(--ink-sec);
+  }
+  .t-body-inner ul li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+  }
+  .t-body-inner li strong { color: var(--ink); }
+  .t-body-inner code {
+    font-size: .85rem;
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--accent);
+  }
+
+  /* ═══ Footer ═══ */
+  .report-footer {
+    text-align: center;
+    padding: 28px 0 0;
+    border-top: 1px solid var(--border);
+    font-size: .82rem;
+    color: var(--ink-muted);
+    margin-top: 16px;
+  }
+  .report-footer strong { color: var(--ink-sec); }
+
+  /* ── Back to Top ── */
+  .btt {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(29,78,216,.35);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .btt.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .btt:hover {
+    background: #1e40af;
+    box-shadow: 0 6px 20px rgba(29,78,216,.45);
+  }
+
+  /* ── Download PDF Button (in hero) ── */
+  .pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(255,255,255,.1);
+    color: rgba(255,255,255,.85);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .pdf-btn:hover {
+    background: rgba(255,255,255,.2);
+    color: #fff;
+    border-color: rgba(255,255,255,.35);
+  }
+  .pdf-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ═══ Print ═══ */
+  @media print {
+    body { background: #fff; }
+    .pdf-btn, .btt { display: none !important; }
+    .ticket {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      border: 1px solid var(--border) !important;
+      box-shadow: none !important;
+      margin-bottom: 18px !important;
+    }
+    .t-head {
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF4FF 100%) !important;
+      border-bottom: 2px solid var(--accent) !important;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .t-body { max-height: none !important; overflow: visible !important; }
+    .t-body-inner { padding-top: 8px !important; }
+    .hero, .stat-card, .badge, .t-id, .pn, .breakdown, .breakdown-head {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .main { max-width: 100%; padding: 0 16px; }
+    .chev { display: none; }
+  }
+
+  @media (max-width: 700px) {
+    .hero-inner { padding: 20px 18px 24px; }
+    .hero-top-row {
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+    }
+    .hero-logo { height: 40px; }
+    .hero-logo-divider { display: none; }
+    .hero-logo-text { display: none; }
+    .hero-badge { font-size: .65rem; padding: 4px 10px; }
+    .hero-main { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .hero-month { font-size: 2.4rem; }
+    .hero-subtitle { font-size: .88rem; }
+    .hero-stats-mini { width: 100%; }
+    .hero-stat { flex: 1; padding: 12px 8px; min-width: 0; }
+    .hero-stat .n { font-size: 1.4rem; }
+    .hero-stat .l { font-size: .6rem; letter-spacing: .03em; }
+    .hero-footer { flex-direction: column; gap: 4px; font-size: .8rem; }
+    .main { padding: 20px 16px 40px; }
+    .sec-title { font-size: 1.15rem; }
+    .breakdown-head { padding: 12px 16px 8px; }
+    .bd-row { padding: 10px 16px; font-size: .92rem; }
+    .t-head { padding: 16px 16px; gap: 10px; }
+    .t-id { font-size: .65rem; }
+    .t-title { font-size: .98rem; }
+    .t-dates { flex-direction: column; gap: 3px; font-size: .82rem; }
+    .t-right { flex-direction: column; align-items: flex-end; gap: 4px; }
+    .badge { font-size: .62rem; padding: 3px 8px; }
+    .chev { width: 18px; height: 18px; }
+    .t-body-inner { padding: 0 16px 20px; }
+    .t-body-inner p, .t-body-inner ul { font-size: .92rem; }
+    .t-label { font-size: .72rem; }
+    .btt { bottom: 18px; right: 18px; width: 40px; height: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Hero Header ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-top-row">
+      <div class="hero-logo-wrap">
+        <img class="hero-logo" src="Senao Networks Logo_white_Vertical.png" alt="Senao Networks">
+        <div class="hero-logo-divider"></div>
+        <div class="hero-logo-text">Senao T2 FAE Team<br>Intercom Support</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.55);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd"/></svg>
+          All Reports
+        </a>
+        <button class="pdf-btn" onclick="downloadPDF()" aria-label="Download PDF">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 01.75.75v6.638l2.96-2.958a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.49a.75.75 0 011.08-1.04l2.96 2.938V3.75A.75.75 0 0110 3zM3.75 13a.75.75 0 01.75.75v2.5c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25v-2.5a.75.75 0 011.5 0v2.5A1.75 1.75 0 0115.25 18H4.75A1.75 1.75 0 013 16.25v-2.5a.75.75 0 01.75-.75z" clip-rule="evenodd"/></svg>
+          PDF
+        </button>
+        <div class="hero-badge">Monthly Report</div>
+      </div>
+    </div>
+
+    <div class="hero-main">
+      <div>
+        <div class="hero-month">May <span class="year">2026</span></div>
+        <div class="hero-subtitle">FAE T2 Support Report for Apresia (KOKOMO Cloud)</div>
+        <div class="hero-footer">
+          <span><strong>Author:</strong> Himadri Paul, Senao Network</span>
+          <span><strong>Published:</strong> June 2026</span>
+        </div>
+      </div>
+      <div class="hero-stats-mini">
+        <div class="hero-stat">
+          <div class="n">4</div>
+          <div class="l">Total</div>
+        </div>
+        <div class="hero-stat green">
+          <div class="n">3</div>
+          <div class="l">Resolved</div>
+        </div>
+        <div class="hero-stat amber">
+          <div class="n">1</div>
+          <div class="l">Open</div>
+        </div>
+        <div class="hero-stat purple">
+          <div class="n">0</div>
+          <div class="l">Carry-over</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Main Content ═══ -->
+<div class="main">
+
+  <h2 class="sec-title">Overview</h2>
+  <p style="font-size:1.05rem;color:var(--ink-sec);margin-bottom:16px;">
+    Summary of all support tickets reported by Apresia Support (KOKOMO Cloud) to Senao T2 Support for issue debugging or knowledge base clarification.
+  </p>
+
+  <div class="breakdown">
+    <div class="breakdown-head">Ticket Category Breakdown</div>
+    <div class="bd-row"><span>T2 Issue Tickets</span><span class="bd-count">1</span></div>
+    <div class="bd-row"><span>T1 Backend Tickets</span><span class="bd-count">3</span></div>
+    <div class="bd-row"><span>Tracker Tickets</span><span class="bd-count">0</span></div>
+    <div class="bd-row"><span>Customer Conversation Tickets</span><span class="bd-count">0</span></div>
+    <div class="bd-row"><span>Email Conversation Tickets</span><span class="bd-count">0</span></div>
+  </div>
+
+  <!-- ═══ T2 Issue Tickets ═══ -->
+  <h2 class="sec-title">T2 Issue Tickets</h2>
+
+  <!-- ── Ticket 100192918 ── -->
+  <div class="ticket" id="ticket-100192918">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #100192918</div>
+        <div class="t-title">Regarding LBD Function Behavior</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn">KOKOMO-S210MGT-P</span></span>
+          <span><strong>Opened:</strong> May 12, 2026</span>
+          <span><strong>Last Response:</strong> May 25, 2026</span>
+          <span><strong>Closed:</strong> May 25, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>We have been testing the <span class="pn">LBD</span> (Loop Detection) function via the local web interface. During our verification, we observed the following behavior when <span class="pn">STP</span> is disabled:</p>
+      <ul>
+        <li>No logs are generated when a loop is detected</li>
+        <li>No blocked port is displayed</li>
+        <li>The switch goes offline</li>
+      </ul>
+      <p>We understand that this configuration may involve unsupported functionality. However, we would like to confirm:</p>
+      <ul>
+        <li>Is enabling <span class="pn">STP</span> required in order to properly use the <span class="pn">LBD</span> function?</li>
+        <li>Is this behavior expected when <span class="pn">STP</span> is disabled?</li>
+      </ul>
+
+      <div class="t-label">Case Summary</div>
+      <p><strong>Issue:</strong> Apresia reported that the Loop Detection (<span class="pn">LBD</span>) feature appeared not to function correctly when <span class="pn">STP</span> was disabled. In the Cloud Portal, loop events did not generate logs or show blocked ports, and the switch temporarily went offline.</p>
+      <p><strong>Investigation Findings:</strong></p>
+      <ul>
+        <li><span class="pn">LBD</span> and <span class="pn">STP</span> are independent features; LBD does not require STP to operate.</li>
+        <li>Local GUI testing confirmed that LBD correctly detected loops, generated logs, and blocked the affected port.</li>
+        <li>The apparent lack of logs in the Cloud Portal was primarily due to the switch becoming temporarily unreachable during the loop event and only synchronizing information after connectivity was restored.</li>
+        <li>Further testing identified that LBD must be enabled on <strong>all participating ports, including the uplink port</strong>, for loop detection to function as expected when ports belong to the same VLAN.</li>
+        <li>When downlink ports were placed in a different VLAN from the uplink port, LBD operated correctly even without enabling LBD on the uplink port because loop traffic was contained within the isolated VLAN.</li>
+      </ul>
+      <p><strong>Conclusion:</strong> The observed behavior was determined to be <strong>expected behavior, not a defect</strong>. LBD functionality depends on the VLAN topology and port-group participation. For loops occurring within the same VLAN domain, the uplink port must also be included in LBD protection. The customer confirmed the explanation and closed the case.</p>
+    </div></div>
+  </div>
+
+  <!-- ═══ T1 Backend Tickets ═══ -->
+  <h2 class="sec-title">T1 Backend Tickets</h2>
+
+  <!-- ── Ticket 99938446 ── -->
+  <div class="ticket" id="ticket-99938446">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #99938446</div>
+        <div class="t-title">Question About Communication to s3.ap-northeast-1.amazonaws.com</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> May 11, 2026</span>
+          <span><strong>Last Response:</strong> May 25, 2026</span>
+          <span><strong>Closed:</strong> May 25, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>Could you please provide information about <code>s3.ap-northeast-1.amazonaws.com</code> listed in the firewall rules?</p>
+      <ul>
+        <li>What is the purpose of communication to <code>s3.ap-northeast-1.amazonaws.com</code>?</li>
+        <li>If the splash page is not used, is it still necessary to allow access to this FQDN?</li>
+        <li>If this communication is not allowed, will it have any impact other than on the splash page feature?</li>
+      </ul>
+
+      <div class="t-label">Case Summary</div>
+      <p>A customer raised concerns regarding outbound communications from <span class="pn">KOKOMO</span> Access Points to AWS-related domains, specifically questioning the purpose of connections to <code>s3.ap-northeast-1.amazonaws.com</code>, whether they are required when Splash Page functionality is not used, and whether additional observed destinations such as <code>aws.amazon.com</code> and CloudFront endpoints should be permitted.</p>
+      <p>The investigation confirmed that <code>s3.ap-northeast-1.amazonaws.com</code> is used to host Splash Page and Captive Portal assets stored in <span class="pn">AWS S3</span>. While these communications are primarily associated with Splash Page functionality, blocking access could potentially affect cloud-delivered resources and future feature compatibility.</p>
+      <p>Further analysis of customer proxy logs showed periodic connections to <code>aws.amazon.com</code> every approximately 180 seconds, followed by HTTPS sessions to <span class="pn">AWS CloudFront</span> endpoints and communications with KOKOMO cloud services. Engineering confirmed that the device performs a connectivity check to <code>aws.amazon.com</code>, and that the customer's understanding of the CloudFront-to-S3 content delivery architecture was correct.</p>
+      <p>During follow-up discussions, the customer requested clarification on whether additional domains not listed in the original firewall guide needed to be allowed. Engineering confirmed that, in addition to the documented KOKOMO cloud domains and <code>s3.ap-northeast-1.amazonaws.com</code>, access to <code>aws.amazon.com</code> and <code>*.cloudfront.net</code> should also be permitted to ensure normal cloud operation and AWS resource accessibility.</p>
+      <p><strong>Conclusion:</strong> The observed AWS and CloudFront communications are expected behavior. Customers implementing restrictive outbound firewall policies should allow the documented KOKOMO cloud domains, <code>s3.ap-northeast-1.amazonaws.com</code>, <code>aws.amazon.com</code>, and <code>*.cloudfront.net</code> to avoid potential service disruptions. The customer was informed of the findings and the case was subsequently closed.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 104130912 ── -->
+  <div class="ticket" id="ticket-104130912">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #104130912</div>
+        <div class="t-title">Request for Specific FQDNs for "dolphin-jp-*.production.kokomocloud.com"</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> May 27, 2026</span>
+          <span><strong>Last Response:</strong> May 27, 2026</span>
+          <span><strong>Closed:</strong> May 27, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>We received an inquiry from a customer who is trying to register firewall rules using a <span class="pn">FortiGate 90G</span>.</p>
+      <p>They reported that they cannot register the policy for <code>dolphin-jp-*.production.kokomocloud.com</code> because their firewall does not accept wildcard domains for this configuration.</p>
+      <p>To address this, we would like to provide the customer with the specific FQDNs they need to allow. Could you please provide us with the detailed list of specific FQDNs included under <code>dolphin-jp-*.production.kokomocloud.com</code>?</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>A customer using a <span class="pn">FortiGate 90G</span> firewall reported that they could not create a firewall policy using the wildcard domain <code>dolphin-jp-*.production.kokomocloud.com</code>, as their firewall platform does not support wildcard FQDN entries for this use case.</p>
+      <p>The customer requested the specific FQDNs covered by the wildcard entry. Engineering confirmed that the wildcard currently resolves to the following two hostnames:</p>
+      <ul>
+        <li><code>dolphin-jp-001.production.kokomocloud.com</code></li>
+        <li><code>dolphin-jp-002.production.kokomocloud.com</code></li>
+      </ul>
+      <p>The customer also requested confirmation that allowing these two FQDNs individually would provide the same functionality as allowing the wildcard domain. Engineering confirmed that permitting both hostnames is functionally equivalent to permitting the wildcard entry.</p>
+      <p><strong>Conclusion:</strong> The customer was advised to create firewall policies for <code>dolphin-jp-001.production.kokomocloud.com</code> and <code>dolphin-jp-002.production.kokomocloud.com</code> individually. This provides the same operational behavior as allowing the wildcard domain. The customer acknowledged the guidance and the case was closed successfully.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 100945961 ── -->
+  <div class="ticket" id="ticket-100945961">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #100945961</div>
+        <div class="t-title">Planned Additions of Captive Portal Authentication Methods</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> May 15, 2026</span>
+          <span><strong>Last Response:</strong> Jun 10, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge open">Open</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>We have received an inquiry from a customer regarding the planned addition of authentication types for our captive portal. Do you have any plans to add authentication types such as the following?</p>
+      <ul>
+        <li>Social Media Authentication</li>
+        <li>Email Authentication</li>
+        <li>SMS Authentication</li>
+      </ul>
+
+      <div class="t-label">Case Summary</div>
+      <p>A customer inquired whether <span class="pn">KOKOMO Cloud</span> has plans to support additional Captive Portal authentication methods, including Social Media Authentication, Email Authentication, and SMS Authentication.</p>
+      <p>Initial investigation confirmed that these authentication methods are not currently available as standard KOKOMO Cloud features, and there are no plans to add Social Media or SMS authentication. Customers requiring these capabilities are expected to leverage third-party captive portal providers and regional service integrations.</p>
+      <p>The discussion then focused on potential integration with <span class="pn">Social WiFi</span>, a third-party WiFi marketing platform. Testing revealed that Social WiFi could not recognize certain <span class="pn">EnGenius</span> and <span class="pn">KOKOMO</span> access points due to OUI (MAC vendor prefix) validation restrictions within Social WiFi's device whitelist database. Specifically, KOKOMO APs were rejected because their OUI was not registered as a supported vendor, while some EnGenius models were limited to specific approved OUIs.</p>
+      <p>Further investigation determined that the issue was not caused by KOKOMO Cloud itself but by Social WiFi's vendor validation mechanism. A ticket was raised with Social WiFi, which subsequently disabled MAC verification for the test environment and confirmed that supported EnGenius OUIs could be added successfully. Additional testing with newer supported EnGenius devices verified that captive portal integration and login functionality worked as expected.</p>
+      <p>During the investigation, Product Management roadmap information confirmed that <strong>Email Authentication for Captive Portal is planned for Q3</strong>, while Social Media and SMS authentication remain unsupported and are not currently on the product roadmap.</p>
+    </div></div>
+  </div>
+
+    <!-- ═══ Footer ═══ -->
+  <footer class="report-footer">
+    <p><strong>Senao T2 FAE Team</strong> &middot; Intercom Support to Apresia</p>
+    <p style="margin-top:3px;">Confidential &mdash; For internal use between Senao Network and Apresia only.</p>
+  </footer>
+
+</div>
+
+<button class="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04L10.75 5.612V16.25A.75.75 0 0110 17z" clip-rule="evenodd"/></svg>
+</button>
+<script>
+  const btt = document.querySelector('.btt');
+  window.addEventListener('scroll', () => {
+    btt.classList.toggle('show', window.scrollY > 400);
+  });
+
+
+  // Click-to-copy ticket ID
+  document.addEventListener('click', (e) => {
+    const pill = e.target.closest('.t-id');
+    if (!pill) return;
+    e.stopPropagation();
+    const text = pill.textContent.trim();
+    const match = text.match(/#?(\d+)/);
+    if (!match) return;
+    const id = match[1];
+    navigator.clipboard.writeText(id).then(() => {
+      if (pill.classList.contains('copied')) return;
+      const original = pill.textContent;
+      pill.classList.add('copied');
+      pill.textContent = '✓ Copied ' + id;
+      setTimeout(() => {
+        pill.textContent = original;
+        pill.classList.remove('copied');
+      }, 1200);
+    });
+  });
+
+    function downloadPDF() {
+    // Expand all tickets so all content is visible in the PDF
+    document.querySelectorAll('.ticket').forEach(t => t.classList.add('open'));
+    // Wait one frame for layout to settle, then trigger print dialog
+    requestAnimationFrame(() => {
+      setTimeout(() => window.print(), 200);
+    });
+  }
+</script>
+
+</body>
+</html>
