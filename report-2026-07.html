@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAE Support Report - July 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #1A1F2E;
+    --ink-sec:    #374151;
+    --ink-muted:  #6B7280;
+    --bg:         #F3F4F6;
+    --surface:    #FFFFFF;
+    --border:     #E5E7EB;
+    --accent:     #1D4ED8;
+    --accent-lt:  #3B82F6;
+    --accent-bg:  #DBEAFE;
+    --green:      #059669;
+    --green-bg:   #D1FAE5;
+    --amber:      #D97706;
+    --amber-bg:   #FEF3C7;
+    --purple:     #6D28D9;
+    --purple-bg:  #EDE9FE;
+    --radius:     10px;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ Hero ═══ */
+  .hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #1D4ED8 100%);
+    color: #fff;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -15%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(96,165,250,.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 48px 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .hero-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .hero-logo {
+    height: 52px;
+    opacity: .95;
+  }
+  .hero-logo-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,.2);
+  }
+  .hero-logo-text {
+    font-size: .88rem;
+    font-weight: 500;
+    color: rgba(255,255,255,.65);
+    line-height: 1.3;
+  }
+  .hero-badge {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  .hero-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .hero-month {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .hero-month .year {
+    font-weight: 700;
+    color: rgba(255,255,255,.65);
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,.6);
+    margin-top: 8px;
+  }
+  .hero-stats-mini {
+    display: flex;
+    gap: 2px;
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .hero-stat {
+    padding: 14px 22px;
+    text-align: center;
+    min-width: 90px;
+  }
+  .hero-stat .n {
+    font-size: 1.8rem;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .hero-stat .l {
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: rgba(255,255,255,.45);
+    margin-top: 4px;
+  }
+  .hero-stat.green  .n { color: #6EE7B7; }
+  .hero-stat.amber  .n { color: #FCD34D; }
+  .hero-stat.purple .n { color: #C4B5FD; }
+
+  .hero-footer {
+    display: flex;
+    gap: 28px;
+    margin-top: 18px;
+    font-size: .88rem;
+    color: #D4A537;
+  }
+  .hero-footer strong { color: rgba(255,255,255,.6); font-weight: 600; }
+
+  /* ═══ Main Content ═══ */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 48px 60px;
+  }
+
+  /* ── Section Title ── */
+  .sec-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 32px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  .sec-title::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── Breakdown Table ── */
+  .breakdown {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .breakdown-head {
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--ink-muted);
+    padding: 14px 28px 10px;
+    background: #F9FAFB;
+    border-bottom: 1px solid var(--border);
+  }
+  .bd-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink-sec);
+    border-bottom: 1px solid #F3F4F6;
+  }
+  .bd-row:last-child { border-bottom: none; }
+  .bd-count {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    font-size: .9rem;
+    min-width: 28px;
+    text-align: center;
+    background: var(--accent-bg);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+
+  /* ── Inline Tags ── */
+  .pn {
+    font-weight: 500;
+    color: var(--ink);
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .dt {
+    background: #FEF9E7;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .email {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .email:hover { text-decoration: underline; }
+
+  /* ═══ Ticket Card ═══ */
+  .ticket {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: box-shadow .2s;
+  }
+  .ticket:hover { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+
+  .t-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 22px 36px;
+    cursor: pointer;
+    gap: 14px;
+    user-select: none;
+    transition: background .12s;
+  }
+  .t-head:hover { background: #FAFBFC; }
+
+  .t-id {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 2px 9px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    user-select: text;
+    -webkit-user-select: text;
+    transition: background .15s, color .15s, transform .1s;
+    position: relative;
+  }
+  .t-id:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+  .t-id:active { transform: scale(.96); }
+  .t-id.copied {
+    background: var(--green) !important;
+    color: #fff !important;
+  }
+  .t-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .t-dates {
+    display: flex;
+    gap: 18px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    font-size: .9rem;
+    color: var(--ink-muted);
+  }
+  .t-dates strong { font-weight: 600; color: var(--ink-sec); }
+
+  .t-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .badge {
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: 4px 11px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .badge.resolved { background: var(--green-bg); color: var(--green); }
+  .badge.open     { background: var(--amber-bg); color: var(--amber); }
+
+  .chev {
+    width: 20px;
+    height: 20px;
+    color: var(--ink-muted);
+    transition: transform .25s;
+  }
+  .ticket.open .chev { transform: rotate(180deg); }
+
+  .t-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease;
+  }
+  .ticket.open .t-body { max-height: 10000px; }
+
+  .t-body-inner {
+    padding: 0 40px 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .t-label {
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--accent);
+    margin: 20px 0 8px;
+  }
+  .t-label:first-child { margin-top: 20px; }
+
+  .t-body-inner p {
+    font-size: 1rem;
+    color: var(--ink-sec);
+    margin-bottom: 8px;
+    line-height: 1.75;
+  }
+  .t-body-inner ul {
+    margin: 8px 0 8px 20px;
+    font-size: 1rem;
+    color: var(--ink-sec);
+  }
+  .t-body-inner ul li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+  }
+  .t-body-inner li strong { color: var(--ink); }
+  .t-body-inner code {
+    font-size: .85rem;
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--accent);
+  }
+
+  /* ═══ Footer ═══ */
+  .report-footer {
+    text-align: center;
+    padding: 28px 0 0;
+    border-top: 1px solid var(--border);
+    font-size: .82rem;
+    color: var(--ink-muted);
+    margin-top: 16px;
+  }
+  .report-footer strong { color: var(--ink-sec); }
+
+  /* ── Back to Top ── */
+  .btt {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(29,78,216,.35);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .btt.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .btt:hover {
+    background: #1e40af;
+    box-shadow: 0 6px 20px rgba(29,78,216,.45);
+  }
+
+  /* ── Download PDF Button (in hero) ── */
+  .pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(255,255,255,.1);
+    color: rgba(255,255,255,.85);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .pdf-btn:hover {
+    background: rgba(255,255,255,.2);
+    color: #fff;
+    border-color: rgba(255,255,255,.35);
+  }
+  .pdf-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ═══ Print ═══ */
+  @media print {
+    body { background: #fff; }
+    .pdf-btn, .btt { display: none !important; }
+    .ticket {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      border: 1px solid var(--border) !important;
+      box-shadow: none !important;
+      margin-bottom: 18px !important;
+    }
+    .t-head {
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF4FF 100%) !important;
+      border-bottom: 2px solid var(--accent) !important;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .t-body { max-height: none !important; overflow: visible !important; }
+    .t-body-inner { padding-top: 8px !important; }
+    .hero, .stat-card, .badge, .t-id, .pn, .breakdown, .breakdown-head {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .main { max-width: 100%; padding: 0 16px; }
+    .chev { display: none; }
+  }
+
+  @media (max-width: 700px) {
+    .hero-inner { padding: 20px 18px 24px; }
+    .hero-top-row {
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+    }
+    .hero-logo { height: 40px; }
+    .hero-logo-divider { display: none; }
+    .hero-logo-text { display: none; }
+    .hero-badge { font-size: .65rem; padding: 4px 10px; }
+    .hero-main { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .hero-month { font-size: 2.4rem; }
+    .hero-subtitle { font-size: .88rem; }
+    .hero-stats-mini { width: 100%; }
+    .hero-stat { flex: 1; padding: 12px 8px; min-width: 0; }
+    .hero-stat .n { font-size: 1.4rem; }
+    .hero-stat .l { font-size: .6rem; letter-spacing: .03em; }
+    .hero-footer { flex-direction: column; gap: 4px; font-size: .8rem; }
+    .main { padding: 20px 16px 40px; }
+    .sec-title { font-size: 1.15rem; }
+    .breakdown-head { padding: 12px 16px 8px; }
+    .bd-row { padding: 10px 16px; font-size: .92rem; }
+    .t-head { padding: 16px 16px; gap: 10px; }
+    .t-id { font-size: .65rem; }
+    .t-title { font-size: .98rem; }
+    .t-dates { flex-direction: column; gap: 3px; font-size: .82rem; }
+    .t-right { flex-direction: column; align-items: flex-end; gap: 4px; }
+    .badge { font-size: .62rem; padding: 3px 8px; }
+    .chev { width: 18px; height: 18px; }
+    .t-body-inner { padding: 0 16px 20px; }
+    .t-body-inner p, .t-body-inner ul { font-size: .92rem; }
+    .t-label { font-size: .72rem; }
+    .btt { bottom: 18px; right: 18px; width: 40px; height: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Hero Header ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-top-row">
+      <div class="hero-logo-wrap">
+        <img class="hero-logo" src="Senao Networks Logo_white_Vertical.png" alt="Senao Networks">
+        <div class="hero-logo-divider"></div>
+        <div class="hero-logo-text">Senao T2 FAE Team<br>Intercom Support</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.55);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd"/></svg>
+          All Reports
+        </a>
+        <button class="pdf-btn" onclick="downloadPDF()" aria-label="Download PDF">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 01.75.75v6.638l2.96-2.958a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.49a.75.75 0 011.08-1.04l2.96 2.938V3.75A.75.75 0 0110 3zM3.75 13a.75.75 0 01.75.75v2.5c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25v-2.5a.75.75 0 011.5 0v2.5A1.75 1.75 0 0115.25 18H4.75A1.75 1.75 0 013 16.25v-2.5a.75.75 0 01.75-.75z" clip-rule="evenodd"/></svg>
+          PDF
+        </button>
+        <div class="hero-badge">Monthly Report</div>
+      </div>
+    </div>
+
+    <div class="hero-main">
+      <div>
+        <div class="hero-month">July <span class="year">2026</span></div>
+        <div class="hero-subtitle">FAE T2 Support Report for Apresia (KOKOMO Cloud)</div>
+        <div class="hero-footer">
+          <span><strong>Author:</strong> Himadri Paul, Senao Network</span>
+          <span><strong>Published:</strong> August 2026</span>
+        </div>
+      </div>
+      <div class="hero-stats-mini">
+        <div class="hero-stat">
+          <div class="n">6</div>
+          <div class="l">Total</div>
+        </div>
+        <div class="hero-stat green">
+          <div class="n">5</div>
+          <div class="l">Resolved</div>
+        </div>
+        <div class="hero-stat amber">
+          <div class="n">1</div>
+          <div class="l">Open</div>
+        </div>
+        <div class="hero-stat purple">
+          <div class="n">0</div>
+          <div class="l">Carry-over</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Main Content ═══ -->
+<div class="main">
+
+  <h2 class="sec-title">Overview</h2>
+  <p style="font-size:1.05rem;color:var(--ink-sec);margin-bottom:16px;">
+    Summary of all support tickets reported by Apresia Support (KOKOMO Cloud) to Senao T2 Support for issue debugging or knowledge base clarification.
+  </p>
+
+  <div class="breakdown">
+    <div class="breakdown-head">Ticket Category Breakdown</div>
+    <div class="bd-row"><span>T2 Issue Tickets</span><span class="bd-count">3</span></div>
+    <div class="bd-row"><span>T1 Backend Tickets</span><span class="bd-count">3</span></div>
+    <div class="bd-row"><span>Tracker Tickets</span><span class="bd-count">0</span></div>
+    <div class="bd-row"><span>Customer Conversation Tickets</span><span class="bd-count">0</span></div>
+    <div class="bd-row"><span>Email Conversation Tickets</span><span class="bd-count">0</span></div>
+  </div>
+
+  <!-- ═══ T2 Issue Tickets ═══ -->
+  <h2 class="sec-title">T2 Issue Tickets</h2>
+
+  <!-- ── Ticket 114453825 ── -->
+  <div class="ticket" id="ticket-114453825">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #114453825</div>
+        <div class="t-title">After the firmware update, the S210 is not coming online, and the APs connected to it are also unable to communicate</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn">Kokomo S210</span></span>
+          <span><strong>Opened:</strong> Jul 6, 2026</span>
+          <span><strong>Last Response:</strong> Aug 4, 2026</span>
+          <span><strong>Closed:</strong> Aug 5, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The issue report <strong>#114453825</strong> details a situation where a <span class="pn">KOKOMO-S210MGT-P</span> switch (System Name: <code>SW-8F-S210-01</code>, Serial: <code>25802CD11DD5</code>) went offline following a firmware update applied on July 5, 2026.</p>
+      <p>Key details of the report include:</p>
+      <ul>
+        <li><strong>Impact:</strong> The switch itself is offline, and all APs connected to it have lost communication.</li>
+        <li><strong>Current Device Status:</strong>
+        <ul>
+          <li><strong>Power &amp; LAN Mode:</strong> Solid green</li>
+          <li><strong>Fault, PoE Mode &amp; PoE Max:</strong> Off</li>
+          <li><strong>Ports:</strong> Uplink and connected AP port LEDs are lit.</li>
+        </ul></li>
+        <li><strong>Troubleshooting &amp; Next Steps:</strong> Access via console and default IP is currently being requested, and guidelines/commands for further troubleshooting are requested from Senao. A factory reset may be performed if necessary to restore service quickly.</li>
+      </ul>
+
+      <div class="t-label">Case Summary</div>
+      <p>The issue report <strong>APSSup · <span class="pn">APRESIA</span> #114453825</strong> addresses an incident where a switch went offline after a firmware update:</p>
+      <ul>
+        <li><strong>Issue:</strong> Following a firmware update (v1.2.125-193) applied on July 5, 2026, a <span class="pn">KOKOMO-S210MGT-P</span> switch (System Name: <code>SW-8F-S210-01</code>, Serial: <code>25802CD11DD5</code>) went offline, causing connected APs to lose communication.</li>
+        <li><strong>Device Status:</strong> The switch displays solid green LEDs for Power and LAN Mode, while Fault, PoE Mode, and PoE Max remain off. Uplink and AP port LEDs are lit.</li>
+        <li><strong>Resolution Path:</strong> The support team requested guidelines for console/default IP access to gather diagnostic logs. Because the APRESIA release team and Senao PM coordinated directly to handle the issue—and a factory reset was considered to restore service—the support ticket was marked as resolved and closed.</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Ticket Information</strong></p>
+      <ul>
+        <li><strong>Ticket ID:</strong> #114453825</li>
+        <li><strong>Ticket Type:</strong> T2 - Issue Report</li>
+        <li><strong>Submission Date:</strong> July 6, 2026</li>
+        <li><strong>Title:</strong> After the firmware update, the S210 is not coming online, and the APs connected to it are also unable to communicate.</li>
+        <li><strong>Assignee:</strong> Region.Support</li>
+        <li><strong>Team Inbox:</strong> Senao T2</li>
+        <li><strong>Category:</strong> Switch</li>
+        <li><strong>Severity:</strong> Trivial</li>
+        <li><strong>Priority:</strong> Urgent</li>
+        <li><strong>Reproducibility:</strong> Unable to produce</li>
+      </ul>
+      <p><strong>Device Details</strong></p>
+      <ul>
+        <li><strong>Model:</strong> KOKOMO-S210MGT-P</li>
+        <li><strong>System Name:</strong> SW-8F-S210-01</li>
+        <li><strong>Serial Number:</strong> 25802CD11DD5</li>
+      </ul>
+      <p><strong>Issue Description</strong></p>
+      <p>On July 3, 2026, <span class="pn">APRESIA</span> requested Senao to deploy firmware version <strong>v1.2.125-193</strong> to the stable release track on <span class="pn">KOKOMO Cloud</span>. System logs indicate the update was performed on July 5, 2026; however, immediately following the update, the <span class="pn">KOKOMO-S210MGT-P</span> switch went offline. Consequently, all access points connected to this switch lost network communication.</p>
+      <p><strong>Observed LED Status on the Switch:</strong></p>
+      <ul>
+        <li><strong>Power:</strong> Solid green</li>
+        <li><strong>LAN Mode:</strong> Solid green</li>
+        <li><strong>PoE Mode:</strong> Off</li>
+        <li><strong>Fault:</strong> Off</li>
+        <li><strong>PoE Max:</strong> Off</li>
+        <li><strong>Port LEDs:</strong> Uplink port and AP-connected ports remain lit.</li>
+      </ul>
+      <p>At the time of submission, the support team requested console access guidelines and default IP access commands to collect diagnostic data for troubleshooting. A factory reset was noted as a potential fallback option to restore customer service quickly.</p>
+      <p><strong>Conversation Details</strong></p>
+      <ul>
+        <li><strong>Initial Submission (July 6, 2026):</strong></li>
+      </ul>
+      <p><strong>峯村@KOKOMOSupport</strong> submitted the detailed issue report outlining the switch failure following the v1.2.125-193 firmware update, documented physical LED statuses, provided device identifiers, and requested troubleshooting commands or console log collection procedures from Senao.</p>
+      <ul>
+        <li><strong>Investigation &amp; Coordination:</strong></li>
+      </ul>
+      <p><strong>Region.Support</strong> reviewed the reported behavior and technical logs. Direct alignment was established between the APRESIA release team and Senao PM to coordinate diagnostic procedures and service recovery options.</p>
+      <ul>
+        <li><strong>Resolution &amp; Closure:</strong></li>
+      </ul>
+      <p><strong>峯村@KOKOMOSupport</strong> acknowledged the support response, confirming that because the APRESIA release team and Senao PM had actively taken over handling the situation directly, no further action was needed on the ticket. The ticket was then marked as resolved and closed.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 116777682 ── -->
+  <div class="ticket" id="ticket-116777682">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #116777682</div>
+        <div class="t-title">Loss of the Initial Bundled License</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Jul 15, 2026</span>
+          <span><strong>Last Response:</strong> Jul 28, 2026</span>
+          <span><strong>Closed:</strong> Aug 3, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>Based on ticket #116777682, the customer is reporting an issue where replacing a faulty device and re-registering it results in losing the initial bundled license originally assigned to that device.</p>
+      <p><strong>Key Inquiries:</strong></p>
+      <ul>
+        <li><strong>Q1:</strong> Whether a recent cloud-side specification change regarding license retention/transfer between organizations caused this issue.</li>
+        <li><strong>Q2:</strong> The required procedure to restore the initial bundled license.</li>
+        <li><strong>Q3:</strong> Documentation on the specifications and behavior for license reassignment, transfer, and loss.</li>
+      </ul>
+
+      <div class="t-label">Case Summary</div>
+      <ul>
+        <li><strong>Issue:</strong> After performing a hardware replacement for a faulty unit, the customer found that re-registering the device does not restore its originally bundled license, resulting in a lost license.</li>
+        <li><strong>Impact:</strong> High priority issue affecting license retention during RMA replacement operations in <span class="pn">KOKOMO Cloud</span>.</li>
+        <li><strong>Inquiries Raised:</strong>
+        <ul>
+          <li>Confirmation on whether recent cloud specification changes regarding license transfers caused the issue.</li>
+          <li>Step-by-step procedure to restore lost bundled licenses.</li>
+          <li>Official documentation detailing license reassignment, transfer, and loss behavior.</li>
+        </ul></li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Ticket Overview</strong></p>
+      <ul>
+        <li><strong>Ticket Number:</strong> #116777682</li>
+        <li><strong>Title:</strong> Loss of the Initial Bundled License</li>
+        <li><strong>Category:</strong> KOKOMO Cloud</li>
+        <li><strong>Submission Date:</strong> July 15, 2026</li>
+        <li><strong>Severity / Priority:</strong> Minor / High</li>
+        <li><strong>Reproducibility:</strong> Always</li>
+        <li><strong>Model:</strong> KOKOMO Cloud</li>
+        <li><strong>Assignee:</strong> Region.Support</li>
+        <li><strong>Team Inbox:</strong> Senao T2</li>
+      </ul>
+      <p><strong>Issue Details &amp; Narrative</strong></p>
+      <p>The customer reported an issue where replacing a faulty unit results in the permanent loss of its originally purchased bundled license upon re-registering the replacement device.</p>
+      <ul>
+        <li><strong>Context:</strong> The customer suspects this behavior stems from a recent cloud-side specification update related to license retention and cross-organization transfers.</li>
+      </ul>
+      <p><strong>Customer Inquiries</strong></p>
+      <ul>
+        <li><strong>Q1:</strong> Is this loss of license caused by the recent cloud-side specification change regarding license retention/transfer between organizations?</li>
+        <li><strong>Q2:</strong> What is the precise procedure for restoring the initial bundled license?</li>
+        <li><strong>Q3:</strong> Where is the official documentation detailing the specifications and expected behaviors for license reassignment, transfer, and loss?</li>
+      </ul>
+      <p><strong>Resolution Summary</strong></p>
+      <ul>
+        <li><strong>Status:</strong> Resolved</li>
+        <li><strong>Root Cause &amp; Progress:</strong> The issue was confirmed to be linked to a change in the Replace operations behavior within <span class="pn">KOKOMO Cloud</span>.</li>
+        <li><strong>Outcome:</strong> The cloud team (Mars-san) confirmed the specification change, and replacement license codes were issued by Roger-san to restore the lost licenses. <span class="pn">APRESIA</span> confirmed successful resolution using the provided license codes.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 120151159 ── -->
+  <div class="ticket" id="ticket-120151159">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #120151159</div>
+        <div class="t-title">Specifications for VIP lists and L2 isolation</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn">Kokomo Cloud</span></span>
+          <span><strong>Opened:</strong> Jul 30, 2026</span>
+          <span><strong>Last Response:</strong> Aug 7, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge open">Open</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>Kokomo Support seeks confirmation on two technical points regarding the <span class="pn">VIP List</span> feature and Layer 2 (L2) Isolation on the Access Point:</p>
+      <ul>
+        <li><strong>Relationship Between VIP List and <span class="pn">L2 Isolation</span>:</strong> Whether disabling Layer 2 Isolation is merely a recommended practice for common use cases (e.g., enabling client devices to communicate with printers or IoT devices on the VIP List) rather than a strict functional requirement of the VIP List feature itself.</li>
+        <li><strong>Standard Client Devices on VIP List:</strong> Whether standard client devices (such as PCs) can be added to the VIP List while keeping Layer 2 Isolation enabled without causing operational issues.</li>
+      </ul>
+
+      <div class="t-label">Case Summary</div>
+      <p>This ticket (<strong>#120151159 • Specifications for VIP lists and L2 isolation</strong>) involves an inquiry by <strong>健心</strong> regarding the <span class="pn">VIP List</span> feature and Layer 2 (L2) Isolation behavior on the AP.</p>
+      <p><strong>Reason for Inquiry:</strong></p>
+      <ul>
+        <li><strong>Technical Clarification:</strong> To confirm whether disabling <span class="pn">L2 Isolation</span> is a strict functional requirement of the VIP List feature or merely a recommended setup for specific use cases (such as allowing wireless clients to communicate with a network printer).</li>
+        <li><strong>Logging Issues:</strong> To address a bug where no <span class="pn">Captive Portal</span> log entries were recorded for specific devices on Guest Wi-Fi, affecting visibility into device authentication.</li>
+      </ul>
+      <p><strong>Key Findings:</strong></p>
+      <ul>
+        <li><strong>Feature Compatibility:</strong> Disabling L2 Isolation is not a requirement. L2 Isolation (which blocks local client-to-client traffic) and the VIP List (which controls network access/bypass for captive portal) operate independently and can be used together.</li>
+        <li><strong>Standard Device Support:</strong> Standard devices like PCs can be placed on the VIP List while L2 Isolation remains enabled without issue.</li>
+        <li><strong>Automatic Authorization &amp; Logging:</strong> VIP wireless clients do not need to interact with a Splash Page, as authorization is handled automatically upon association. Once authorized, the Event Log should record a "Captive Portal User Login" event using the client's MAC address as the username.</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Ticket Details</strong></p>
+      <ul>
+        <li><strong>Ticket ID &amp; Title:</strong> #120151159 • Specifications for VIP lists and L2 isolation</li>
+        <li><strong>Requester:</strong> 健心 (Mizutani / KOKOMOSupport)</li>
+        <li><strong>Platform &amp; OS:</strong> Windows (Always reproducible)</li>
+        <li><strong>Category:</strong> AP (Access Point)</li>
+      </ul>
+      <p><strong>Full Narrative Description</strong></p>
+      <p><strong>Background &amp; Core Technical Questions</strong></p>
+      <p>The inquiry was submitted by 健心 to clarify the technical relationship between the <span class="pn">VIP List</span> feature and <strong>Layer 2 (L2) Isolation</strong> on Access Points:</p>
+      <ul>
+        <li><strong>VIP List vs. Layer 2 Isolation Requirement:</strong></li>
+      </ul>
+      <p>The VIP List is designed for head-less devices (printers, scanners, IoT equipment) that lack a user interface to enter <span class="pn">Captive Portal</span> authentication credentials. The requester sought to confirm whether disabling <span class="pn">L2 Isolation</span> is merely a best-practice recommendation (allowing clients to communicate directly with local devices like printers) rather than a hard technical requirement of the VIP List feature itself.</p>
+      <ul>
+        <li><strong>Standard Clients on VIP List:</strong></li>
+      </ul>
+      <p>Confirmation was requested on whether a standard client device (e.g., a PC) can be added to the VIP List while keeping L2 Isolation enabled on the SSID without causing operational issues.</p>
+      <p><strong>Reason for Performing This Work</strong></p>
+      <ul>
+        <li><strong>Technical Clarification:</strong> To verify the independent operation of L2 Isolation and Captive Portal VIP Lists for network design accuracy.</li>
+        <li><strong>Troubleshooting a Logging Issue:</strong> To investigate a reported bug where no Captive Portal log entries were recorded for specific devices on Guest Wi-Fi, preventing proper visibility into device authentication history.</li>
+      </ul>
+      <p><strong>Findings &amp; Discoveries</strong></p>
+      <ul>
+        <li><strong>Feature Independence:</strong> Disabling L2 Isolation is <strong>not</strong> a requirement for the VIP List. L2 Isolation (which controls client-to-client traffic on the local network) and the VIP List (which controls external network access and Captive Portal bypass) operate independently and can be used simultaneously.</li>
+        <li><strong>Standard Device Support:</strong> Standard devices (such as PCs) can be registered on the VIP List while L2 Isolation remains enabled without issue.</li>
+        <li><strong>Automatic Authorization:</strong> VIP wireless devices bypass the manual Splash Page prompt entirely; authorization occurs automatically upon network association.</li>
+        <li><strong>Logging Behavior:</strong> Upon successful authorization, the Event Log records a <strong>"Captive Portal User Login"</strong> event, using the client's MAC address as the username.</li>
+        <li><strong>Root Cause of Missing Logs:</strong> R&amp;D discovered that after explicitly enabling the VIP feature on the Guest Wi-Fi SSID, Captive Portal entries appeared properly in the authentication history.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ═══ T1 Backend Tickets ═══ -->
+  <h2 class="sec-title">T1 Backend Tickets</h2>
+
+  <!-- ── Ticket 113577076 ── -->
+  <div class="ticket" id="ticket-113577076">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #113577076</div>
+        <div class="t-title">Could you clarify the mesh functionality?</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Jul 2, 2026</span>
+          <span><strong>Last Response:</strong> Jul 7, 2026</span>
+          <span><strong>Closed:</strong> Jul 7, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>Kokomo Support is asking to confirm the technical behavior of the <strong>mesh feature in KOKOMO Cloud</strong> when only a single frequency band is enabled.</p>
+      <p><strong>Questions:</strong></p>
+      <ul>
+        <li><strong>Client-Facing SSID Connectivity:</strong> Does enabling mesh on a single frequency band only specify the backhaul band (while automatically providing mesh connectivity across all frequency bands for client SSIDs), or is mesh restricted exclusively to the enabled frequency band for client devices?</li>
+        <li><strong>Dedicated Mesh Backhaul Configuration:</strong> Can a specific frequency band (e.g., 6 GHz) be dedicated exclusively to mesh backhaul by disabling 6 GHz on all client-facing SSIDs while enabling mesh on the 6 GHz band?</li>
+      </ul>
+
+      <div class="t-label">Case Summary</div>
+      <p>The ticket (#113577076) clarifies how mesh functionality and frequency bands work in <span class="pn">KOKOMO Cloud</span> across three main points:</p>
+      <ul>
+        <li><strong>Mesh Compatibility &amp; Frequency Band Selection:</strong> Mesh functionality is supported only between Kokomo APs (not third-party APs). The mesh backhaul operates on the frequency band selected on the Global Radio Page. For backhaul over 6 GHz, all meshed APs must support 6 GHz (e.g., a <span class="pn">W220AX-IS</span> cannot mesh with a <span class="pn">KOKOMO-W222BE-IS</span> over 6 GHz).</li>
+        <li><strong>Dedicated Mesh Backhaul (6 GHz):</strong> To dedicate 6 GHz exclusively for mesh backhaul on the KOKOMO-W222BE-IS, a user can enable 6 GHz for mesh while setting SSIDs to broadcast only on 2.4 GHz and 5 GHz.</li>
+        <li><strong>Simultaneous Backhaul and Client Traffic:</strong> If an SSID is broadcast across all bands (2.4/5/6 GHz) and 5 GHz is set as the mesh backhaul, the 5 GHz radio will simultaneously handle both mesh backhaul traffic and direct client communications.</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Initial Inquiry (Jul 2, 2026)</strong></p>
+      <p><strong>峯村@KOKOMOSupport</strong> opened the inquiry with two specific technical questions regarding <span class="pn">KOKOMO Cloud</span>, noting that only one frequency band can be enabled for the mesh feature at a time:</p>
+      <ul>
+        <li><strong>Band Scope:</strong> Does selecting a specific frequency band for mesh only define the band used for the mesh backhaul (while client-facing SSIDs continue to provide mesh connectivity across all bands), or is mesh restricted strictly to the selected band for client devices?</li>
+        <li><strong>Dedicated Backhaul:</strong> Can a user dedicate a specific frequency band (such as 6 GHz) exclusively to the mesh backhaul by disabling 6 GHz across all SSIDs while enabling mesh on the 6 GHz band?</li>
+      </ul>
+      <p><strong>First Response &amp; Clarification</strong></p>
+      <p><strong>Region.Support</strong> replied to address the inquiry and clear up key parameters:</p>
+      <ul>
+        <li><strong>Mesh Compatibility:</strong> Only KOKOMO APs can form a mesh network with other KOKOMO APs; third-party APs are not supported.</li>
+        <li><strong>Mesh Backhaul:</strong> The mesh backhaul is established using the radio band selected on the <strong>Global Radio Page</strong>.</li>
+        <li><strong>6 GHz Mesh Setup:</strong> Enabling mesh on the 6 GHz band requires using all 6 GHz-capable APs (such as the <span class="pn">KOKOMO-W222BE-IS</span>). Users can indeed dedicate the 6 GHz radio to mesh backhaul while restricting client SSIDs to the 2.4 GHz and 5 GHz radios.</li>
+      </ul>
+      <p><strong>Follow-Up Question</strong></p>
+      <p><strong>峯村@KOKOMOSupport</strong> thanked the support team for clarifying compatibility with third-party APs and followed up with a third point:</p>
+      <ul>
+        <li><strong>Shared Band Utilization:</strong> If an SSID is broadcast across all bands (2.4 GHz, 5 GHz, and 6 GHz) and 5 GHz is selected as the mesh backhaul, will the 5 GHz radio handle both mesh backhaul traffic and client communications simultaneously?</li>
+      </ul>
+      <p><strong>Final Confirmation &amp; Ticket Closure</strong></p>
+      <p><strong>Region.Support</strong> confirmed:</p>
+      <ul>
+        <li><strong>Yes.</strong> The 5 GHz radio will serve both mesh backhaul traffic and active client communications simultaneously when configured this way.</li>
+      </ul>
+      <p><strong>峯村@KOKOMOSupport</strong> confirmed that the explanations resolved all questions and requested to close the matter. The ticket was then marked as resolved and closed.</p>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 119438948 ── -->
+  <div class="ticket" id="ticket-119438948">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #119438948</div>
+        <div class="t-title">Inquiry regarding KOKOMO-AP DHCP server function without NAT mode</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Jul 27, 2026</span>
+          <span><strong>Last Response:</strong> Jul 27, 2026</span>
+          <span><strong>Closed:</strong> Jul 27, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p><strong>Customer Inquiry:</strong></p>
+      <p>The customer wants the <span class="pn">KOKOMO-AP</span> to act as a <span class="pn">DHCP</span> server to assign IP addresses to clients without using <span class="pn">NAT mode</span>, because they need to identify and manage individual client traffic from the upstream network.</p>
+      <p><strong>Question:</strong></p>
+      <p>Is there any feature or setting in KOKOMO-AP that allows it to function as a DHCP server for clients without enabling NAT mode?</p>
+
+      <div class="t-label">Case Summary</div>
+      <p><strong>Case Summary</strong></p>
+      <ul>
+        <li><strong>Issue:</strong> <span class="pn">APRESIA</span> Support (好晃 / 高松) submitted an inquiry regarding whether the <span class="pn">KOKOMO-AP</span> can function as a <span class="pn">DHCP</span> server to assign IP addresses to clients without enabling <span class="pn">NAT mode</span>.</li>
+        <li><strong>Customer Requirement:</strong> The customer needs client IP addresses assigned directly by the AP but wants to avoid NAT mode so they can identify and manage individual client traffic upstream.</li>
+        <li><strong>Current Status:</strong> The support team noted that NAT mode is currently the only known method for the AP to handle DHCP server duties and requested confirmation on whether any alternative features or configurations exist to achieve this.</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Ticket Details: Inquiry regarding KOKOMO-AP <span class="pn">DHCP</span> server function without NAT mode (#119438948)</strong></p>
+      <ul>
+        <li><strong>Ticket Type:</strong> T1 - BackendSupport</li>
+        <li><strong>Submission Date:</strong> July 27, 2026</li>
+        <li><strong>Requester:</strong> 好晃 (linked by 高松＠KOKOMOSupport)</li>
+      </ul>
+      <p><strong>Initial Inquiry</strong></p>
+      <p>APRESIA Support submitted a technical question on behalf of a customer regarding the DHCP capabilities of the <span class="pn">KOKOMO-AP</span>:</p>
+      <ul>
+        <li><strong>Customer's Request:</strong> The customer wants the KOKOMO-AP itself to serve as a DHCP server to assign IP addresses to connected clients.</li>
+        <li><strong>Constraint:</strong> While they understand this function is available when using <span class="pn">NAT mode</span> in the SSID settings, they cannot use NAT mode because they need to monitor and manage individual client traffic directly from the upstream network.</li>
+        <li><strong>Question:</strong> The support team asked if there are any alternative settings or features on the KOKOMO-AP that would allow it to act as a DHCP server without enabling NAT mode.</li>
+      </ul>
+      <p><strong>Discussion &amp; Response Workflow</strong></p>
+      <ul>
+        <li><strong>Region Support Clarification:</strong> Region.Support requested additional details regarding the network topology or vendor design the customer was attempting to replicate.</li>
+        <li><strong>Support Clarification:</strong> 高松＠KOKOMOSupport clarified that specific network topology details were unavailable and reiterated that the core objective was simply to confirm whether operating the KOKOMO-AP as a standalone DHCP server without NAT mode is supported as a standard feature.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 119900941 ── -->
+  <div class="ticket" id="ticket-119900941">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #119900941</div>
+        <div class="t-title">How to configure Web Proxy in Standalone Mode on the EnGenius W220</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn">KOKOMOCloud</span></span>
+          <span><strong>Opened:</strong> Jul 29, 2026</span>
+          <span><strong>Last Response:</strong> Aug 9, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The user is inquiring about how to configure <strong>Web Proxy settings</strong> in <span class="pn">Standalone Mode</span> on the <span class="pn">EnGenius W220</span> access point via its local management interface (GUI).</p>
+      <p>Key points from the inquiry:</p>
+      <ul>
+        <li><strong>Device:</strong> <span class="pn">EnGenius</span> W220 running in Standalone Mode.</li>
+        <li><strong>Issue:</strong> <span class="pn">Web Proxy</span> settings cannot be found in the local management interface.</li>
+        <li><strong>Question:</strong> Where to locate/configure Web Proxy settings in Standalone GUI.</li>
+      </ul>
+
+      <div class="t-label">Case Summary</div>
+      <p><strong>Case Summary: #119900941</strong></p>
+      <ul>
+        <li><strong>Subject:</strong> How to configure <span class="pn">Web Proxy</span> in <span class="pn">Standalone Mode</span> on the <span class="pn">EnGenius W220</span>.</li>
+        <li><strong>Customer / Company:</strong> <span class="pn">APRESIA</span> (Support Rep: 峯村@KOKOMOSupport)</li>
+        <li><strong>Issue:</strong> The customer is unable to find Web Proxy settings in the local GUI of the <span class="pn">EnGenius</span> W220 while operating in Standalone Mode, which prevents devices in proxy-only environments from establishing initial cloud connectivity.</li>
+        <li><strong>Status:</strong> Case closed.</li>
+        <li><strong>Outcome / Resolution:</strong> Support confirmed that the Web Proxy configuration option is not available in the Standalone GUI. The issue was escalated to the PM team for further handling, and the ticket was closed per the customer's request.</li>
+      </ul>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Case Summary &amp; Full Narrative: Ticket #119900941</strong></p>
+      <ul>
+        <li><strong>Customer / Requestor:</strong> <span class="pn">APRESIA</span> (Support Representative: 峯村@KOKOMOSupport)</li>
+        <li><strong>Assigned Team:</strong> Region.Support</li>
+        <li><strong>Ticket Type:</strong> T1 - BackendSupport</li>
+        <li><strong>Submission Date:</strong> July 29, 2026</li>
+        <li><strong>Status:</strong> Closed</li>
+      </ul>
+      <p><strong>Initial Inquiry</strong></p>
+      <p>APRESIA submitted a support query regarding the <span class="pn">EnGenius W220</span> access point operating in <span class="pn">Standalone Mode</span>. The customer attempted to configure <span class="pn">Web Proxy</span> settings in the local management interface (GUI) to handle outbound connectivity, but found that the configuration options were entirely missing compared to other configuration screens they had used previously. They requested clarification on where and how Web Proxy settings could be configured in Standalone Mode.</p>
+      <p><strong>Investigation &amp; Initial Response</strong></p>
+      <p>Region.Support reviewed the inquiry and confirmed that the Web Proxy configuration option is not currently available in the Standalone GUI of the W220. The support representative escalated the query to the Field Application Engineering (FAE) and Research &amp; Development (RD) teams for technical review.</p>
+      <p><strong>Impact &amp; Escalation</strong></p>
+      <p>峯村@KOKOMOSupport highlighted the critical nature of this limitation: because initial device setup occurs via the Standalone GUI prior to establishing cloud connectivity, the inability to configure a Web Proxy directly blocks devices in proxy-only environments from connecting to the cloud. APRESIA flagged this as a high-priority product limitation for customers operating behind strict proxies.</p>
+      <p><strong>Resolution</strong></p>
+      <p>Recognizing the product limitation, the case was shared directly with the Product Management (PM) team for future feature handling and roadmap consideration. At APRESIA's request, the support ticket was subsequently marked as closed since further action will be managed at the PM level.</p>
+    </div></div>
+  </div>
+
+    <!-- ═══ Footer ═══ -->
+  <footer class="report-footer">
+    <p><strong>Senao T2 FAE Team</strong> &middot; Intercom Support to Apresia</p>
+    <p style="margin-top:3px;">Confidential &mdash; For internal use between Senao Network and Apresia only.</p>
+  </footer>
+
+</div>
+
+<button class="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04L10.75 5.612V16.25A.75.75 0 0110 17z" clip-rule="evenodd"/></svg>
+</button>
+<script>
+  const btt = document.querySelector('.btt');
+  window.addEventListener('scroll', () => {
+    btt.classList.toggle('show', window.scrollY > 400);
+  });
+
+
+  // Click-to-copy ticket ID
+  document.addEventListener('click', (e) => {
+    const pill = e.target.closest('.t-id');
+    if (!pill) return;
+    e.stopPropagation();
+    const text = pill.textContent.trim();
+    const match = text.match(/#?(\d+)/);
+    if (!match) return;
+    const id = match[1];
+    navigator.clipboard.writeText(id).then(() => {
+      if (pill.classList.contains('copied')) return;
+      const original = pill.textContent;
+      pill.classList.add('copied');
+      pill.textContent = '✓ Copied ' + id;
+      setTimeout(() => {
+        pill.textContent = original;
+        pill.classList.remove('copied');
+      }, 1200);
+    });
+  });
+
+    function downloadPDF() {
+    // Expand all tickets so all content is visible in the PDF
+    document.querySelectorAll('.ticket').forEach(t => t.classList.add('open'));
+    // Wait one frame for layout to settle, then trigger print dialog
+    requestAnimationFrame(() => {
+      setTimeout(() => window.print(), 200);
+    });
+  }
+</script>
+
+</body>
+</html>
