@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAE Support Report - September 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #1A1F2E;
+    --ink-sec:    #374151;
+    --ink-muted:  #6B7280;
+    --bg:         #F3F4F6;
+    --surface:    #FFFFFF;
+    --border:     #E5E7EB;
+    --accent:     #1D4ED8;
+    --accent-lt:  #3B82F6;
+    --accent-bg:  #DBEAFE;
+    --green:      #059669;
+    --green-bg:   #D1FAE5;
+    --amber:      #D97706;
+    --amber-bg:   #FEF3C7;
+    --purple:     #6D28D9;
+    --purple-bg:  #EDE9FE;
+    --radius:     10px;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ Hero ═══ */
+  .hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #1D4ED8 100%);
+    color: #fff;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -15%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(96,165,250,.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 48px 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .hero-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .hero-logo {
+    height: 52px;
+    opacity: .95;
+  }
+  .hero-logo-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,.2);
+  }
+  .hero-logo-text {
+    font-size: .88rem;
+    font-weight: 500;
+    color: rgba(255,255,255,.65);
+    line-height: 1.3;
+  }
+  .hero-badge {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  .hero-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .hero-month {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .hero-month .year {
+    font-weight: 700;
+    color: rgba(255,255,255,.65);
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,.6);
+    margin-top: 8px;
+  }
+  .hero-stats-mini {
+    display: flex;
+    gap: 2px;
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .hero-stat {
+    padding: 14px 22px;
+    text-align: center;
+    min-width: 90px;
+  }
+  .hero-stat .n {
+    font-size: 1.8rem;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .hero-stat .l {
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: rgba(255,255,255,.45);
+    margin-top: 4px;
+  }
+  .hero-stat.green  .n { color: #6EE7B7; }
+  .hero-stat.amber  .n { color: #FCD34D; }
+  .hero-stat.purple .n { color: #C4B5FD; }
+
+  .hero-footer {
+    display: flex;
+    gap: 28px;
+    margin-top: 18px;
+    font-size: .88rem;
+    color: #D4A537;
+  }
+  .hero-footer strong { color: rgba(255,255,255,.6); font-weight: 600; }
+
+  /* ═══ Main Content ═══ */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 48px 60px;
+  }
+
+  /* ── Section Title ── */
+  .sec-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 32px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  .sec-title::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── Breakdown Table ── */
+  .breakdown {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .breakdown-head {
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--ink-muted);
+    padding: 14px 28px 10px;
+    background: #F9FAFB;
+    border-bottom: 1px solid var(--border);
+  }
+  .bd-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink-sec);
+    border-bottom: 1px solid #F3F4F6;
+  }
+  .bd-row:last-child { border-bottom: none; }
+  .bd-count {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    font-size: .9rem;
+    min-width: 28px;
+    text-align: center;
+    background: var(--accent-bg);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+
+  /* ── Inline Tags ── */
+  .pn {
+    font-weight: 500;
+    color: var(--ink);
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .dt {
+    background: #FEF9E7;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .email {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .email:hover { text-decoration: underline; }
+
+  /* ═══ Ticket Card ═══ */
+  .ticket {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: box-shadow .2s;
+  }
+  .ticket:hover { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+
+  .t-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 22px 36px;
+    cursor: pointer;
+    gap: 14px;
+    user-select: none;
+    transition: background .12s;
+  }
+  .t-head:hover { background: #FAFBFC; }
+
+  .t-id {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 2px 9px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    user-select: text;
+    -webkit-user-select: text;
+    transition: background .15s, color .15s, transform .1s;
+    position: relative;
+  }
+  .t-id:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+  .t-id:active { transform: scale(.96); }
+  .t-id.copied {
+    background: var(--green) !important;
+    color: #fff !important;
+  }
+  .t-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .t-dates {
+    display: flex;
+    gap: 18px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    font-size: .9rem;
+    color: var(--ink-muted);
+  }
+  .t-dates strong { font-weight: 600; color: var(--ink-sec); }
+
+  .t-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .badge {
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: 4px 11px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .badge.resolved { background: var(--green-bg); color: var(--green); }
+  .badge.open     { background: var(--amber-bg); color: var(--amber); }
+
+  .chev {
+    width: 20px;
+    height: 20px;
+    color: var(--ink-muted);
+    transition: transform .25s;
+  }
+  .ticket.open .chev { transform: rotate(180deg); }
+
+  .t-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease;
+  }
+  .ticket.open .t-body { max-height: 10000px; }
+
+  .t-body-inner {
+    padding: 0 40px 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .t-label {
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--accent);
+    margin: 20px 0 8px;
+  }
+  .t-label:first-child { margin-top: 20px; }
+
+  .t-body-inner p {
+    font-size: 1rem;
+    color: var(--ink-sec);
+    margin-bottom: 8px;
+    line-height: 1.75;
+  }
+  .t-body-inner ul {
+    margin: 8px 0 8px 20px;
+    font-size: 1rem;
+    color: var(--ink-sec);
+  }
+  .t-body-inner ul li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+  }
+  .t-body-inner li strong { color: var(--ink); }
+  .t-body-inner code {
+    font-size: .85rem;
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--accent);
+  }
+
+  /* ═══ Footer ═══ */
+  .report-footer {
+    text-align: center;
+    padding: 28px 0 0;
+    border-top: 1px solid var(--border);
+    font-size: .82rem;
+    color: var(--ink-muted);
+    margin-top: 16px;
+  }
+  .report-footer strong { color: var(--ink-sec); }
+
+  /* ── Back to Top ── */
+  .btt {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(29,78,216,.35);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .btt.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .btt:hover {
+    background: #1e40af;
+    box-shadow: 0 6px 20px rgba(29,78,216,.45);
+  }
+
+  /* ── Download PDF Button (in hero) ── */
+  .pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(255,255,255,.1);
+    color: rgba(255,255,255,.85);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .pdf-btn:hover {
+    background: rgba(255,255,255,.2);
+    color: #fff;
+    border-color: rgba(255,255,255,.35);
+  }
+  .pdf-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ═══ Print ═══ */
+  @media print {
+    body { background: #fff; }
+    .pdf-btn, .btt { display: none !important; }
+    .ticket {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      border: 1px solid var(--border) !important;
+      box-shadow: none !important;
+      margin-bottom: 18px !important;
+    }
+    .t-head {
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF4FF 100%) !important;
+      border-bottom: 2px solid var(--accent) !important;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .t-body { max-height: none !important; overflow: visible !important; }
+    .t-body-inner { padding-top: 8px !important; }
+    .hero, .stat-card, .badge, .t-id, .pn, .breakdown, .breakdown-head {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .main { max-width: 100%; padding: 0 16px; }
+    .chev { display: none; }
+  }
+
+  @media (max-width: 700px) {
+    .hero-inner { padding: 20px 18px 24px; }
+    .hero-top-row {
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+    }
+    .hero-logo { height: 40px; }
+    .hero-logo-divider { display: none; }
+    .hero-logo-text { display: none; }
+    .hero-badge { font-size: .65rem; padding: 4px 10px; }
+    .hero-main { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .hero-month { font-size: 2.4rem; }
+    .hero-subtitle { font-size: .88rem; }
+    .hero-stats-mini { width: 100%; }
+    .hero-stat { flex: 1; padding: 12px 8px; min-width: 0; }
+    .hero-stat .n { font-size: 1.4rem; }
+    .hero-stat .l { font-size: .6rem; letter-spacing: .03em; }
+    .hero-footer { flex-direction: column; gap: 4px; font-size: .8rem; }
+    .main { padding: 20px 16px 40px; }
+    .sec-title { font-size: 1.15rem; }
+    .breakdown-head { padding: 12px 16px 8px; }
+    .bd-row { padding: 10px 16px; font-size: .92rem; }
+    .t-head { padding: 16px 16px; gap: 10px; }
+    .t-id { font-size: .65rem; }
+    .t-title { font-size: .98rem; }
+    .t-dates { flex-direction: column; gap: 3px; font-size: .82rem; }
+    .t-right { flex-direction: column; align-items: flex-end; gap: 4px; }
+    .badge { font-size: .62rem; padding: 3px 8px; }
+    .chev { width: 18px; height: 18px; }
+    .t-body-inner { padding: 0 16px 20px; }
+    .t-body-inner p, .t-body-inner ul { font-size: .92rem; }
+    .t-label { font-size: .72rem; }
+    .btt { bottom: 18px; right: 18px; width: 40px; height: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Hero Header ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-top-row">
+      <div class="hero-logo-wrap">
+        <img class="hero-logo" src="Senao Networks Logo_white_Vertical.png" alt="Senao Networks">
+        <div class="hero-logo-divider"></div>
+        <div class="hero-logo-text">Senao T2 FAE Team<br>Intercom Support</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.55);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd"/></svg>
+          All Reports
+        </a>
+        <button class="pdf-btn" onclick="downloadPDF()" aria-label="Download PDF">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 01.75.75v6.638l2.96-2.958a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.49a.75.75 0 011.08-1.04l2.96 2.938V3.75A.75.75 0 0110 3zM3.75 13a.75.75 0 01.75.75v2.5c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25v-2.5a.75.75 0 011.5 0v2.5A1.75 1.75 0 0115.25 18H4.75A1.75 1.75 0 013 16.25v-2.5a.75.75 0 01.75-.75z" clip-rule="evenodd"/></svg>
+          PDF
+        </button>
+        <div class="hero-badge">Monthly Report</div>
+      </div>
+    </div>
+
+    <div class="hero-main">
+      <div>
+        <div class="hero-month">September <span class="year">2026</span></div>
+        <div class="hero-subtitle">FAE T2 Support Report for Apresia (KOKOMO Cloud)</div>
+        <div class="hero-footer">
+          <span><strong>Author:</strong> Himadri Paul, Senao Network</span>
+          <span><strong>Published:</strong> October 2026</span>
+        </div>
+      </div>
+      <div class="hero-stats-mini">
+        <div class="hero-stat">
+          <div class="n">9</div>
+          <div class="l">Total</div>
+        </div>
+        <div class="hero-stat green">
+          <div class="n">9</div>
+          <div class="l">Resolved</div>
+        </div>
+        <div class="hero-stat amber">
+          <div class="n">0</div>
+          <div class="l">Open</div>
+        </div>
+        <div class="hero-stat purple">
+          <div class="n">0</div>
+          <div class="l">Carry-over</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Main Content ═══ -->
+<div class="main">
+
+  <h2 class="sec-title">Overview</h2>
+  <p style="font-size:1.05rem;color:var(--ink-sec);margin-bottom:16px;">
+    Summary of all support tickets reported by Apresia Support (KOKOMO Cloud) to Senao T2 Support for issue debugging or knowledge base clarification.
+  </p>
+
+  <div class="breakdown">
+    <div class="breakdown-head">Ticket Category Breakdown</div>
+    <div class="bd-row"><span>T2 Issue Tickets</span><span class="bd-count">5</span></div>
+    <div class="bd-row"><span>T1 Backend Tickets</span><span class="bd-count">4</span></div>
+    <div class="bd-row"><span>Tracker Tickets</span><span class="bd-count">0</span></div>
+    <div class="bd-row"><span>Customer Conversation Tickets</span><span class="bd-count">0</span></div>
+    <div class="bd-row"><span>Email Conversation Tickets</span><span class="bd-count">0</span></div>
+  </div>
+
+  <!-- ═══ T2 Issue Tickets ═══ -->
+  <h2 class="sec-title">T2 Issue Tickets</h2>
+
+  <!-- ── Ticket 130309642 ── -->
+  <div class="ticket" id="ticket-130309642">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #130309642</div>
+        <div class="t-title">Cloud-Dependent Features and Their Behavior When Cloud Connectivity Is Lost</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">ALL KOKOMO Model</span></span>
+          <span><strong>Opened:</strong> Sep 4, 2026</span>
+          <span><strong>Last Response:</strong> Sep 4, 2026</span>
+          <span><strong>Closed:</strong> Sep 4, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>Apresia Support inquired about the behavior of cloud-dependent features when an Access Point or network device loses connectivity to the cloud service. Specifically, they asked whether features like Client Access Control operate in a "Fail Open" or "Fail Close" state during an outage, and requested a comprehensive list of cloud-dependent features along with their respective behavior when offline.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>Tier 1 Support (<span class="pn">APRESIA</span>) submitted a request to clarify offline device behavior for cloud-managed features. Tier 2 Support (Region.Support) clarified that only <span class="pn">Captive Portal</span> and <span class="pn">EnGenius Cloud</span> <span class="pn">RADIUS</span> are strictly cloud-dependent. Features such as <span class="pn">My-PSK</span>, Access Control Lists (ACLs: Allowlist and Blocklist), and Firewall rules continue to function offline based on the last synced configurations cached locally on the device. Satisfied with this clarification, Tier 1 closed the ticket.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Initial Inquiry (Sep 4, 2026):</strong> 水谷@KOKOMOSupport submitted a structured technical inquiry asking which features rely on active cloud connectivity. Specifically using Client Access Control (Blocklist) as an example, they asked whether the system defaults to "Fail Open" (allowing all clients) or "Fail Close" (denying all clients) when offline, and requested a full list of cloud-dependent features and their offline behavior.</p>
+      <ul>
+        <li><strong>Initial Response by Region.Support:</strong> Region.Support clarified that per specification, only <span class="pn">Captive Portal</span> and <strong>EnGenius Cloud RADIUS</strong> are cloud-dependent features. Other features—including <span class="pn">My-PSK</span>, <strong>ACL (Allowlist and Blocklist)</strong>, and <strong>Firewall rules</strong>—continue to function normally even when devices lose cloud connectivity because their configurations are synchronized to the local device level rather than executing on the cloud controller.</li>
+        <li><strong>Clarifying Follow-up by 水谷@KOKOMOSupport:</strong> To ensure full clarity regarding ACL Blocklists, 水谷@KOKOMOSupport re-queried what happens to a client already on the block list trying to connect while the AP has lost internet connectivity.</li>
+        <li><strong>Detailed Technical Explanation by Region.Support:</strong> Region.Support explained that the ACL Client MAC list is saved locally on the AP/Switch upon every cloud sync.</li>
+        <li>If a device (Client A) was on the blocklist during the last successful sync, the AP will continue enforcing the block using its cached configuration while offline.</li>
+        <li>If an administrator removes Client A from the blocklist in the cloud while the AP is offline, the AP cannot receive the update and will continue operating on the last cached rule (keeping Client A blocked) until cloud connection is restored.</li>
+        <li>APs do not query the cloud live for every client connection; all ACL and My-PSK policies are stored and evaluated locally.</li>
+        <li>The "Configuration" column in the cloud UI allows administrators to identify which devices have up-to-date configs vs. outdated/un-synced cached configs.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 132917942 ── -->
+  <div class="ticket" id="ticket-132917942">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #132917942</div>
+        <div class="t-title">Regarding the coexistence of EAP authentication and Captive Portal</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">W220AX-IS</span></span>
+          <span><strong>Opened:</strong> Sep 14, 2026</span>
+          <span><strong>Last Response:</strong> Sep 17, 2026</span>
+          <span><strong>Closed:</strong> Sep 17, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The customer configured <span class="pn">WPA2-Enterprise</span> with <span class="pn">KOKOMO Cloud RADIUS</span> as the authentication method and enabled <span class="pn">Captive Portal</span> authentication in Click-Through mode. During testing, they observed that once EAP authentication succeeded, the Captive Portal page was bypassed entirely, granting direct network access. The customer requested verification of whether this behavior aligns with product specifications.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>Tier 1 Support (APSSup / <span class="pn">APRESIA</span>) inquired about expected behavior when combining <span class="pn">WPA2-Enterprise</span> (EAP) and <span class="pn">Captive Portal</span> authentication. Tier 2 Support (Region.Support) confirmed that per specifications, both authentications are enforced. Unable to reproduce the bypass in a clean environment, Region.Support explained that the Captive Portal redirect will be skipped if the client device completed portal authentication previously and its session/idle timeout had not yet expired. Tier 1 agreed to verify client timeout states and closed the ticket.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Initial Inquiry (Sep 14, 2026):</strong> APSSup submitted the ticket detailing a setup using <span class="pn">WPA2-Enterprise</span> with <span class="pn">KOKOMO Cloud RADIUS</span> alongside Click-Through <span class="pn">Captive Portal</span>. They questioned why clients were granted direct internet access upon passing EAP authentication without seeing the splash page, asking to clarify product specs.</p>
+      <ul>
+        <li><strong>Initial Clarification Request by Region.Support:</strong> Region.Support asked whether the test client was on the VIP bypass list and whether the access point was updated to the latest configuration.</li>
+        <li><strong>Follow-up by 水谷@KOKOMOSupport:</strong> 水谷@KOKOMOSupport confirmed that the client was not on the VIP list and that the AP was running the latest synced configuration, re-iterating the request for the expected specification behavior.</li>
+        <li><strong>Technical Explanation by Region.Support:</strong> Region.Support stated that the reported behavior could not be reproduced internally. They clarified that per system specification, both Enterprise and Captive Portal authentications are required. However, if a client device had previously authenticated via the Captive Portal and its session or idle timeout period had not yet expired, the system will allow direct internet access without prompting for the splash page again. They requested Tier 1 to check the client's session timeout history.</li>
+        <li><strong>Acknowledgment &amp; Closure by 水谷@KOKOMOSupport:</strong> 水谷@KOKOMOSupport acknowledged the explanation, confirming understanding that both authentications are required by design and agreeing to investigate whether the test environment fell within an active session timeout window. 水谷@KOKOMOSupport then marked the ticket as resolved and closed it.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 133131917 ── -->
+  <div class="ticket" id="ticket-133131917">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #133131917</div>
+        <div class="t-title">Unknown File Download Issue via Captive Portal (Click-through)</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">KOKOMO-W222BE-IS</span></span>
+          <span><strong>Opened:</strong> Sep 15, 2026</span>
+          <span><strong>Last Response:</strong> Sep 16, 2026</span>
+          <span><strong>Closed:</strong> Oct 6, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>A customer reported an issue where connecting a specific terminal (<code>680021NP192</code>) to an SSID with Click-through <span class="pn">Captive Portal</span> enabled and clicking "Agree and Connect to the Internet" triggered an unknown file download. Despite the file download, internet connectivity functioned normally. The submitter noted that the redirect destination URL in <code>userurl=</code> pointed to <code>digicert.com</code> (a certificate verification site) and hypothesized that certificate communication during splash page redirection caused the browser to process the response as a downloadable file.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>Tier 1 Support (健心) submitted a query to determine if similar file download cases had been reported and whether configuring the <span class="pn">Captive Portal</span> to "Redirect user to a specified URL after login" would mitigate the browser behavior. Tier 2 Support (Region.Support) confirmed that no such issues had been previously reported and requested that Tier 1 verify whether the behavior occurred on other client terminals. The ticket was subsequently closed by Tier 1 (高松＠KOKOMOSupport).</p>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Initial Inquiry by 健心 (Sep 15, 2026):</strong> Submitted the issue regarding terminal <code>680021NP192</code> downloading an unknown file upon passing Click-through <span class="pn">Captive Portal</span> authentication. Analyzed the URL containing <code>userurl=</code> directed toward <code>digicert.com</code> and proposed that the sequence involved certificate validation triggering a browser download response. Asked if similar incidents were known and whether forcing a custom redirect URL after login would resolve it.</p>
+      <ul>
+        <li><strong>Response by Region.Support:</strong> Stated that there have been no prior reports of certificate-related file downloads post-captive portal authentication. Advised Tier 1 to test and check whether other client devices/units exhibit similar behavior.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 133460733 ── -->
+  <div class="ticket" id="ticket-133460733">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #133460733</div>
+        <div class="t-title">It suddenly goes offline</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">W220AX-IS</span></span>
+          <span><strong>Opened:</strong> Sep 16, 2026</span>
+          <span><strong>Last Response:</strong> Oct 8, 2026</span>
+          <span><strong>Closed:</strong> Oct 13, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>On August 22 at approximately 19:06, a Link Down event occurred on Port 2 of the customer's <span class="pn">PoE</span> switch, and the connected AP went offline about one hour later. Port 2 remained in a Link Down state, but the PoE power indicator for Port 2 remained displayed on the switch, suggesting power was still being delivered. Because no PoE power delivery or power interruption events were logged, support was unable to determine whether the issue stemmed from a switch port failure or an AP fault/abnormal behavior.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>Tier 1 Support (大和 / <span class="pn">APRESIA</span>) requested root cause analysis and fault isolation without disrupting communications. Tier 2 Support (Region.Support) investigated via SSH using passcode (redacted) and R&amp;D feedback, discovering a rare <span class="pn">PoE</span> controller state where 53.7V output voltage was maintained while current output registered at 0 mA (0 W). While a PoE reset normally recovers this state, the customer reported that a PoE reset failed to bring the AP back online. Consequently, APRESIA initiated an RMA process for the wireless AP to inspect and confirm whether the fault originated from the AP hardware or the switch's PoE controller.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Initial Inquiry by 大和 (Sep 16, 2026):</strong> Reported a Link Down event on Port 2 at 19:06 on Aug 22, with the AP going offline ~1 hour later. Port 2 remained link-down, but the <span class="pn">PoE</span> indicator stayed lit without any power event logs, leaving it ambiguous whether the switch port or the AP failed.</p>
+      <ul>
+        <li><strong>Initial Troubleshooting &amp; Inquiry by Region.Support:</strong> Asked Tier 1 whether the offline AP was still broadcasting its standard SSID or any error management SSIDs (referencing KOKOMO Management SSIDs documentation), and suggested attempting a PoE reset on the port.</li>
+        <li><strong>Observations by 水谷@KOKOMOSupport:</strong> Noted that on-site checks were delayed due to distributor scheduling. Suspected the AP was at fault based on past boot failures and noted that in customer logs, the PoE icon stayed on continuously (unlike test environments where it disappears shortly after unplugging). Requested Tier 2 SSH into the switch using passcode (redacted) to check if PoE power to Port 2 was continuous, intermittent, or absent.</li>
+        <li><strong>Urgency Escalation by 峯村@KOKOMOSupport:</strong> Requested an immediate update to respond to the end-customer and asked for an explanation of why the PoE power supply icon remained displayed despite the port link being down.</li>
+        <li><strong>R&amp;D Diagnostic Findings by Region.Support:</strong> Relayed R&amp;D feedback indicating a rare PoE controller issue: the switch showed a "PoE Delivering Power" status at ~53.7 V output, but detected 0 mA output current (0 W consumption). Reconfirmed that executing a PoE reset usually resolves this condition.</li>
+        <li><strong>RMA Action &amp; Escalation Queries by 峯村@KOKOMOSupport:</strong> Reported that the customer attempted a PoE reset on site, but the AP failed to return online. Consequently, <span class="pn">APRESIA</span> initiated an RMA process for the AP. 峯村@KOKOMOSupport raised 3 follow-up questions:</li>
+        <li>Confirmation that R&amp;D feedback was obtained via SSH access to the switch.</li>
+        <li>Confirmation whether the "rare PoE controller issue" indicates a switch hardware failure or software state.</li>
+        <li>A request for a permanent fix and workaround given the operational impact of unbootable APs due to PoE delivery failures.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 139505928 ── -->
+  <div class="ticket" id="ticket-139505928">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #139505928</div>
+        <div class="t-title">License Key Registration Error via PASSCODE</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">KOKOMOcloud</span></span>
+          <span><strong>Opened:</strong> Sep 29, 2026</span>
+          <span><strong>Last Response:</strong> Oct 15, 2026</span>
+          <span><strong>Closed:</strong> Oct 15, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>When attempting to register/add a promo license key ((license key redacted)) into an organization (<code>K-TACテストNW</code>) while logged in via PASSCODE access using a secondary admin account (<code>KOKOMO Support</code>), an "Internal Server Error" occurred, preventing key registration. Additionally, during testing and device replacement procedures, a registered license assigned to test device <code>25B03C115XPF</code> unexpectedly disappeared and its status changed to "Canceled."</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>Tier 1 Support (APSSup / 峯村@KOKOMOSupport) reported an "Internal Server Error" when registering promo license keys via PASSCODE access and sought clarification on why an assigned license became "Canceled." Tier 2 Support (Region.Support) requested detailed steps to reproduce the server error and clarified that when a device replacement operation is executed, the license tied to the old device is automatically canceled (or transferred to the new device). After providing additional PASSCODE authorization ((redacted)) and detailed reproduction steps for R&amp;D backend analysis, Tier 1 confirmed their understanding of the cancellation behavior and resolved the case.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Initial Inquiry by APSSup (Sep 29, 2026):</strong> Reported encountering an "Internal Server Error" while attempting to add a license via PASSCODE access, requesting investigation so customer-side license additions could proceed smoothly.</p>
+      <ul>
+        <li><strong>Information Request by Region.Support:</strong> Requested additional operation details and specific license parameters to replicate the error on Tier 2/R&amp;D test environments.</li>
+        <li><strong>Procedure Clarification &amp; Cancellation Query by 峯村@KOKOMOSupport:</strong>
+        <ul>
+          <li>Explained that the issue occurred across three different <code>AP-Promo-1YR</code> promo licenses provided by Senao.</li>
+          <li>Highlighted a secondary urgent issue: four hours after assigning license (license key redacted) to device <code>25B03C115XPF</code> via PASSCODE (redacted), the assigned license disappeared and changed to "Canceled" status.</li>
+          <li>Provided step-by-step account breakdown (<code>峯村 直宏</code> as primary org admin vs. <code>KOKOMO Support</code> as PASSCODE user).</li>
+        </ul></li>
+        <li><strong>R&amp;D Investigation Authorization by Region.Support:</strong> Confirmed that R&amp;D was ready to reproduce the assignment, check the internal server error, and analyze backend cloud logs, asking for authorization to test on the organization.</li>
+        <li><strong>Root Cause of License Cancellation &amp; Reproduction Steps by 峯村@KOKOMOSupport:</strong>
+        <ul>
+          <li>Clarified internally within <span class="pn">APRESIA</span> that a colleague had performed a device replacement operation on <code>25B03C115XPF</code>, which caused the assigned license to disappear.</li>
+          <li>Asked Tier 2 if a license key becoming "Canceled" upon a device replacement operation is expected product behavior.</li>
+          <li>Authorized R&amp;D to proceed with testing and provided exact steps to reproduce the "Internal Server Error" when registering keys via PASSCODE.</li>
+        </ul></li>
+        <li><strong>Specification Confirmation by Region.Support:</strong> Confirmed that license status changing to "Canceled" during a replacement operation is expected behavior—the license attaches to the replacement device, or cancels if no target device is assigned.</li>
+        <li><strong>Final Follow-up &amp; PASSCODE Update by 峯村@KOKOMOSupport:</strong>
+        <ul>
+          <li>Acknowledged the explanation regarding canceled license behavior during device replacements.</li>
+          <li>Re-assigned the test license to <code>25B03C115XPF</code> and provided an updated PASSCODE ((redacted)) for R&amp;D to complete their backend analysis of the "Internal Server Error."</li>
+        </ul></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ═══ T1 Backend Tickets ═══ -->
+  <h2 class="sec-title">T1 Backend Tickets</h2>
+
+  <!-- ── Ticket 130077608 ── -->
+  <div class="ticket" id="ticket-130077608">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #130077608</div>
+        <div class="t-title">KOKOMO Switch &amp; Standalone AP</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">KOKOMO Switch &amp; Standalone AP</span></span>
+          <span><strong>Opened:</strong> Sep 3, 2026</span>
+          <span><strong>Last Response:</strong> Oct 20, 2026</span>
+          <span><strong>Closed:</strong> Oct 20, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The submitter inquired about the behavior and specifications of the "Command line Save / Restore only" feature during local GUI Backup/Restore operations on KOKOMO switches and upcoming standalone APs. Specifically, they requested verification on observed file formats (.csr text format when Enabled vs. .cfg binary format when Disabled), restore success/failure conditions, password masking behavior, and a comprehensive list of system settings excluded from backup files (such as encryption keys, certificates, SSH host keys, and banner files).</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>Tier 1 Support (APSSup / 高松＠KOKOMOSupport) sought specification verification regarding Backup/Restore file formats and excluded configuration parameters. Tier 2 Support (Region.Support) detailed the pairing rules (<code>Enabled ↔ .csr</code>, <code>Disabled ↔ .cfg</code>) and clarified that passwords are masked in plain-text <code>.csr</code> files. Additionally, Tier 2 provided a list of parameters included and excluded from AP/Switch backups. After briefly closing the ticket, Tier 1 reopened it to request further clarification on whether excluded items (Certificates, SSH host keys, Banner files, and Encryption Keys) can be configured via GUI or are managed internally by system firmware, which is currently under R&amp;D review.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Initial Inquiry by APSSup (Sep 3, 2026):</strong> Summarized test results on KOKOMO switch backup/restore:</p>
+      <ul>
+        <li><strong>Backup:</strong> Enabling "Command line Save / Restore only" generates a <code>.csr</code> text file; disabling it generates a <code>.cfg</code> binary file.</li>
+        <li><strong>Restore:</strong> Restoring <code>.csr</code> fails when Disabled. Restoring <code>.cfg</code> succeeds under both settings, but LSP login passwords only restore when using <code>.cfg</code> with the setting Disabled.</li>
+        <li>Asked Tier 2 to verify these test findings, explain the feature's scope, and list all settings excluded during restore.</li>
+        <li><strong>Technical Explanation by Region.Support:</strong>
+        <ul>
+          <li>Neither <code>.csr</code> nor <code>.cfg</code> files include Encryption Keys, Certificates, SSH host keys, or banner files; these remain preserved on the device hardware.</li>
+          <li><code>.csr</code> (plain text) can be edited and is not locked to a specific model, though non-applicable commands fail individually upon apply. <code>.cfg</code> is model-restricted via file header validation.</li>
+          <li>Password fields in CLI text format (<code>.csr</code>) are masked for security and cannot be restored from <code>.csr</code>. Passwords/accounts require a <code>.cfg</code> backup with the setting Disabled.</li>
+          <li>Restoring <code>.csr</code> while Disabled fails by design due to binary header checks. UI improvements will be requested to block mismatched file extensions.</li>
+          <li>Emphasized that file formats must strictly match the setting: <strong>Enabled ↔ .csr</strong> and <strong>Disabled ↔ .cfg</strong>.</li>
+        </ul></li>
+        <li><strong>Follow-up Queries on Device Replacement &amp; Standalone AP by 高松＠KOKOMOSupport:</strong>
+        <ul>
+          <li>Asked if replacing a failed switch requires restoring via <code>Disabled ↔ .cfg</code> and manually reconfiguring excluded items (certificates, SSH host keys, banner files).</li>
+          <li>Asked about the upcoming Standalone AP GUI (which uses a single backup file type) and whether it similarly excludes certain device-retained settings.</li>
+        </ul></li>
+        <li><strong>Detailed Standalone AP Guidance by Region.Support:</strong>
+        <ul>
+          <li>Confirmed standalone AP configurations can be restored, including management credentials and SSH host keys, but cross-model restore is not supported and performing a factory reset before restore is recommended.</li>
+          <li><strong>Included in AP backup:</strong> <code>/etc/config</code>, management credentials, SSH host keys.</li>
+          <li><strong>Excluded from AP backup:</strong> Certificates, banner files.</li>
+        </ul></li>
+        <li><strong>Reopening &amp; Clarification Request on Excluded Settings by 高松＠KOKOMOSupport:</strong>
+        <ul>
+          <li>Closed the ticket initially, but reopened it shortly after to clarify GUI configuration locations.</li>
+          <li>Stated they could not locate GUI fields for Certificates, SSH host keys, Banner files, or Encryption Keys in Switch LSP or Standalone AP GUI.</li>
+          <li>Asked whether these excluded items are internally auto-generated/managed by the system rather than user-configurable GUI fields, and requested a definition of "Encryption Keys."</li>
+        </ul></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 130917910 ── -->
+  <div class="ticket" id="ticket-130917910">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #130917910</div>
+        <div class="t-title">Please explain how "Freeze Firmware Version" works</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">KOKOMO Cloud Managed Devices</span></span>
+          <span><strong>Opened:</strong> Sep 6, 2026</span>
+          <span><strong>Last Response:</strong> Oct 20, 2026</span>
+          <span><strong>Closed:</strong> Oct 20, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The submitter requested detailed specification clarifications regarding the "Freeze Firmware Version" feature on <span class="pn">KOKOMO Cloud</span>. Specifically, they inquired about the device firmware synchronization process, downgrade/upgrade behaviors, and "Force Offline" policy implications when replacing a failed hardware unit (RMA) assigned to a network frozen on a legacy firmware version that is no longer listed under Beta, Stable, or Previous Stable releases.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>Tier 1 Support (APSSup / 峯村@KOKOMOSupport) submitted a multi-part inquiry to understand how replacement devices behave when assigned to a network set to an unlisted, frozen firmware version. Tier 2 Support (Region.Support) clarified that firmware synchronization follows standard network rules (<code>Forced</code> vs. <code>Bypass</code> under <em>Initial Auto-Firmware Upgrade</em>), that replacement units will successfully upgrade/downgrade to the frozen version even if unlisted, and that <span class="pn">EnGenius Cloud</span> does not enforce automatic offline locks based on generation age. Satisfied with these technical explanations, Tier 1 closed the ticket.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Initial Inquiry by 峯村@KOKOMOSupport:</strong> Submitted a detailed 6-question inquiry asking what happens when a device on a frozen legacy firmware version (e.g., 3 generations old, no longer listed under Beta/Stable/Previous Stable) fails and needs replacement:</p>
+      <ul>
+        <li>Can the replacement device download and install the frozen version upon syncing with the Cloud?</li>
+        <li>Are there downgrade restrictions if the replacement unit arrives with the latest factory firmware?</li>
+        <li>Does a version causing a "forced offline" state prevent configuration/firmware sync?</li>
+        <li>Does a replacement unit sync its configuration/firmware first before being forced offline?</li>
+        <li>How large of a version gap triggers a forced offline state?</li>
+        <li>What are the historical examples or policy criteria (e.g., N-generations behind rule) for forcing devices offline?</li>
+        <li><strong>First Response by Region.Support:</strong>
+        <ul>
+          <li>Clarified that RMA replacement units follow standard network firmware synchronization mechanisms based on <code>Configure → Firmware → Advanced Settings → Initial Auto-Firmware Upgrade</code>:</li>
+          <li><strong>Forced:</strong> Device immediately upgrades/downgrades to the target frozen firmware.</li>
+          <li><strong>Bypass:</strong> Device waits for the configured maintenance window before syncing.</li>
+        </ul></li>
+        <li>Confirmed that replacement devices will attempt to sync to the target frozen version upon joining the network, but noted that the specific behavior for unlisted legacy releases and Q3/Q6 was under further check.</li>
+        <li><strong>Follow-up Query by 峯村@KOKOMOSupport:</strong> Re-iterated the importance of understanding the behavior of unlisted frozen firmware versions and requested explicit answers for Q3 and Q6.</li>
+        <li><strong>Detailed Policy Explanation by Region.Support:</strong>
+        <ul>
+          <li><strong>Q3 (Sync vs. Force Offline):</strong> Clarified that synchronization proceeds normally. Standard version aging does <em>not</em> trigger a forced offline state. Older releases do not trigger offline locks, so replacement units successfully connect, download the target frozen firmware, apply configurations, and remain online.</li>
+          <li><strong>Q6 (Historical Cases &amp; Criteria):</strong> Confirmed there are <strong>no historical cases</strong> of devices being forced offline due to version age. There is <strong>no "N-Generations Behind" rule</strong> (e.g., 4 versions behind does NOT force an offline state). The "Force Offline" safeguard is reserved strictly for extraordinary security events (e.g., critical zero-day vulnerabilities or protocol-breaking infrastructure changes).</li>
+        </ul></li>
+        <li><strong>Clarification Confirmation by 峯村@KOKOMOSupport:</strong> Asked Tier 2 to explicitly confirm the single remaining item: whether a replacement unit will successfully upgrade or downgrade to an unlisted frozen firmware version.</li>
+        <li><strong>Direct Confirmation by Region.Support:</strong> Explicitly confirmed with <strong>"YES, the device will upgrade/downgrade the FW to the Freeze FW Version."</strong></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 132299048 ── -->
+  <div class="ticket" id="ticket-132299048">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #132299048</div>
+        <div class="t-title">Regarding the Maximum Number of Registered Devices</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">KOKOMO Cloud Managed Devices (APs, Switches, GWs)</span></span>
+          <span><strong>Opened:</strong> Sep 11, 2026</span>
+          <span><strong>Last Response:</strong> Sep 14, 2026</span>
+          <span><strong>Closed:</strong> Sep 14, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The submitter inquired about the maximum registration limits for networking devices (APs, switches, and gateways) within a single organization or network on <span class="pn">KOKOMO Cloud</span>, asking specifically whether hard limits exist per device type or across combined device totals.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>Tier 1 Support (APSSup / 高松＠KOKOMOSupport) requested capacity limits and performance recommendations for devices registered under a single <span class="pn">KOKOMO Cloud</span> Organization/Network. Tier 2 Support (Region.Support) clarified that Gateways are strictly limited to 1 per Network, while APs and Switches have no hard registration caps, recommending a soft limit of under ~5,000 total devices per Organization to avoid cloud batch processing delays and backend remote worker timeouts.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Initial Inquiry by APSSup:</strong> Asked for the maximum number of devices (APs, switches, and gateways) supported per organization or network on <span class="pn">KOKOMO Cloud</span>, questioning if individual device type limits (e.g., up to 100 APs) or total combined limits apply.</p>
+      <ul>
+        <li><strong>Initial Response by Region.Support:</strong> Clarified that Gateways are strictly limited to <strong>1 per Network</strong>. Stated there is no hard numerical limit on the number of Access Points or Switches, but recommended keeping the total number of devices in an Organization to fewer than <strong>~5,000</strong>.</li>
+        <li><strong>Follow-up Inquiry by 高松＠KOKOMOSupport:</strong> Acknowledged the ~5,000 recommended threshold and asked whether this recommendation was driven by system performance and usability factors, such as cloud-side batch processing loads and management dashboard processing volume.</li>
+        <li><strong>Technical Explanation by Region.Support:</strong> Confirmed that the limitation stems specifically from cloud batch processing performance when users load dashboard screens, as well as backend remote worker timeout limits.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 134145323 ── -->
+  <div class="ticket" id="ticket-134145323">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #134145323</div>
+        <div class="t-title">About cloud-dependent features</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">KOKOMO Cloud, KOKOMO CloudRADIUS</span></span>
+          <span><strong>Opened:</strong> Sep 18, 2026</span>
+          <span><strong>Last Response:</strong> Oct 20, 2026</span>
+          <span><strong>Closed:</strong> Oct 20, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The customer/support team inquired whether <span class="pn">EnGenius</span> (Kokomo) CloudRADIUS truly depends on the cloud for authentication. During hardware testing, clients were still able to authenticate using cloud-registered user credentials even when the AP was disconnected from the cloud or when simulated failure states (such as deregistering and rebooting the device) were tested.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>The inquiry investigated whether <span class="pn">KOKOMO CloudRADIUS</span> functions independently without cloud connectivity. Verification tests blocking the documented CloudRADIUS server IP address (35.79.186.153) revealed that client authentication still succeeded because the documentation contained an incorrect <span class="pn">RADIUS</span> server IP address. KOKOMO/EnGenius support confirmed that the actual static AWS IP address for Kokomo CloudRADIUS is <strong>52.197.245.49</strong>, whereas the documented IP belonged to <code>cloud-jp.engenius.ai</code>. Blocking the correct IP address confirmed that CloudRADIUS is indeed cloud-dependent and authentication fails when traffic to that server is blocked.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Initial Query &amp; Reproduction Steps:</strong> APSSup raised a question regarding cloud-dependency for CloudRADIUS. They noted that deregistering and rebooting the AP (simulating a failure state where the power LED flashes) still allowed users to authenticate.</p>
+      <ul>
+        <li><strong>Testing Guidance:</strong> Region.Support clarified that deregistering the device leaves the previous configuration stored locally, allowing it to connect to Kokomo servers. They advised testing by blacklisting the CloudRADIUS IP via firewall rules.</li>
+        <li><strong>Firewall Testing &amp; Packet Capture:</strong> 水谷@KOKOMOSupport applied a deny rule to the documented <span class="pn">RADIUS</span> IP address on the SSID firewall, but clients were still able to connect. Packet captures on the AP's wired interface revealed active RADIUS communication with an unlisted IP address (<code>52.197.245.49</code>).</li>
+        <li><strong>IP Verification &amp; Documentation Discrepancy:</strong> 高松＠KOKOMOSupport performed tests using the gateway firewall:</li>
+        <li>Blocking the documented IP (<code>35.79.186.153</code>) still allowed client authentication.</li>
+        <li>Packet captures confirmed RADIUS traffic was sending to <code>52.197.245.49</code>.</li>
+        <li>Blocking <code>52.197.245.49</code> successfully stopped CloudRADIUS authentication as expected.</li>
+        <li><strong>Resolution &amp; Clarification:</strong> Region.Support apologized for the confusion and confirmed after internal review with Cloud R&amp;D/DQA that the IP address in the official Kokomo documentation was incorrect:</li>
+        <li>The IP listed in the documentation (<code>35.79.186.153</code>) belongs to <code>cloud-jp.engenius.ai</code>.</li>
+        <li>The actual static AWS IP address for Kokomo CloudRADIUS is <strong>52.197.245.49</strong> (single static RADIUS server destination).</li>
+        <li>高松＠KOKOMOSupport requested a complete re-verification of all firewall destination IP addresses listed in the documentation prior to customer notification.</li>
+      </ul>
+    </div></div>
+  </div>
+
+    <!-- ═══ Footer ═══ -->
+  <footer class="report-footer">
+    <p><strong>Senao T2 FAE Team</strong> &middot; Intercom Support to Apresia</p>
+    <p style="margin-top:3px;">Confidential &mdash; For internal use between Senao Network and Apresia only.</p>
+  </footer>
+
+</div>
+
+<button class="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04L10.75 5.612V16.25A.75.75 0 0110 17z" clip-rule="evenodd"/></svg>
+</button>
+<script>
+  const btt = document.querySelector('.btt');
+  window.addEventListener('scroll', () => {
+    btt.classList.toggle('show', window.scrollY > 400);
+  });
+
+
+  // Click-to-copy ticket ID
+  document.addEventListener('click', (e) => {
+    const pill = e.target.closest('.t-id');
+    if (!pill) return;
+    e.stopPropagation();
+    const text = pill.textContent.trim();
+    const match = text.match(/#?(\d+)/);
+    if (!match) return;
+    const id = match[1];
+    navigator.clipboard.writeText(id).then(() => {
+      if (pill.classList.contains('copied')) return;
+      const original = pill.textContent;
+      pill.classList.add('copied');
+      pill.textContent = '✓ Copied ' + id;
+      setTimeout(() => {
+        pill.textContent = original;
+        pill.classList.remove('copied');
+      }, 1200);
+    });
+  });
+
+    function downloadPDF() {
+    // Expand all tickets so all content is visible in the PDF
+    document.querySelectorAll('.ticket').forEach(t => t.classList.add('open'));
+    // Wait one frame for layout to settle, then trigger print dialog
+    requestAnimationFrame(() => {
+      setTimeout(() => window.print(), 200);
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAE Support Report - August 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #1A1F2E;
+    --ink-sec:    #374151;
+    --ink-muted:  #6B7280;
+    --bg:         #F3F4F6;
+    --surface:    #FFFFFF;
+    --border:     #E5E7EB;
+    --accent:     #1D4ED8;
+    --accent-lt:  #3B82F6;
+    --accent-bg:  #DBEAFE;
+    --green:      #059669;
+    --green-bg:   #D1FAE5;
+    --amber:      #D97706;
+    --amber-bg:   #FEF3C7;
+    --purple:     #6D28D9;
+    --purple-bg:  #EDE9FE;
+    --radius:     10px;
+  }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ Hero ═══ */
+  .hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #1D4ED8 100%);
+    color: #fff;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -15%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(96,165,250,.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 48px 36px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .hero-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .hero-logo {
+    height: 52px;
+    opacity: .95;
+  }
+  .hero-logo-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,.2);
+  }
+  .hero-logo-text {
+    font-size: .88rem;
+    font-weight: 500;
+    color: rgba(255,255,255,.65);
+    line-height: 1.3;
+  }
+  .hero-badge {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  .hero-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .hero-month {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .hero-month .year {
+    font-weight: 700;
+    color: rgba(255,255,255,.65);
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,.6);
+    margin-top: 8px;
+  }
+  .hero-stats-mini {
+    display: flex;
+    gap: 2px;
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .hero-stat {
+    padding: 14px 22px;
+    text-align: center;
+    min-width: 90px;
+  }
+  .hero-stat .n {
+    font-size: 1.8rem;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .hero-stat .l {
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: rgba(255,255,255,.45);
+    margin-top: 4px;
+  }
+  .hero-stat.green  .n { color: #6EE7B7; }
+  .hero-stat.amber  .n { color: #FCD34D; }
+  .hero-stat.purple .n { color: #C4B5FD; }
+
+  .hero-footer {
+    display: flex;
+    gap: 28px;
+    margin-top: 18px;
+    font-size: .88rem;
+    color: #D4A537;
+  }
+  .hero-footer strong { color: rgba(255,255,255,.6); font-weight: 600; }
+
+  /* ═══ Main Content ═══ */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 48px 60px;
+  }
+
+  /* ── Section Title ── */
+  .sec-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 32px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  .sec-title::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── Breakdown Table ── */
+  .breakdown {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .breakdown-head {
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--ink-muted);
+    padding: 14px 28px 10px;
+    background: #F9FAFB;
+    border-bottom: 1px solid var(--border);
+  }
+  .bd-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink-sec);
+    border-bottom: 1px solid #F3F4F6;
+  }
+  .bd-row:last-child { border-bottom: none; }
+  .bd-count {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    font-size: .9rem;
+    min-width: 28px;
+    text-align: center;
+    background: var(--accent-bg);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+
+  /* ── Inline Tags ── */
+  .pn {
+    font-weight: 500;
+    color: var(--ink);
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .dt {
+    background: #FEF9E7;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: .94em;
+    white-space: nowrap;
+  }
+  .email {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .email:hover { text-decoration: underline; }
+
+  /* ═══ Ticket Card ═══ */
+  .ticket {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: box-shadow .2s;
+  }
+  .ticket:hover { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+
+  .t-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 22px 36px;
+    cursor: pointer;
+    gap: 14px;
+    user-select: none;
+    transition: background .12s;
+  }
+  .t-head:hover { background: #FAFBFC; }
+
+  .t-id {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 2px 9px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    user-select: text;
+    -webkit-user-select: text;
+    transition: background .15s, color .15s, transform .1s;
+    position: relative;
+  }
+  .t-id:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+  .t-id:active { transform: scale(.96); }
+  .t-id.copied {
+    background: var(--green) !important;
+    color: #fff !important;
+  }
+  .t-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .t-dates {
+    display: flex;
+    gap: 18px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    font-size: .9rem;
+    color: var(--ink-muted);
+  }
+  .t-dates strong { font-weight: 600; color: var(--ink-sec); }
+
+  .t-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .badge {
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: 4px 11px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .badge.resolved { background: var(--green-bg); color: var(--green); }
+  .badge.open     { background: var(--amber-bg); color: var(--amber); }
+
+  .chev {
+    width: 20px;
+    height: 20px;
+    color: var(--ink-muted);
+    transition: transform .25s;
+  }
+  .ticket.open .chev { transform: rotate(180deg); }
+
+  .t-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease;
+  }
+  .ticket.open .t-body { max-height: 10000px; }
+
+  .t-body-inner {
+    padding: 0 40px 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .t-label {
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--accent);
+    margin: 20px 0 8px;
+  }
+  .t-label:first-child { margin-top: 20px; }
+
+  .t-body-inner p {
+    font-size: 1rem;
+    color: var(--ink-sec);
+    margin-bottom: 8px;
+    line-height: 1.75;
+  }
+  .t-body-inner ul {
+    margin: 8px 0 8px 20px;
+    font-size: 1rem;
+    color: var(--ink-sec);
+  }
+  .t-body-inner ul li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+  }
+  .t-body-inner li strong { color: var(--ink); }
+  .t-body-inner code {
+    font-size: .85rem;
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--accent);
+  }
+
+  /* ═══ Footer ═══ */
+  .report-footer {
+    text-align: center;
+    padding: 28px 0 0;
+    border-top: 1px solid var(--border);
+    font-size: .82rem;
+    color: var(--ink-muted);
+    margin-top: 16px;
+  }
+  .report-footer strong { color: var(--ink-sec); }
+
+  /* ── Back to Top ── */
+  .btt {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(29,78,216,.35);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .btt.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .btt:hover {
+    background: #1e40af;
+    box-shadow: 0 6px 20px rgba(29,78,216,.45);
+  }
+
+  /* ── Download PDF Button (in hero) ── */
+  .pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(255,255,255,.1);
+    color: rgba(255,255,255,.85);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .pdf-btn:hover {
+    background: rgba(255,255,255,.2);
+    color: #fff;
+    border-color: rgba(255,255,255,.35);
+  }
+  .pdf-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ═══ Print ═══ */
+  @media print {
+    body { background: #fff; }
+    .pdf-btn, .btt { display: none !important; }
+    .ticket {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      border: 1px solid var(--border) !important;
+      box-shadow: none !important;
+      margin-bottom: 18px !important;
+    }
+    .t-head {
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF4FF 100%) !important;
+      border-bottom: 2px solid var(--accent) !important;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .t-body { max-height: none !important; overflow: visible !important; }
+    .t-body-inner { padding-top: 8px !important; }
+    .hero, .stat-card, .badge, .t-id, .pn, .breakdown, .breakdown-head {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .main { max-width: 100%; padding: 0 16px; }
+    .chev { display: none; }
+  }
+
+  @media (max-width: 700px) {
+    .hero-inner { padding: 20px 18px 24px; }
+    .hero-top-row {
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+    }
+    .hero-logo { height: 40px; }
+    .hero-logo-divider { display: none; }
+    .hero-logo-text { display: none; }
+    .hero-badge { font-size: .65rem; padding: 4px 10px; }
+    .hero-main { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .hero-month { font-size: 2.4rem; }
+    .hero-subtitle { font-size: .88rem; }
+    .hero-stats-mini { width: 100%; }
+    .hero-stat { flex: 1; padding: 12px 8px; min-width: 0; }
+    .hero-stat .n { font-size: 1.4rem; }
+    .hero-stat .l { font-size: .6rem; letter-spacing: .03em; }
+    .hero-footer { flex-direction: column; gap: 4px; font-size: .8rem; }
+    .main { padding: 20px 16px 40px; }
+    .sec-title { font-size: 1.15rem; }
+    .breakdown-head { padding: 12px 16px 8px; }
+    .bd-row { padding: 10px 16px; font-size: .92rem; }
+    .t-head { padding: 16px 16px; gap: 10px; }
+    .t-id { font-size: .65rem; }
+    .t-title { font-size: .98rem; }
+    .t-dates { flex-direction: column; gap: 3px; font-size: .82rem; }
+    .t-right { flex-direction: column; align-items: flex-end; gap: 4px; }
+    .badge { font-size: .62rem; padding: 3px 8px; }
+    .chev { width: 18px; height: 18px; }
+    .t-body-inner { padding: 0 16px 20px; }
+    .t-body-inner p, .t-body-inner ul { font-size: .92rem; }
+    .t-label { font-size: .72rem; }
+    .btt { bottom: 18px; right: 18px; width: 40px; height: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Hero Header ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-top-row">
+      <div class="hero-logo-wrap">
+        <img class="hero-logo" src="Senao Networks Logo_white_Vertical.png" alt="Senao Networks">
+        <div class="hero-logo-divider"></div>
+        <div class="hero-logo-text">Senao T2 FAE Team<br>Intercom Support</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.55);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd"/></svg>
+          All Reports
+        </a>
+        <button class="pdf-btn" onclick="downloadPDF()" aria-label="Download PDF">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 01.75.75v6.638l2.96-2.958a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.49a.75.75 0 011.08-1.04l2.96 2.938V3.75A.75.75 0 0110 3zM3.75 13a.75.75 0 01.75.75v2.5c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25v-2.5a.75.75 0 011.5 0v2.5A1.75 1.75 0 0115.25 18H4.75A1.75 1.75 0 013 16.25v-2.5a.75.75 0 01.75-.75z" clip-rule="evenodd"/></svg>
+          PDF
+        </button>
+        <div class="hero-badge">Monthly Report</div>
+      </div>
+    </div>
+
+    <div class="hero-main">
+      <div>
+        <div class="hero-month">August <span class="year">2026</span></div>
+        <div class="hero-subtitle">FAE T2 Support Report for Apresia (KOKOMO Cloud)</div>
+        <div class="hero-footer">
+          <span><strong>Author:</strong> Himadri Paul, Senao Network</span>
+          <span><strong>Published:</strong> September 2026</span>
+        </div>
+      </div>
+      <div class="hero-stats-mini">
+        <div class="hero-stat">
+          <div class="n">6</div>
+          <div class="l">Total</div>
+        </div>
+        <div class="hero-stat green">
+          <div class="n">6</div>
+          <div class="l">Resolved</div>
+        </div>
+        <div class="hero-stat amber">
+          <div class="n">0</div>
+          <div class="l">Open</div>
+        </div>
+        <div class="hero-stat purple">
+          <div class="n">1</div>
+          <div class="l">Carry-over</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Main Content ═══ -->
+<div class="main">
+
+  <h2 class="sec-title">Overview</h2>
+  <p style="font-size:1.05rem;color:var(--ink-sec);margin-bottom:16px;">
+    Summary of all support tickets reported by Apresia Support (KOKOMO Cloud) to Senao T2 Support for issue debugging or knowledge base clarification.
+  </p>
+
+  <div class="breakdown">
+    <div class="breakdown-head">Ticket Category Breakdown</div>
+    <div class="bd-row"><span>T2 Issue Tickets</span><span class="bd-count">4</span></div>
+    <div class="bd-row"><span>T1 Backend Tickets</span><span class="bd-count">2</span></div>
+    <div class="bd-row"><span>Tracker Tickets</span><span class="bd-count">0</span></div>
+    <div class="bd-row"><span>Customer Conversation Tickets</span><span class="bd-count">0</span></div>
+    <div class="bd-row"><span>Email Conversation Tickets</span><span class="bd-count">0</span></div>
+  </div>
+
+  <!-- ═══ T2 Issue Tickets ═══ -->
+  <h2 class="sec-title">T2 Issue Tickets</h2>
+
+  <!-- ── Ticket 121924994 ── -->
+  <div class="ticket" id="ticket-121924994">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #121924994</div>
+        <div class="t-title">Inquiry regarding continuous Gateway Fan Failure Detected errors</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">KOKOMO-G710FW-P</span></span>
+          <span><strong>Opened:</strong> Aug 6, 2026</span>
+          <span><strong>Last Response:</strong> Aug 6, 2026</span>
+          <span><strong>Closed:</strong> Aug 6, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>APRESIA reported an issue where a gateway (<code>KOKOMO-G710FW-P</code>, Serial Number: <code>26302CP13PFK</code>) in their testing environment (<code>K-TACテストNW / 高松検証NW</code>, PASSCODE: (redacted)) was generating continuous fan error logs every 5 minutes:</p>
+      <p style="border-left:3px solid var(--border);padding-left:12px;color:var(--ink-muted)"><em>Event Type: Gateway Fan Failure Detected</em><br><em>Details: Gateway: 'KOKOMO-G710FW-P-2684 (FC:6D:D1:8F:26:84)' detected fan error. Details: Current RPM is 82 (Expected: 3200 - 9600).</em></p>
+      <p>APRESIA inquired whether this behavior indicated an actual hardware fan failure or if it was related to a known firmware bug fixed in <code>v1.2.102</code> ("Fixed an issue where fan status detection failed and incorrect events were logged"), following a firmware upgrade from <code>v1.2.90-8</code> to <code>v1.2.101-3</code> prior to the error log occurrences.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>Senao Support confirmed that the continuous fan error logs were caused by a known firmware bug (incorrect fan status detection) rather than a physical hardware failure. While <span class="pn">APRESIA</span> inquired if the issue was resolved in release <code>v1.2.102</code>, Senao clarified that for firmware version <code>v1.2.101-3</code>, the specific fan status log detection fix is targeted for version <strong>v1.2.105</strong>. Following this clarification, APRESIA confirmed their understanding and requested to close the ticket.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <ul>
+        <li><strong>Log Clarification:</strong> <span class="pn">APRESIA</span> asked to confirm if the log literally meant the fan speed dropped to 82 RPM.</li>
+        <li><em>Response:</em> The issue is caused by incorrect fan status detection logic resulting in an erroneous log entry, not an actual mechanical speed drop or hardware failure.</li>
+        <li><strong>Firmware Fix Target:</strong> APRESIA asked if this is scheduled to be fixed in <code>v1.2.102</code>.</li>
+        <li><em>Response:</em> This specific <em>Fan Status Log</em> issue will be fixed in <strong>v1.2.105</strong>.</li>
+        <li><strong>Release Notes Distinction:</strong> APRESIA clarified if this fix is distinct from the fix documented in the <span class="pn">ESG620</span> <code>v1.2.102</code> release notes.</li>
+        <li><em>Response:</em> Yes, it is treated as a separate fix target for this build branch.</li>
+        <li><strong>Release Schedule:</strong> APRESIA inquired about the planned release schedule for <code>v1.2.105</code>.</li>
+        <li><em>Response:</em> FAE Support does not maintain firmware release schedules; inquiries regarding release timelines should be directed to the PM team.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 121968326 ── -->
+  <div class="ticket" id="ticket-121968326">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #121968326</div>
+        <div class="t-title">The initial DHCP Discover from KOKOMO Cloud AP includes a Requested IP Address</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">KOKOMO-W220 / W222</span></span>
+          <span><strong>Opened:</strong> Aug 6, 2026</span>
+          <span><strong>Last Response:</strong> Aug 10, 2026</span>
+          <span><strong>Closed:</strong> Aug 27, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The customer investigated an issue in <span class="pn">KOKOMO Cloud</span> where IP address acquisition via <span class="pn">DHCP</span> occasionally failed. During packet capture analysis on the KOKOMO AP (W220/W222), they observed that even after a factory reset or in its initial default state, the initial DHCP Discover packet includes an unknown Requested IP Address (<code>192.168.1.1</code> in Option 50). The customer requested clarification on why Option 50 contains this default static address during the initial DHCP state and raised concerns that certain DHCP server implementations might ignore or fail to process the request properly.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>Support clarified that requesting a fallback static IP (<code>192.168.1.1</code>) via Option 50 in <span class="pn">DHCP</span> Discover packets originates from standard native <span class="pn">OpenWrt</span> framework (<code>netifd</code>) behavior rather than custom code. Under standard RFC 2131 specifications, compliant DHCP servers are expected to handle or ignore this hint and offer an available pool IP if the requested IP cannot be assigned. The customer acknowledged that this standard OpenWrt behavior carries a very low risk of interoperability issues and confirmed the response satisfied their inquiry, allowing the ticket to be closed.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <ul>
+        <li><strong>Address Source:</strong> The <code>192.168.1.1</code> value populated in Option 50 is the AP's factory-default fallback LAN IP address, not a residual lease from a prior network session.</li>
+        <li><strong>Root Cause / Framework Rationale:</strong> In standard <span class="pn">OpenWrt</span>, when an interface is configured in <span class="pn">DHCP</span> mode with a default fallback IP (<code>ipaddr</code>), <code>netifd</code> automatically passes that static value to <code>udhcpc</code> as an address hint, which populates Option 50 in the outgoing DHCPDISCOVER packet.</li>
+        <li><strong>Standards Compliance:</strong> Per RFC 2131 Section 4.3.1, if a server cannot fulfill Option 50, it should issue a DHCPOFFER with a different available address rather than dropping the request.</li>
+        <li><strong>Packet Analysis:</strong> Packet captures revealed only outgoing DHCP Discover packets from the AP without any incoming DHCP Offer or ACK from the server side, pointing to external network/relay/VLAN path issues rather than an AP defect.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 122510372 ── -->
+  <div class="ticket" id="ticket-122510372">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #122510372</div>
+        <div class="t-title">Customer Report: Wireless Clients Unable to Access the Internet on the Morning of August 5</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">KOKOMO-W220AX-IS</span></span>
+          <span><strong>Opened:</strong> Aug 7, 2026</span>
+          <span><strong>Last Response:</strong> Aug 19, 2026</span>
+          <span><strong>Closed:</strong> Sep 14, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>On the morning of August 5, clients on a specific floor experienced Internet connectivity issues. The exact time, affected devices (MAC/serial numbers), and extent of the impact were unknown. <span class="pn">APRESIA</span> investigated AP cloud connectivity, client activity, signal strength, and SSID traffic logs, but found no definitive cause due to limited customer data. They requested general troubleshooting recommendations and clarification on how Client Balancing and 802.11v BSS Transition Management (BTM) work.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>The ticket focused on clarifying the mechanisms of Client Balancing and 802.11v BTM steering rather than a specific hardware fault. Region.Support clarified that a <code>balance</code> log event indicates a <em>relative</em> client count difference (&gt;3%) between neighboring APs rather than high AP load (which triggers under <code>loading</code> when client count exceeds 70% capacity). Recommendations for similar intermittent issues include collecting full event logs, analyzing client association/disassociation events, and temporarily disabling Client Balancing/Band Steering to rule out steering behavior.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <ul>
+        <li><strong>Evaluation Frequency:</strong> Every 30 seconds for 802.11v-supported clients.</li>
+        <li><strong>Path 1 (<code>reason='rssi'</code>):</strong> Neighbor signal ≥ 10 dB stronger; target AP channel utilization ≤ 70%.</li>
+        <li><strong>Path 2 (<code>reason='balance'</code>):</strong> Neighbor signal within 5 dB; local load exceeds target load by &gt;3%; target channel utilization ≤ 70%.</li>
+        <li><strong>Path 3 (<code>reason='loading'</code>):</strong> Local client count exceeds 70% of the configured radio client limit.</li>
+        <li><strong>Metric Usage:</strong> Client count (as a % of configured limit) is the primary trigger. Channel utilization acts strictly as a gate (≤ 70%) for target APs, not a trigger. Airtime utilization is not measured separately.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 122557516 ── -->
+  <div class="ticket" id="ticket-122557516">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #122557516</div>
+        <div class="t-title">Changes to local splash page not being applied</div>
+        <div class="t-dates">
+          <span><strong>Affected:</strong> <span class="pn" style="white-space:normal">KOKOMO-W222BE-IS</span></span>
+          <span><strong>Opened:</strong> Aug 7, 2026</span>
+          <span><strong>Last Response:</strong> Sep 11, 2026</span>
+          <span><strong>Closed:</strong> Oct 6, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>The customer reported that editing the local splash page and clicking "Apply" triggered a "Configuration applied successfully" notification, but navigating away and returning revealed that the changes failed to save and reverted to the previous state. Additionally, an external link detection warning appeared on the splash page configuration screen due to embedded images in the splash page HTML code.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p>Tier 1 Support (Apresia) requested investigation into why local splash page modifications failed to save and what triggered the external link warning message. Tier 2 Support (SENAO / Region.Support) identified the saving issue as a backend database error requiring cloud-level adjustments and passcode access across networks. A backend database patch was applied to resolve the editing/saving issue, with a global cloud fix scheduled for September 10. During this period, a separate issue was reported where local splash page settings appeared blank upon opening. Tier 2 confirmed this second issue was a browser-related bug and recommended updating Chrome or Edge to the latest version, after which the ticket was closed as resolved.</p>
+
+      <div class="t-label">Ticket Details</div>
+      <p><strong>Initial Inquiry &amp; Network Patch Strategy:</strong> 峯村@KOKOMOSupport requested that backend database fixes be applied across all networks (excluding "Head Office") using customer PASSCODE (redacted), asking about operational impact and whether future networks would also require manual patching.</p>
+      <ul>
+        <li><strong>Backend Impact &amp; Passcode Explanation:</strong> Region.Support confirmed there was no operational impact, as DB fields are adjusted directly on cloud servers. They explained that PASSCODES are necessary to obtain Org and Network IDs from the Cloud DB to apply patches, and noted that newly created networks would need manual patching until the global cloud release.</li>
+        <li><strong>Global Fix Timeline:</strong> Region.Support confirmed that RD applied patches to requested networks and scheduled a permanent global cloud fix for early September (later specified as September 10). They confirmed the global fix would automatically resolve affected existing and newly created networks.</li>
+        <li><strong>Secondary Issue Encountered (Blank Settings Screen):</strong> 高松＠KOKOMOSupport raised a second inquiry: when opening the Splash Page tab, the Local Splash Page settings appeared completely blank. Toggling templates (e.g., to "Classic") or resetting the page temporarily restored the UI display.</li>
+        <li><strong>Root Cause &amp; Resolution:</strong> Region.Support escalated the blank screen issue to the RD team, who logged it as a priority bug affecting <span class="pn">EnGenius Cloud</span> as well. The RD team identified the root cause as browser compatibility and advised upgrading Chrome/Edge to the latest version.</li>
+        <li><strong>Closure:</strong> After confirming resolution of both the splash page edit issue and the browser UI rendering bug, 高松＠KOKOMOSupport marked the ticket as "Resolved" and closed it.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ═══ T1 Backend Tickets ═══ -->
+  <h2 class="sec-title">T1 Backend Tickets</h2>
+
+  <!-- ── Ticket 124673740 ── -->
+  <div class="ticket" id="ticket-124673740">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #124673740</div>
+        <div class="t-title">Troubleshooting and Log Collection Guidelines for APs in Standalone Mode</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Aug 14, 2026</span>
+          <span><strong>Last Response:</strong> Aug 17, 2026</span>
+          <span><strong>Closed:</strong> Sep 14, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>This case addresses an inquiry from <span class="pn">APRESIA</span> regarding the recommended troubleshooting and log collection procedures for Access Points (APs) operating in <span class="pn">Standalone Mode</span>. Since Standalone Mode lacks remote PASSCODE access and an explicit "Export Log" button in the local GUI, APRESIA sought guidance on how customers should collect logs. In response, it was noted that <span class="pn">EnGenius</span> APs are designed with a Cloud-First architecture, making Standalone Mode suitable primarily for single-AP deployments due to the lack of multi-AP features like Fast Roaming and Auto Channel Planning. While local Event Logs can be viewed via the GUI and system logs can be exported using the Remote Syslog feature under Global Settings, standalone support relies heavily on channel partners, who must arrange local remote desktop access (such as AnyDesk) for advanced troubleshooting. Consequently, an internal feature request was submitted to the Product Line Management (PLM) team to evaluate adding a direct log export function for Standalone Mode in future updates.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p><strong>Case Summary</strong></p>
+      <p><strong>APRESIA Support</strong> raised an inquiry regarding the recommended troubleshooting procedures and log collection methods for Access Points (APs) operating in <span class="pn">Standalone Mode</span>. Because Standalone Mode operates without cloud connectivity, support personnel cannot access the customer environment remotely using a PASSCODE, nor is there an explicit "Export Log" button in the local GUI.</p>
+      <p>The inquiry sought clarification on how to handle troubleshooting, what logs/diagnostic information customers should collect, and Senao's standard support workflow for non-cloud-managed deployments.</p>
+      <p><strong>Key Discussion Points &amp; Findings</strong></p>
+      <ul>
+        <li><strong>Deployment &amp; Technical Limitations:</strong>
+        <ul>
+          <li><strong>Multi-AP Constraints:</strong> Standalone Mode is not recommended for deployments with more than one AP. Key cloud-managed features—such as AP-to-AP communication, Fast Roaming, and Auto Channel Planning—are unavailable or impaired in Standalone Mode.</li>
+          <li><strong>Cloud-First Architecture:</strong> <span class="pn">EnGenius</span> / KOKOMO APs are designed primarily as Cloud-First devices. Standalone deployment options are intentionally limited in terms of centralized management and remote diagnostic access.</li>
+        </ul></li>
+        <li><strong>Available Diagnostic Options in Standalone Mode:</strong>
+        <ul>
+          <li><strong>Local Event Log:</strong> The Event Log display remains accessible via the AP's local web GUI.</li>
+          <li><strong>Remote Syslog:</strong> Technical teams can configure the <strong>Remote Syslog</strong> function under Global Settings to offload system logs to an external syslog server.</li>
+        </ul></li>
+        <li><strong>Support Escalation &amp; Handling Workflow:</strong>
+        <ul>
+          <li><strong>Channel Partner Responsibility:</strong> Standalone mode deployments are primarily maintained by channel partners/integrators.</li>
+          <li><strong>Remote Access Requirement:</strong> For deeper on-premise troubleshooting, channel partners or end-users are typically requested to provide temporary remote desktop access (e.g., AnyDesk) to a local host within the AP's network segment.</li>
+        </ul></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ── Ticket 128452148 ── -->
+  <div class="ticket" id="ticket-128452148">
+    <div class="t-head" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="t-id">TICKET #128452148</div>
+        <div class="t-title">Please let us know the scope of support for KOKOMO Cloud API keys</div>
+        <div class="t-dates">
+          <span><strong>Opened:</strong> Aug 28, 2026</span>
+          <span><strong>Last Response:</strong> Sep 4, 2026</span>
+          <span><strong>Closed:</strong> Sep 4, 2026</span>
+        </div>
+      </div>
+      <div class="t-right">
+        <span class="badge resolved">Resolved</span>
+        <svg class="chev" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
+    <div class="t-body"><div class="t-body-inner">
+      <div class="t-label">Case Description</div>
+      <p>KOKOMO Cloud (<span class="pn">EnGenius Cloud</span>) allows users to generate API keys, and we would like to understand the scope of support provided for this feature.</p>
+      <p>Our understanding is that we can submit inquiries regarding the behavior, functionality, and usage of the implemented API features, and that if a bug is identified, a bug fix will be provided.</p>
+      <p>If Senao has any limitations or exclusions regarding the scope of API support, please let us know the details.</p>
+      <p>We understand that support for the use or configuration of third-party applications that utilize the API key is outside the scope of support.</p>
+
+      <div class="t-label">Case Summary</div>
+      <p><strong>Case Summary (Ticket #128452148): Scope of Support for <span class="pn">KOKOMO Cloud</span> API Keys</strong></p>
+      <p>APRESIA submitted an inquiry to clarify Senao's scope of support and bug-fixing policies regarding KOKOMO Cloud (<span class="pn">EnGenius Cloud</span>) API keys. In response, support referred <span class="pn">APRESIA</span> to the official API License Agreement (Section 6) and the <span class="pn">EnGenius</span> Cloud ESP Bug Reporting Policy, confirming that API-related issues follow the standard vulnerability reporting process. Furthermore, support clarified that if any issues arise regarding API data, technical teams are available to assist with investigation. APRESIA acknowledged that API bug fixes and vulnerability remediations are handled using standard software support processes without additional specific limitations, and the ticket was marked resolved.</p>
+    </div></div>
+  </div>
+
+    <!-- ═══ Footer ═══ -->
+  <footer class="report-footer">
+    <p><strong>Senao T2 FAE Team</strong> &middot; Intercom Support to Apresia</p>
+    <p style="margin-top:3px;">Confidential &mdash; For internal use between Senao Network and Apresia only.</p>
+  </footer>
+
+</div>
+
+<button class="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04L10.75 5.612V16.25A.75.75 0 0110 17z" clip-rule="evenodd"/></svg>
+</button>
+<script>
+  const btt = document.querySelector('.btt');
+  window.addEventListener('scroll', () => {
+    btt.classList.toggle('show', window.scrollY > 400);
+  });
+
+
+  // Click-to-copy ticket ID
+  document.addEventListener('click', (e) => {
+    const pill = e.target.closest('.t-id');
+    if (!pill) return;
+    e.stopPropagation();
+    const text = pill.textContent.trim();
+    const match = text.match(/#?(\d+)/);
+    if (!match) return;
+    const id = match[1];
+    navigator.clipboard.writeText(id).then(() => {
+      if (pill.classList.contains('copied')) return;
+      const original = pill.textContent;
+      pill.classList.add('copied');
+      pill.textContent = '✓ Copied ' + id;
+      setTimeout(() => {
+        pill.textContent = original;
+        pill.classList.remove('copied');
+      }, 1200);
+    });
+  });
+
+    function downloadPDF() {
+    // Expand all tickets so all content is visible in the PDF
+    document.querySelectorAll('.ticket').forEach(t => t.classList.add('open'));
+    // Wait one frame for layout to settle, then trigger print dialog
+    requestAnimationFrame(() => {
+      setTimeout(() => window.print(), 200);
+    });
+  }
+</script>
+
+</body>
+</html>
